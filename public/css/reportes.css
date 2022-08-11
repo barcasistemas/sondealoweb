@@ -1,0 +1,244 @@
+@import url('global.css');
+
+.contenedor-date{
+  width: 100%;
+}
+.contenedor-date fieldset{
+  width:100%;
+  margin-bottom: 8px;
+}
+#contenedor-reporte{
+  margin-top: 5px;
+  width: 100%;
+}
+#contenedor-reporte div{
+  width: 100%;
+}
+.info{
+  margin-bottom: 2rem;
+}
+.table td{
+  padding: 1px!important;
+}
+.table td div{
+  border-radius: 0px 5px 5px 0;
+}
+.barras{
+  padding: 1rem;
+}
+.barra-td{
+  background-color: rgba(0,0,0,0.12);
+  width:80%;
+}
+.promedio{
+  width:20%;
+  text-align: center;
+  border-left:1px solid rgba(0,0,0,0.2);
+}
+.barra{
+  height: 20px;
+}
+.card{
+  text-align: center;
+}
+.card-body{
+  padding: 10px;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.card-body > p{
+  width: 100%;
+}
+.charts{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.pregunta-chart{
+  position: relative;
+  margin-bottom: 10px;
+  width:100%;
+  border-radius: 5px;
+  height: 250px;
+  border: 1px solid rgba(0,0,0,0.12);
+  overflow: hidden;
+}
+.pregunta-chart p{
+  color: white;
+  padding: 3px;
+}
+.pregunta-chart canvas{
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   margin-top: 20px;
+   min-width: 50%!important;
+   max-width: 105%!important;
+   max-height: calc(100% - 40px)!important;
+}
+.buttons-comm{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+.buttons-comm button{
+  display: block;
+  padding: 8px;
+  background-color: transparent;
+  border:2px solid #4785ef;
+  transition: all 0.4s;
+  border-radius: 5px;
+  font-weight: bold;
+}
+.buttons-comm button:hover{
+  background-color: #4785ef;
+  color: #ffffff!important;
+  text-decoration: underline;
+}
+#contenedor-resultados-accion{
+  margin-bottom: 10px;
+  width: 100%;
+}
+#contenedor-resultados-accion > div{
+  position: relative;
+  width: 100%;
+  padding-top: 30px;
+}
+.close_contenedor{
+  position: absolute;
+  top:5px;
+  right: 10px;
+  color: red;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.mostrar_contenedor{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  z-index: 100;
+  height: auto;
+}
+.ocultar_contenedor{
+  display: none;
+}
+.selected_button{
+  background-color:rgba(0,255,0,0.15)!important;
+  text-decoration: underline;
+  border: 1px solid green!important;
+}
+.table-comentarios, .table-encuestas{
+  margin-bottom: 10px;
+}
+.table-comentarios th, .table-comentarios td{
+  padding: 2px!important;
+}
+.table-comentarios thead{
+  color: white;
+}
+.table-comentarios th:nth-child(1){
+  text-align: left;
+}
+.table-comentarios th:nth-child(2){
+  text-align: right;
+}
+.table-encuestas tr:nth-child(2n-1),
+.table-detalle tr:nth-child(2n-1){
+  background-color: rgba(0, 0, 255, 0.1);
+}
+.table-encuestas td, .table-detalle td{
+  width: 50%!important;
+}
+.table-vendedor{
+  margin-bottom: 15px;
+  padding: 3px!important;
+}
+.table-vendedor tr:nth-child(2n-1){
+  background-color: rgba(0,0,255,0.1);
+}
+.table-vendedor td{
+  width: 50%;
+}
+.table-vendedor , .table-encuestas{
+  box-shadow: 0px 0px 4px -1px rgba(0,0,0,0.75);
+}
+
+@media(min-width:550px){
+  .card-body > p{
+    text-align: left;
+    width: 50%;
+  }
+}
+
+@media(min-width:720px){
+  .contenedor-date{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .contenedor-date button{
+    max-height: 30px;
+    margin-top:  20px;
+  }
+  .contenedor-date fieldset{
+    width: 38%;
+  }
+  .promedio{
+    width:10%;
+  }
+  .barra-td{
+    height: 90%;
+  }
+  .table-encuestas, .table-vendedor{
+    width: 49%;
+  }
+}
+
+@media(min-width:900px){
+  .pregunta-chart, #{
+    align-self: center;
+    width: 80%!important;
+  }
+}
+
+@media(min-width:1000px){
+  .card-body > p{
+    width: 21%;
+  }
+  .card-body > p:nth-child(1){
+    width: 35%;
+  }
+  .pregunta-chart{
+    width: 49%!important;
+  }
+  .table-encuestas, .table-vendedor{
+    width: 32%;
+  }
+}
+
+@media(min-width:1200px){
+  .pregunta-chart{
+    width: 350px;
+    height: 280px;
+  }
+}
+
+@media(min-width:1380px){
+  .pregunta-chart{
+    width: 33%!important;
+    max-width: 380px!important;
+  }
+  .table-encuestas, .table-vendedor{
+    width: 24%;
+  }
+}
+@media(min-width:1800px){
+  .pregunta-chart{
+    width: 24%!important;
+    max-width: 380px!important;
+  }
+}

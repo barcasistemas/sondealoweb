@@ -1,0 +1,26 @@
+.sondealo-bg-color{
+  background-color: #4785ef!important;
+}
+.sondealo-text-color{
+  color: #4785ef!important;
+}
+.sondealo-success-text-color{
+  color: #60CC64!important;
+}
+.sondealo-success-bg-color{
+  background-color: #60CC64!important;
+}
+.back-img {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    background-size: cover;
+}
+#container-form{
+  min-height: 100vh;
+}
+
+#btn-login:hover {
+  background-color: #4785ef!important;
+  border-style: none;
+}

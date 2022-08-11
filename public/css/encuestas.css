@@ -1,0 +1,229 @@
+@import url('global.css');
+
+.contenedor-encuesta{
+  width: 100%;
+  padding: 10px 10px 10px 0;
+  position: relative;
+}
+.contenedor-preguntas, .contenedor-valores, .contenedor-copia-formato, .contenedor-tipo-preguntas-edit{
+  width: 100%;
+}
+.pregunta{
+  margin-top: 3px;
+  position: relative;
+  display: block;
+  width: 100%;
+  padding-right: 30px;
+  padding-left: 5px;
+  text-align: justify;
+  border: 1px solid rgba(0,0,0,0.1);
+  box-shadow:0px 0px 2.2px -1px rgba(0,0,0,0.68);
+  transition: all 0.3s;
+  background-color: #ffffff;
+}
+.pregunta span{
+  position: absolute;
+  right: 5px;
+  top: 10px;
+}
+.pregunta:hover{
+  box-shadow: 0px 2px 5px 0px rgba(0,0,0,0.75);
+  background-color: rgba(0,0,0,0.05);
+}
+#btn-save-reorder, #btn-save-valores{
+  visibility: hidden;
+}
+.contenedor-valores select{
+  margin-bottom: 5px;
+  padding: 3px;
+}
+
+.no-pointer{
+  pointer-events: none;
+  opacity: 0.6;
+  background-color: whitesmoke;
+}
+.contenedor-tipo-preguntas-edit img{
+  height: 28px;
+}
+.contenedor-tipo-preguntas-edit input[type="radio"]{
+  cursor: pointer;
+}
+.divider{
+  margin-bottom: 5px;
+}
+.hidden-container{
+  padding-top: 3px;
+  width: 100%;
+  overflow: hidden;
+  height:1px;
+}
+#hidden-container-tipo4 input{
+  margin-bottom: 3px;
+  display: block;
+  width: 60%;
+}
+#hidden-container-tipo4 input:nth-child(1){
+  border-right:8px solid darkgreen;
+}
+#hidden-container-tipo4 input:nth-child(2){
+  border-right:8px solid green;
+}
+#hidden-container-tipo4 input:nth-child(3){
+  border-right:8px solid gold;
+}
+#hidden-container-tipo4 input:nth-child(4){
+  border-right:8px solid red;
+}
+#btn-add-opcion{
+  margin-left: 5px;
+  border: 2px solid green;
+  color: green;
+  background-color: white;
+}
+#contenedor-grafico-opcion9{
+  width: 100%;
+  display:flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+#contenedor-grafico-opcion9 label{
+  position: relative;
+  display: inline-block;
+  padding: 3px;
+  padding-right: 30px;
+  background-color: rgba(0,0,0,0.5);
+  color: white;
+}
+#contenedor-grafico-opcion9 label span{
+  position: absolute;
+  top: 2px;
+  right: 2px;
+  cursor: pointer;
+}
+#lb-logo{
+  position: relative;
+  display: block;
+  height: 100px;
+  width: 100px;
+  overflow: hidden;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+#lb-logo input[type="file"]{
+  display: none;
+}
+#lb-logo img{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  max-height: 100%;
+}
+#lb-logo span{
+  display: none;
+}
+#lb-logo:hover > span{
+  position: absolute;
+  display: block;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 5px;
+  background-color: rgb(0,0,0);
+  color: white;
+  text-align: center;
+}
+#enlace-vista-previa{
+  float:right;
+  font-size:1.5rem;
+}
+#contenedor-preview{
+  position: relative;
+  display: none;
+}
+#window-close-icon{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+@media(max-width:1200px){
+  #contenedor-preview{
+    z-index: 10000;
+    position: fixed;
+    top: 60px;
+    left: 50%;
+    width: 100%;
+    height: 100vh;transform: translateX(-50%);
+    background-color: rgba(255,255,255,0.8);
+    overflow: hidden;
+  }
+  #contenedor-preview iframe{
+    margin-top: -130px;
+    width: 100%;
+    height: 140%;
+    transform: scale(0.7);
+    background-color: white;
+  }
+}
+
+@media(min-width:1200px){
+  #enlace-vista-previa{
+    display: none;
+  }
+  .contenedor-encuesta{
+    width: 550px;
+  }
+  #contenedor-preview{
+    position: inherit;
+    display: block!important;
+    margin-top: 50px;
+    width: 300px;
+    height: 600px;
+    float: right;
+  }
+  #preview-frame{
+    width: 155%;
+    height: 160%;
+    zoom:0.7;
+    transform: scale(0.50);
+    transform-origin: 0 0;
+
+    background-image: url('../images/caratula-movil.png');
+    padding-top: 150px;
+    padding-left: 36px;
+    padding-right: 36px;
+    padding-bottom: 150px;
+    background-position:center center;
+    background-repeat: no-repeat;
+    background-size:contain;
+
+
+
+
+
+  }
+  #window-close-icon{
+    display: none;
+  }
+}
+
+@media(min-width:1500px){
+  .contenedor-preview{
+    margin-right: 300px;
+  }
+}
+@media(min-width:1650px){
+  .contenedor-preview{
+    margin-right: 400px;
+  }
+}
+
+
+
+/*  */

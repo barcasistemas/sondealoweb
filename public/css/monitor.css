@@ -1,0 +1,20 @@
+@import url('global.css');
+
+.table-sm  td{
+  font-size: 14px!important;
+}
+
+.span-inp{
+  width: 100%;
+}
+.span-inp input{
+  display: flex;
+  width: 100%;
+  margin-bottom: 5px;
+  border: 1px solid rgba(0,0,0,0.5);
+}
+@media(min-width:610px){
+  .span-inp{
+    width: 49%;
+  }
+}

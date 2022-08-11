@@ -1,0 +1,18 @@
+@import url('global.css');
+
+#form-validar-cupon{
+  width: 100%;
+  max-width: 500px;
+}
+#form-validar-cupon input{
+  margin-bottom: 10px;
+}
+#form-validar-cupon h4 span{
+  text-decoration:underline;
+  font-weight:bold;
+}
+@media(min-width:720px){
+  #form-validar-cupon{
+    margin: auto;
+  }
+}

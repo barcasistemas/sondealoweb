@@ -1,0 +1,7 @@
+@import url('global.css');
+
+iframe{
+  width:100%;
+   min-height: 150vh; 
+  border-style: none;
+}

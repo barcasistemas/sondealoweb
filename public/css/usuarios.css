@@ -1,0 +1,35 @@
+@import url('global.css');
+
+#form-add-user{
+  width: 100%;
+}
+#form-add-user input{
+  margin-bottom: 5px;
+}
+.inner-body{
+  width: 100%;
+}
+#contenedor-sucursales{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.inner-body h5{
+  width:100%;
+  border-top:1px solid rgba(0,0,0,0.01);
+  color:blue;
+  text-decoration:underline;
+  font-weight: bold;
+}
+@media(min-width:720px){
+  #form-add-user{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
+
+  #form-add-user input{
+    width: 27%;
+  }
+}

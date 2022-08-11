@@ -1,0 +1,86 @@
+@import url('global.css');
+
+.q1{
+  max-width: 300px;
+}
+#container-qrs{
+  margin-top: 20px;
+  width: 100%;
+  max-width: 800px;
+  position: relative;
+}
+#container-qrs > div{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+#container-qrs table{
+  width: 100%;
+}
+#container-qrs table td > div{
+  text-align: center;
+}
+#table-xl .qrv{
+  width: 300px;
+  min-height: 365px!important;
+}
+#table-sm .qrv{
+  min-height: 230px!important;
+}
+.qrv{
+  position: relative;
+}
+.qrv p{
+  display:block;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.qrv p:nth-child(1){
+  margin-bottom: -0.5px;
+  text-transform: uppercase;
+}
+.qrv p:nth-child(3){
+  margin-top: -1px;
+}
+.small{
+  position: absolute;
+  bottom: 1px;
+  left: 3px;
+  width: 100%;
+  text-align: center;
+  font-style: italic;
+  text-decoration: underline;
+}
+#table-xl .small{
+  font-size: 1.05rem!important;
+}
+#table-sm .small{
+  font-size: 1.2rem;
+}
+.qr-lg svg{
+  width: 280px;
+  height: 280px;
+}
+.qr-sm svg{
+  width: 150px;
+  height: 150px;
+}
+.btn-print-pdf{
+  margin-left: 10px;
+}
+table { page-break-inside:auto }
+    tr { page-break-inside:avoid; } /* This is the key */
+    thead { display:table-header-group }
+    tfoot { display:table-footer-group }
+    td:nth-child(n-1){padding-left: 30px;}
+
+.contenedor-btns-pdf{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:flex-end;
+}

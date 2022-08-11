@@ -1,0 +1,42 @@
+@import url('global.css');
+
+.contenedor-alertas{
+  width: 100%;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.contenedor-alertas table{
+  margin-top: 10px;
+  width: 100%;
+  border-radius: 5px;
+  box-shadow: 0px 0px 5px -1px #000000;
+}
+.contenedor-alertas table td{
+  width: 50%;
+  padding: 3px!important;
+}
+.contenedor-alertas tr:nth-child(2n-2){
+  background-color: rgba(0,0,255, 0.1);
+}
+.contenedor-alertas h4{
+  width: 100%;
+}
+
+@media(min-width:610px){
+  .contenedor-alertas  table{
+    width: 48%;
+  }
+}
+
+@media(min-width:1000px){
+  .contenedor-alertas  table{
+    width: 32%;
+  }
+}
+@media(min-width:1500px){
+  .contenedor-alertas  table{
+    width: 24%;
+  }
+}

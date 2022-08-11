@@ -1,0 +1,17 @@
+@import url('global.css');
+
+.contenedor-file{
+  width: 100%;
+}
+.contenedor-file input{
+  display: none;
+}
+.contenedor-file label{
+  width: 100%;
+  max-width: 300px;
+  display: block;
+  padding: 10px;
+  text-align: center;
+  color: white;
+  background-color: rgba(0,0,255,0.7);
+}

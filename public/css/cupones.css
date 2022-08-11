@@ -1,0 +1,107 @@
+@import url('global.css');
+
+#contenedor-cupones{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+.contenedor-cupon{
+	margin-top: 10px;
+	width: 48%;
+	max-width: 280px;
+  transition: all 0.3s;
+}
+.contenedor-cupon label:hover{
+  animation: an 0.2s linear;
+
+}
+@keyframes an{
+  from{
+    transform: rotateZ(-1deg);
+  }
+  to{
+    transform: rotateZ(1deg);
+  }
+}
+
+.contenedor-cupon label{
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 230px;
+  max-height: 250px;
+	overflow: hidden;
+  background-color:rgba(0,0,0,0.9);
+}
+.contenedor-cupon label img{
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 100%;
+	max-height:100%;
+}
+
+.span-cupon{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,0.7);
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	visibility: hidden;
+}
+.contenedor-cupon label:hover .span-cupon{
+	visibility: visible;
+}
+.contenedor-cupon label input[type="file"]{
+	display: none;
+}
+.contenedor-form-cupon{
+	padding: 2px;
+	width: 100%;
+	margin-bottom: 15px;
+	background-color: white;
+}
+.contenedor-form-cupon input{
+	margin-bottom: 5px;
+	width: 100%;
+	height:25px;
+}
+.contenedor-form-cupon select,
+.contenedor-form-cupon button{
+	width: 49%;
+	height:25px;
+}
+.contenedor-form-cupon button{
+	background-color: green;
+	color: #fff;
+	border-style: none;
+	border-radius: 3px;
+}
+.contenedor-select-copia{
+  margin-top: 20px;
+}
+.contenedor-select-copia select{
+  max-width: 300px;
+}
+
+@media(min-width:960px){
+	.contenedor-cupon{
+		width: 32%;
+	}
+}
+@media(min-width:1300px){
+	.contenedor-cupon{
+		width: 24%;
+	}
+}
+@media(min-width:1500px){
+	.contenedor-cupon{
+		width: 19%;
+	}
+}

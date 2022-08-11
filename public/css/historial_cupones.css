@@ -1,0 +1,11 @@
+@import url('global.css');
+.table{
+   box-shadow:0px 0px 2px 0px rgba(50, 50, 50, 1);
+}
+.table tbody td{
+  text-transform: lowercase;
+  padding: 5px!important;
+}
+.table tbody td::first-letter{
+  text-transform: uppercase;
+}
