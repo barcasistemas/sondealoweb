@@ -44,7 +44,7 @@ Perfil Menú
 
     <div class="row">  
         <br><br><br>
-        <h3>Perfil del restaurante 1</h3><br>
+        <h3>Perfil del restaurante 11</h3><br>
         <form method="post" id="form-add-urls" class="form-add form-group-sm col-sm-5 col-lg-3" action="" onsubmit="return false;">
             @csrf
             <input type="hidden" value="" name="menu_seleccionado">
