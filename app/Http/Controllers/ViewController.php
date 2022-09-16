@@ -1192,10 +1192,11 @@ class ViewController extends Controller
        
   
     $switches = DB::table('menus')
-    ->select('encuesta_switch', 'url_switch', 'insta_switch', 'tiktok_switch', 'facebook_switch', 'whatsapp_switch', 'esp_switch', 'eng_switch')
+    ->select('encuesta_switch', 'logo_switch','url_switch', 'insta_switch', 'tiktok_switch', 'facebook_switch', 'whatsapp_switch', 'esp_switch', 'eng_switch')
     ->where('sucursal', $sucursal)->first();
     if($switches){
       $encuesta_switch = $switches->encuesta_switch;
+      $logo_switch = $switches->logo_switch;
       $url_switch = $switches->url_switch;
       $insta_switch = $switches->insta_switch;
       $tiktok_switch = $switches->tiktok_switch;
@@ -1216,7 +1217,7 @@ class ViewController extends Controller
       $page_url = $urls->page_url;
     }
 
-    return view ('menulang', compact('sucursal','image_url', 'name_comercial', 'encuesta_switch', 'url_switch', 'insta_switch', 'tiktok_switch', 'facebook_switch', 'whatsapp_switch', 'esp_switch', 'eng_switch', 'insta_url', 'tiktok_url', 'facebook_url', 'whatsapp_url', 'page_url'));
+    return view ('menulang', compact('sucursal','image_url', 'name_comercial', 'encuesta_switch', 'logo_switch', 'url_switch', 'insta_switch', 'tiktok_switch', 'facebook_switch', 'whatsapp_switch', 'esp_switch', 'eng_switch', 'insta_url', 'tiktok_url', 'facebook_url', 'whatsapp_url', 'page_url'));
   }
 
   public function menuSelectCategorias($sucursal)
@@ -1225,7 +1226,7 @@ class ViewController extends Controller
     $array_categorias = array();
     $array_categorias = DB::table('categorias_menu')
     ->select('id', 'nombre', 'nombre_en', 'imagen_url', 'id_video' , 'ruta_promo')
-    ->where('sucursal', $sucursal)
+    ->where(['sucursal' => $sucursal, 'state' => 1])
     ->orderBy('indice_orden', 'ASC')
     ->get();
 
@@ -1253,12 +1254,11 @@ class ViewController extends Controller
 
     $array_categorias = array();
     $array_categorias = DB::table('categorias_menu')
-    ->select('id', 'nombre', 'nombre_en', 'imagen_url', 'id_video' , 'ruta_promo')
-    ->where('sucursal', $sucursal)
+    ->select('id', 'nombre', 'nombre_en', 'imagen_url', 'id_video' , 'ruta_promo' , 'video_switch')
+    ->where(['sucursal' => $sucursal, 'state' => 1])
     ->orderBy('indice_orden', 'ASC')
     ->get();
     
-
     return view ('menu_item', compact('sucursal','array_items','id', 'array_categorias'));
   }
 
@@ -1328,6 +1328,35 @@ class ViewController extends Controller
     $categorias =[];
     $menus = [];
     $platillos = [];
+    $name_comerial = "";
+    $whatsappurl = "";
+    $facebookurl = "";
+    $tiktokurl = "";
+    $urlweb = "";
+    $instaurl = "";
+    $youtubeurl = "";
+
+    $nombre = DB::table('menus')->select('name_comercial', 'facebook_url', 'whatsapp_url', 'tiktok_url', 'page_url', 'youtube_url', 'insta_url', 'logo_switch',
+    'encuesta_switch', 'url_switch', 'insta_switch', 'tiktok_switch', 'facebook_switch', 'whatsapp_switch', 'esp_switch', 'eng_switch', 'youtube_switch')->where('sucursal', $sucursal_url)->first();
+       if($nombre){
+          $name_comercial = $nombre->name_comercial;
+          $whatsappurl = $nombre->whatsapp_url;
+          $facebookurl = $nombre->facebook_url;
+          $tiktokurl = $nombre->tiktok_url;
+          $urlweb = $nombre->page_url;
+          $instaurl = $nombre->insta_url;
+          $youtubeurl = $nombre->youtube_url;
+          $logo_switch = $nombre->logo_switch;
+          $encuesta_switch = $nombre->encuesta_switch;
+          $url_switch = $nombre->url_switch;
+          $insta_switch = $nombre->insta_switch;
+          $tiktok_switch = $nombre->tiktok_switch;
+          $facebook_switch = $nombre->facebook_switch;
+          $whatsapp_switch = $nombre->whatsapp_switch;
+          $esp_switch = $nombre->esp_switch;
+          $eng_switch = $nombre->eng_switch;
+          $youtube_switch = $nombre->youtube_switch;
+       } 
 
     if($sucursal_url != null and Session::has('sucursal_fijada'))
     {   
@@ -1370,7 +1399,7 @@ class ViewController extends Controller
 
     }
 
-    return view('menuconfig_perfil', compact('sucursal_url', 'id_menu','sucursales_html', 'boolean_show_form', 'menus', 'categorias'));
+    return view('menuconfig_perfil', compact('sucursal_url', 'id_menu','sucursales_html', 'boolean_show_form', 'menus', 'categorias', 'name_comercial', 'whatsappurl', 'facebookurl', 'tiktokurl', 'urlweb', 'instaurl', 'youtubeurl', 'logo_switch' ,'encuesta_switch', 'url_switch', 'insta_switch', 'tiktok_switch', 'facebook_switch', 'whatsapp_switch', 'esp_switch', 'eng_switch', 'youtube_switch'));
   }
 
   public function creaCategoriasMenu($sucursal_url = null, $id_menu = null){
@@ -1380,6 +1409,19 @@ class ViewController extends Controller
     $categorias =[];
     $menus = [];
     $platillos = [];
+    $name_cat = [];
+    $state_cat = [];
+
+    for($itc = 1; $itc <= 12; $itc++){
+      $catego_name = DB::table('categorias_menu')->select('nombre','state', 'id_video', 'video_switch')->where('id_interno',$itc)->first();
+       if($catego_name){
+         $name_cat[$itc-1] = $catego_name->nombre;
+         $state_cat[$itc-1] = $catego_name->state;
+         $id_video[$itc-1] = $catego_name->id_video;
+         $video_switch[$itc-1] = $catego_name->video_switch;
+       }
+    }
+    
 
     if($sucursal_url != null and Session::has('sucursal_fijada'))
     {   
@@ -1422,7 +1464,7 @@ class ViewController extends Controller
 
     }
 
-    return view('menuconfig_categorias', compact('sucursal_url', 'id_menu','sucursales_html', 'boolean_show_form', 'menus', 'categorias'));
+    return view('menuconfig_categorias', compact('sucursal_url', 'id_menu','sucursales_html', 'boolean_show_form', 'menus', 'categorias','name_cat','state_cat', 'id_video', 'video_switch'));
   }
 
   public function creaDisenoMenu($sucursal_url = null, $id_menu = null){
@@ -1432,6 +1474,7 @@ class ViewController extends Controller
     $categorias =[];
     $menus = [];
     $platillos = [];
+    $colorHeader = '';
 
     if($sucursal_url != null and Session::has('sucursal_fijada'))
     {   
@@ -1474,7 +1517,7 @@ class ViewController extends Controller
 
     }
 
-    return view('menuconfig_diseno', compact('sucursal_url', 'id_menu','sucursales_html', 'boolean_show_form', 'menus', 'categorias'));
+    return view('menuconfig_diseno', compact('sucursal_url', 'id_menu','sucursales_html', 'boolean_show_form', 'menus', 'categorias', 'colorHeader'));
   }
 
   public function creaCodigoQRMenu($sucursal_url = null, $id_menu = null){
@@ -1527,5 +1570,72 @@ class ViewController extends Controller
     }
 
     return view('menuconfig_codigoqr', compact('sucursal_url', 'id_menu','sucursales_html', 'boolean_show_form', 'menus', 'categorias'));
+  }
+
+  public function creaPlatilloMenu($sucursal_url = null, $id_menu = null, $id_categoria = null){
+    $sucursal_url     = SessionController::setSesionSucursal($sucursal_url);
+    $sucursales_html  = MenuHTML::getSelectSucursales(self::getSucursales());
+    $boolean_show_form = false;
+    $categorias =[];
+    $menus = [];
+    $platillos = [];
+
+    $array_items = array();
+    $array_items = DB::table(DB::raw("menu_items"))
+    ->selectRaw("id, id_categoria ,nombre, nombre_en, ingredientes, ingredientes_en, precio, recomen, recomen_en, recom_catid")
+    ->whereRaw("id_categoria = $id_categoria")
+    ->get();
+
+    
+    foreach($array_items as $item_url)
+    {
+      $item_url->imagenes_url = DB::table('menu_imagenes_items')
+      ->select('ruta_servidor')
+      ->where('id_item', $item_url->id)
+      ->get();
+    }
+
+    if($sucursal_url != null and Session::has('sucursal_fijada'))
+    {   
+      $menus = DB::table('menus')->select('id', 'nombre')->where('sucursal', Session::get('sucursal_fijada'))->get();
+      
+      if($id_menu != null and is_numeric($id_menu))
+      {
+        $check_menu = DB::table('menus')->select('nombre')->where('id', $id_menu)
+        ->where('sucursal', Session::get('sucursal_fijada'))->first();
+
+        if($check_menu)
+        {
+          $boolean_show_form = true;
+
+          $categorias = DB::table('categorias_menu')->select('id', 'nombre')
+          ->where('id_menu', $id_menu)->get();
+
+          if($categorias->count())
+          {
+            for($i=0;$i<$categorias->count();$i++)
+            {
+              $items = []; 
+              
+              $items_index= DB::table('menu_items')->select('id','nombre','ingredientes', 'precio')->where('id_categoria', $categorias[$i]->id)->get();
+
+              if($items_index->count())
+              {
+                for($j=0;$j<$items_index->count();$j++)
+                {
+                  $items_index[$j]->imagenes = DB::table('menu_imagenes_items')->select('id','ruta_servidor')->where('id_item', $items_index[$j]->id)->get();
+              
+                }
+                $items[] = $items_index;
+              }  
+              $categorias[$i]->items = $items;              
+            }
+          }
+        }
+      }
+
+    }
+
+    return view('menuconfig_platillos', compact('sucursal_url', 'id_menu', 'id_categoria', 'sucursales_html', 'boolean_show_form', 'menus', 'categorias', 'array_items'));
   }
 }

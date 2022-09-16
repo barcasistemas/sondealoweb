@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-/*RUTAS LIBRES*/
 Route::get('/', function(){ return redirect()->route('mostrar_login'); });
 
 Route::get('/entrar', 'ViewController@login')->name('mostrar_login');
@@ -30,7 +28,6 @@ Route::get('/restablecer/aplicar/{token}', 'ViewController@aplicarResetPassword'
 
 Route::post('/restablecer/pass', 'PasswordResetController@restablecimientoPassword')->name('restablecer_password_enlace');
 
-Route::post('/registrar', 'UserController@storeTitular')->name('registrar_usuario');
 
 Route::get('/registro/{tipo?}', function($tipo = null){
   $plan_id = ( ! $tipo) ? 56 : $tipo;
@@ -38,18 +35,8 @@ Route::get('/registro/{tipo?}', function($tipo = null){
 })->name('mostrar_registro');
 
 
-Route::get('/set-lang/{lang}', function($lang){
-  if( ! in_array($lang, ['es', 'en'])){
-    return abort(400);
-  }
-  Session::put('lang' , $lang);
-  return back();
-
-})->name('set_lenguaje');
-
 
 Route::get('/menu-multiple-button/{sucursal?}', 'ViewController@menuMultipleButtons');
-
 
 /* rutas menu dinamico */
 Route::get('/menu-lang/{sucursal}', 'ViewController@selectLang');
@@ -57,8 +44,11 @@ Route::get('/menu-categorias/{sucursal}','ViewController@menuSelectCategorias');
 Route::get('/menu-seccion/{sucursal}/{id}','ViewController@menuSecciones');
 
 
-/*rutas protegidas con sesion */
-Route::group(['middleware' => ['lang.middleware',  'usersession' ] ], function(){
+Route::post('/registrar', 'UserController@storeTitular')->name('registrar_usuario');
+
+
+/*rutas protegidas*/
+Route::group(['middleware' => 'usersession'], function(){
 
   Route::get('/home/{sucursal?}', 'ViewController@home')->name('mostrar_home');
 
@@ -159,21 +149,20 @@ Route::group(['middleware' => ['lang.middleware',  'usersession' ] ], function()
   Route::post('/promociones/copiar', 'ImagenController@copiarPromociones')->name('copiar_promociones');
   /*ajax*/
   Route::post('/cupones/copiar', 'ImagenController@copiarCupones')->name('copiar_cupones');
-
+  
   Route::get('/qrencuesta/{sucursal?}', 'ViewController@getQrEncuestaMesa')->name('generar_qr_encuesta_mesa');
-  /*ajax*/
+ /*ajax*/
   Route::post('/qrencuesta/getQr', 'QrController@generarQR')->name('get_qr');
-
-
-  /*ajax*/
+ /*ajax*/
   Route::post('/encuesta/personalizar', 'EncuestaController@personalizar')->name('encuesta_personalizar');
 
+ 
 
-  /* ------------ REPORTE DE EXCEL ------------------*/
+
+  /*REPORTE DE EXCEL*/
   Route::get('/excel/clientes/correos/{sucursal}', 'ExcelController@getCorreosClientes')->name('reporte_correos_clientes');
 
   Route::get('/excel/reporte/{sucursal}/{desde}/{hasta}', 'ExcelController@getReporteExcel')->name('reporte_excel_global');
-
 
 
 
@@ -183,7 +172,6 @@ Route::group(['middleware' => ['lang.middleware',  'usersession' ] ], function()
   Route::post('/menu-item-delete', 'MenuItemController@delete')->name('menu_item_delete');
   Route::post('/menu-categoria-store', 'MenuItemController@storeCategoria')->name('menu_categoria_store');
   Route::post('/menu-item-store', 'MenuItemController@store')->name('menu_item_store');
-
   Route::get('/menu-item-get/{id?}', 'MenuItemController@get')->name('menu_item_get');
   /*ajax*/
   Route::post('/menu-item-update}', 'MenuItemController@update')->name('menu_item_update');
@@ -192,11 +180,16 @@ Route::group(['middleware' => ['lang.middleware',  'usersession' ] ], function()
   Route::get('/menu-categorias/{sucursal?}/{id_menu?}','ViewController@creaCategoriasMenu')->name('menu_categorias');
   Route::get('/menu-diseno/{sucursal?}/{id_menu?}','ViewController@creaDisenoMenu')->name('menu_diseno');
   Route::get('/menu-codigoqr/{sucursal?}/{id_menu?}','ViewController@creaCodigoQRMenu')->name('menu_codigoqr');
+  Route::get('/menu-platillos/{sucursal?}/{id_menu?}/{id_categoria?}','ViewController@creaPlatilloMenu')->name('menu_platillo');
+
+  Route::post('/menuconfig-perfil/','MenuperfilController@update')->name('menu_saveperfil');
+  Route::post('/menuconfig-categorias/','MenucategoriasController@update')->name('menu_savecategorias');
+  Route::post('/menuconfig-diseno', 'MenudisenoController@update')->name('menu_savediseno');
+  Route::post('/menuconfig-platillos', 'MenuplatillosController@update')->name('menu_updateplatillo');
+  Route::post('/menuconfigsave-platillos', 'MenuplatillosController@store')->name('menu_saveplatillo');
+
 });
 
-
-
-/*pre visualizacion de encuesta*/
 Route::get('/preview/{sucursal}', 'ViewController@preview');
 
 Route::get('/qr-encuesta/{sucursal}/{mesa?}', 'ViewController@encuestaWebLibreQr')->name('encuesta_web_qr_libre');
@@ -206,6 +199,7 @@ Route::post('/qr-encuesta/guardar', 'EncuestaController@store')->name('guardar_e
 Route::get('/wa-encuesta/{key}', 'ViewController@encuestaWhatsapp');
 
 Route::post('/wa-encuesta/cambia-estado', 'EncuestaController@cambiarEstado')->name('cambiar_estado_encuesta_wa');
+
 
 
 
@@ -220,9 +214,21 @@ Route::group(['middleware' => 'useradministracion'], function(){
   Route::post('/admin/usuario/plan/detalle', 'PlanController@detallePlanUsuario')->name('info_detalle_plan_usuario');
 
   Route::post('/admin/usuario/eliminar-cuenta', 'UserController@deleteCuenta')->name('eliminar_cuenta_usuario');
-  /*excel*/
+
   Route::get('/admin/excel/reporte/usuario-plataforma', 'ExcelController@getUsuariosPlataforma')->name('reporte_excel_usuarios_plataforma');
 
   Route::get('/admin/encuestas-recientes/{desde?}/{hasta?}', 'Administracion\ViewAdminController@encuestasRecientes')->name('adm_encuestas_recientes');
 
+
 });
+
+
+
+
+
+
+
+
+
+
+/**/

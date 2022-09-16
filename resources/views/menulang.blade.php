@@ -210,15 +210,19 @@
 
     <header>
         <div class="container">
+            @if ($encuesta_switch == 1)
             <a class="btn btn-light" href="/sitio/qr-encuesta/{{$sucursal}}" style="font-weight:bold;">Encuesta o comentario</a>
-           <!-- <button type="button" class="btn btn-light" style="font-weight:bold;">Comentarios y opiniones</button> -->
+            <!-- <button type="button" class="btn btn-light" style="font-weight:bold;">Comentarios y opiniones</button> -->
+            @endif
         </div>
     </header>
 
 
     <div class="container">
 
-        <img class="bienvenido" src="https://sondealo.com/sitio/images/{{$image_url}}"/>
+        @if ($logo_switch == 1)
+            <img class="bienvenido" src="https://sondealo.com/sitio/images/{{$image_url}}"/>
+        @endif
         <p class="text-center bienvenido">{{$name_comercial}}</p>
         <p class="text-center selectlang">Selecciona un idioma: </p>
         <form action="/sitio/menu-categorias/{{$sucursal}}" method="get"> 
@@ -237,13 +241,13 @@
 
         <div class="center">  
             @if ($esp_switch == 1)
-                 <a class="btn btn-outline-light" id="btnAceptar" href="/menu-categorias/{{$sucursal}}/?lenguaje1=es">Español</a>
+                 <a class="btn btn-outline-light" id="btnAceptar" href="/sitio/menu-categorias/{{$sucursal}}/?lenguaje1=es">Español</a>
             @endif
           <!--- <button type="button" id="btnAceptar" class="btn btn-light">Aceptar</button> --->
         </div>
         <div class="center">
             @if ($eng_switch == 1)
-                 <a class="btn btn-outline-light" id="btnAceptar" href="/menu-categorias/{{$sucursal}}/?lenguaje1=en">English</a>
+                 <a class="btn btn-outline-light" id="btnAceptar" href="/sitio/menu-categorias/{{$sucursal}}/?lenguaje1=en">English</a>
             @endif 
         </div>
   

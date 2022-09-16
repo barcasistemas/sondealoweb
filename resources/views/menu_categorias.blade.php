@@ -68,7 +68,7 @@ session(['langu3' => $varlang]);
 
         a span {
             position: absolute;
-            top: 50%;
+            top: 20%;
             left: 50%;
             margin-top: -1em;
             margin-left: -50%;
@@ -148,13 +148,16 @@ session(['langu3' => $varlang]);
     <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
    
     <script type="text/javascript">
+    /*
         $(window).on('load', function() {
             $('#myModal').modal('show');
         });
+        */
     </script>    
 
 
     <script>
+        /*
         var tag = document.createElement('script');
   
         tag.src = "https://www.youtube.com/iframe_api";
@@ -202,6 +205,7 @@ session(['langu3' => $varlang]);
         function onPlayerError(){
 
         }
+        */
       </script>
   
 

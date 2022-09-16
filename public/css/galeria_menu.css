@@ -215,6 +215,8 @@ summary:focus {
   display: inline-block;
   width: 30px;
   height: 17px;
+
+  
 }
 
 /* Hide default HTML checkbox */
@@ -222,7 +224,11 @@ summary:focus {
   opacity: 0;
   width: 0;
   height: 0;
+
+  
 }
+
+
 
 /* The slider */
 .slider {
@@ -271,3 +277,35 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
+
+.float-container {
+  border: 0px solid #fff;
+  padding: 5px;
+}
+
+.float-child {
+  width: 50%;
+  float: left;
+  padding: 0px;
+  border: 0px solid red;
+}  
+
+
+.float-containerB {
+  border: 0px solid #fff;
+  padding: 5px;
+}
+
+.float-childB {
+  width: 90%;
+  float: left;
+  padding: 0px;
+  border: 0px solid red;
+} 
+
+.float-childB2 {
+  width: 10%;
+  float: left;
+  padding: 0px;
+  border: 0px solid red;
+} 

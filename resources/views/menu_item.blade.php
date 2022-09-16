@@ -165,12 +165,22 @@ $varlang = session('langu3');
 </head>
 <body>
 
+    @php
+        $idvideo_cat = "";
+        $switchvideo_cat = "";
+    @endphp
     <header>
         <div class="container">
           <!--  <p class="text-center bienvenido">Categorias</p> -->
         <div class="wrapper2">
             <div class="div2">
                 @foreach ($array_categorias as $categoria)
+                @if ($categoria->id == $id)
+                @php
+                    $idvideo_cat = $categoria->id_video;
+                    $switchvideo_cat = $categoria->video_switch;
+                @endphp    
+                @endif
                 @if ($varlang == 'es')
                 <a href="/sitio/menu-seccion/{{$sucursal}}/{{$categoria->id}}"><img width="150px" height="150px" class="bienvenido" src="https://sondealo.com/sitio/images{{$categoria->imagen_url}}"/><span>{{$categoria->nombre}}</span></a>
                 @elseif ($varlang == 'en')
@@ -182,6 +192,7 @@ $varlang = session('langu3');
         </div>
     </header>
 
+    <label id="video_switch">{{$switchvideo_cat}}</label>
     <table style="width: 100%">
         @php $contador = 1; @endphp
          @foreach ($array_items as $item)
@@ -247,6 +258,10 @@ $varlang = session('langu3');
               </div>
             </div>
           </div>
+
+
+          
+          
          
           @php
             $contador = $contador+1;
@@ -255,12 +270,85 @@ $varlang = session('langu3');
         @endforeach
     </table>
 
+    <div id="myModalYT" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+          
+            <div class="modal-content">
 
+            <div class="modal-body">
+                <button type="button" class="btn btn-dark" data-bs-dismiss="modal">X</button>
+               <!-- <iframe width="100%" height="315" src="https://www.youtube.com/embed/ZSPeXlLSO34?autoplay=1" title="video" frameborder="0" allow="autoplay" allowfullscreen></iframe> -->
+               <div id="player"></div>
+            </div>
+            </div>
+        </div>
+      </div>
     
     
 
       <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
       <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+
+      @if ($switchvideo_cat == 1)
+      <script type="text/javascript">
+        $(window).on('load', function() {
+            $('#myModalYT').modal('show');
+        });
+    </script>  
+      @endif
+        
+    
+    
+        <script>
+            
+            var tag = document.createElement('script');
+      
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+    
+            var player;
+            
+            function onYouTubeIframeAPIReady() {
+              player = new YT.Player('player', {
+                height: '310',
+                width: '380',
+                videoId: '{{$idvideo_cat}}',
+                playerVars: { 'autoplay': 1, 'controls': 0 },
+                events: {
+                  'onReady': onPlayerReady,
+                  'onPlaybackQualityChange': onPlayerPlaybackQualityChange,
+                  'onStateChange': onPlayerStateChange,
+                  'onError': onPlayerError
+                }
+              });
+            }
+    
+            function onPlayerReady(event) {
+              event.target.setVolume(0);
+              event.target.playVideo();
+            }
+    
+            var done = false;
+            function onPlayerStateChange(event) {
+              if (event.data == YT.PlayerState.PLAYING && !done) {
+                
+                done = true;
+              }
+            }
+            function stopVideo() {
+                
+              player.stopVideo();
+            }
+    
+            function onPlayerPlaybackQualityChange(){
+                
+            }
+    
+            function onPlayerError(){
+    
+            }
+          </script>
 
       <script type="text/javascript">
       /*
