@@ -1258,8 +1258,18 @@ class ViewController extends Controller
     ->where(['sucursal' => $sucursal, 'state' => 1])
     ->orderBy('indice_orden', 'ASC')
     ->get();
+
+
+    $datacat = DB::table('categorias_menu')
+    ->select('nombre','imagen_url')
+    ->where('id', $id)->first();
+    if($datacat){
+      $nombre = $datacat->nombre;
+      $imagen_url = $datacat->imagen_url;
+    }
+
     
-    return view ('menu_item', compact('sucursal','array_items','id', 'array_categorias'));
+    return view ('menu_item', compact('sucursal','array_items','id', 'array_categorias', 'nombre', 'imagen_url'));
   }
 
   public function menuPreferences()

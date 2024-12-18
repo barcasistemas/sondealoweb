@@ -37,7 +37,7 @@ $varlang = session('langu3');
         }
 
         .container0 {
-            margin-top: 20px;
+            margin-top: 0px;
             width: 100%;
             max-width: 1024px;
             max-height: 80px;
@@ -160,6 +160,10 @@ $varlang = session('langu3');
 
         .wrapper2 {
             height: 200px;
+        }
+
+        .wrapper3 {
+            height: 100px;
         }
 
         .div1 {
@@ -383,9 +387,33 @@ img.filtro{
 }
 
 table.menu{
-    margin-top: 290px;
+    margin-top: 440px;
+}
+.cattitle{
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    font-size: 1.3rem;
+    font-weight: bold;
+    margin-top: 20px;
 }
 
+img.categoria{
+    margin-left: 100%;
+    margin-right: 100%;
+    align-items: center;
+    background-position: center center;
+    background-repeat: no-repeat;
+}
+
+.center-cropped {
+  width: 90%;
+  height: 120px;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
 
     </style>
 </head>
@@ -507,22 +535,14 @@ table.menu{
                                     </thead>
                 </table>
                     
-                </p>
-
-                
-
-                                                    
-
-                                                    
-  
-                                                    
+                </p>                                  
 
             </div>
         </div>
 
         <div class="container0">
             <!--  <p class="text-center bienvenido">Categorias</p> -->
-            <div class="wrapper2">
+            <div class="wrapper3">
                 <div class="div2">
                     @foreach ($array_categorias as $categoria)
                     @if ($categoria->id == $id)
@@ -539,6 +559,21 @@ table.menu{
                     @endforeach
                 </div>
             </div>
+        </div>
+        <div style="width: 100%;" align="center">
+          <!--  <img width="90%" height="120px" class="categoria" src="https://sondealo.com/sitio/images{{$imagen_url}}" /> -->
+
+            <div class="center-cropped" 
+                 style="background-image: url('https://sondealo.com/sitio/images{{$imagen_url}}');">
+            </div>
+
+            
+            <span class="cattitle">
+                @php
+                echo $nombre;
+                @endphp
+            </span>
+               
         </div>
     </header>
 
