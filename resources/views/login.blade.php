@@ -26,7 +26,7 @@
               <p class="h3 text-muted fw-bold">Ingresar</p>
               <p class="lh-1 small text-muted" >
                 ¿Aún no tienes cuenta? <br/>
-                <a style="text-decoration:none;" href="{{route('mostrar_registro')}}" class="sondealo-text-color">¡Creala desde aquí y haz tu prueba gratis!</a> <br/>
+                <a href="{{route('mostrar_registro')}}" style="text-decoration:none;" class="sondealo-text-color">¡Creala desde aquí y haz tu prueba gratis!</a> <br/>
                 15 días sin cargo al registrarte
               </p>
             </div>
@@ -42,9 +42,9 @@
             </div>
 
             @if($errors->any())
-              <div class="small alert alert-warning" role="alert">
-                {{ $errors->first() }}
-              </div>
+            <div class="small alert alert-warning" role="alert">
+              {{ $errors->first() }}
+            </div>
             @endif
 
             <div class="col-12">
@@ -59,6 +59,7 @@
 
           </form>
 
+
         </div>
 
         <div class="col-xxl-8 col-xl-9 col-lg-8 col-md-7 col-sm-6 col-12 bg-light border back-img" id="container-main-img"
@@ -69,7 +70,6 @@
     </div>
 
     <script type="text/javascript">
-
     document.getElementById('btn-login').addEventListener('click', validateSubmit);
 
     function validateSubmit()
@@ -87,8 +87,7 @@
     if(is_IE()){
       document.getElementById('html').innerHTML = 'Navegador Obsoleto! <br/> Te recomendamos Google Chrome <a href="https://www.google.com/intl/es/chrome/?brand=UUXU&gclid=EAIaIQobChMI27nAxdjx7gIVUvDACh2GjAWgEAAYASAAEgI57fD_BwE&gclsrc=aw.ds">descargar</a>';
     }
-
-  </script>
-
+    </script>
   </body>
 </html>
+

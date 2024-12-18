@@ -124,6 +124,4 @@ class PasswordResetController extends Controller
       return view('mail.password_restablecido', compact('usuario'));
     }
 
-
-
 }

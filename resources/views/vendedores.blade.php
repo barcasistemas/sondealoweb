@@ -16,7 +16,7 @@
   @if($sucursal_url != '')
     <div class="container-form-add">
 
-        {{-- MOSTRAR SOLO CUANDO Session::get('int_tour') == 1
+     {{-- MOSTRAR SOLO CUANDO Session::get('int_tour') == 1
         aparecera solo cuando la variable de sesion de tour este habilitada (cuenta nueva) --}}
         @if(Session::get('int_tour') == 1)
           @if ($boolean_agregar_vendedores)
@@ -54,8 +54,8 @@
         </form>
         {{-- ////////////////////////////////////////////////////////////////////////// --}}
       @endif
-
-    </div>
+ 
+   </div>
   @endif
 
   </div>
@@ -124,6 +124,7 @@
         }
       });
     }
+
 
     let updel = [];
     updel = document.querySelectorAll('.updel');
@@ -249,12 +250,10 @@
       }
     }
 
-
-    if(document.body.contains(document.getElementById('btn-save')) ){
-      let btn_save = document.getElementById('btn-save');
+    let btn_save = document.getElementById('btn-save');
+    if(document.body.contains(btn_save)){
       btn_save.addEventListener('click', fnValidateSubmit);
     }
-
     function fnValidateSubmit()
     {
       let txt_name = document.getElementById('name');

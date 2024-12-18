@@ -96,7 +96,7 @@
           });
 				}
         document.getElementById('form-cambiar-menu').submit();
-      }
+      }      
     </script>
   @endsection
 @endif

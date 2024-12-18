@@ -38,7 +38,6 @@ Reportes
 <div id="contenedor-reporte" class="mostrar">
 	{{-- comienza info --}}
 	@if(count($promedios_preguntas) > 0)
-
 	<div class="info bg-light">
 		<div class="card" >
 			<div class="card-body">
@@ -60,16 +59,13 @@ Reportes
 	{{-- finaliza info --}}
 	@endif
 
-
 	@if($info_charts)
-
 	<div class="buttons-comm">
 		<button id="btn-accion-comentarios" for="contenedor-comentarios" class="btn-acciones fa fa-commenting-o sondealo-text-color"> Comentarios</button>
 		<button id="btn-accion-encuestas" for="contenedor-encuestas" class="btn-acciones fa fa-pencil-square-o sondealo-text-color"> Encuestas realizadas</button>
 		<button id="btn-accion-vendedores" for="contenedor-vendedores" class="btn-acciones fa fa-user-md sondealo-text-color"> Análisis de vendedores</button>
 		<label onclick="getExcel();" class="btn btn-success btn-sm fa fa-file-excel-o"> Generar Excel</label>
 	</div>
-
 	@endif
 
 
@@ -109,27 +105,25 @@ Reportes
 	</div>
 	@endif
 	{{-- finaliza barras --}}
-
-	{{-- inicia charts --}}
 	@if(count($info_charts) > 0)
-		<div class="charts" id="charts">
-	    @if(count($info_charts[0]->valores) > 0)
-			  @for ($i=0;$i<count($info_charts);$i++)
-	        <div class="pregunta-chart bg-light">
-	          <p class="sondealo-color">{{$info_charts[$i]->pregunta}}</p>
-	          {{-- render del chart en el indice actual --}}
-	          {!! ${'chart'.($i+1)}->render() !!}
-	        </div>
-	     @endfor
-	   @else
-	     <div class="alert alert-info" role="alert">
-	       Sin información
-	     </div>
-	   @endif
-	  </div>
-	@endif
-	{{-- finaliza charts --}}
-
+	{{-- inicia charts --}}
+	<div class="charts" id="charts">
+    @if(count($info_charts[0]->valores) > 0)
+		  @for ($i=0;$i<count($info_charts);$i++)
+        <div class="pregunta-chart bg-light">
+          <p class="sondealo-color">{{$info_charts[$i]->pregunta}}</p>
+          {{-- render del chart en el indice actual --}}
+          {!! ${'chart'.($i+1)}->render() !!}
+        </div>
+     @endfor
+   @else
+     <div class="alert alert-info" role="alert">
+       Sin información
+     </div>
+   @endif
+  </div>
+{{-- finaliza charts --}}
+@endif
 </div>
 
 
@@ -171,9 +165,14 @@ Reportes
 
 {{-- fin modal carousel --}}
 
+
+
+
+
 <input type="hidden" id="limite-comentarios" value="0"/>
 <input type="hidden" id="limite-encuestas" value="0"/>
 <input type="hidden" id="limite-vendedores" value="0"/>
+
 <input type="hidden" id="extras_url" value="{{ (isset($desde) && !empty($desde)) ? '/'.substr($desde, 0 , 10).'/' : '' }}{{(isset($hasta) && !empty($hasta)) ? $hasta : ''}}"/>
 
 @endsection
@@ -444,9 +443,9 @@ Reportes
 						html += '<tr>'
 						+'<td colspan="2"><button class="btn-evidencia btn btn-danger btn-sm btn-block" data-url1="'+info.file1+'" data-url2="'+info.file2+'">Ver evidencia</button></td>'
 						+ '</tr>';
-					}
+					}					
 
-					html +='</tbody>'
+				       html += '</tbody>'
 					+'</table>';
 
 				$('#modal-edit .modal-body').append(html);
@@ -458,6 +457,47 @@ Reportes
 			showModal();
 		});
 	}
+
+
+       $(document).ready(function(){
+			$(document).on('click', '.btn-evidencia', showSlider);
+
+		});
+
+		function showSlider()
+		{
+			ev1 = this.dataset.url1;
+			ev2 = this.dataset.url2;
+			let html = '';
+
+			html += '<div class="item active">'
+			+'<img style="max-width:100%!important;max-height:100%!important;" src="'+ev1+'" alt="Evidencia 1">'
+			+'<div class="carousel-caption"> . </div>'
+			+'</div>';
+
+			if(ev2 != '')
+			{
+				html += '<div class="item">'
+				+'<img style="max-width:100%!important;max-height:100%!important;" src="'+ev2+'" alt="Evidencia 2">'
+				+'<div class="carousel-caption"> . </div>'
+				+'</div>';
+			}
+			else{
+				$('.carousel-indicators li').last().remove();
+			}
+
+			document.getElementById('inner-corousel').innerHTML = html;
+			$('#modal-carousel').modal('show');
+		}
+
+
+
+
+
+
+
+
+
 
 
 	function getEncuestas(limite_i)
@@ -499,8 +539,7 @@ Reportes
 							}
 						}
 					}
-
-					html += '<table class="table table-sm table-encuestas">'
+				 		html += '<table class="table table-sm table-encuestas">'
 						+'<tbody>'
 						+'<tr>'
 						+'<td>Fecha</td>'
@@ -528,9 +567,9 @@ Reportes
 						+'<td>'+info[i].comentario+'</td>'
 						+ '</tr>';
 
-						if(	response.info[i].file1 != '' || 	response.info[i].file2 != '')
+						if(response.info[i].file1 != '' || response.info[i].file2 != '')
 						{
-							html += '<tr>'
+								html += '<tr>'
 							+'<td colspan="2"><button class="btn-evidencia btn btn-danger btn-sm btn-block" data-url1="'+response.info[i].file1+'" data-url2="'+response.info[i].file2+'">Ver evidencia</button></td>'
 							+ '</tr>';
 						}
@@ -548,38 +587,6 @@ Reportes
 			hideLoader();
 		});
 	}
-
-		$(document).ready(function(){
-			$(document).on('click', '.btn-evidencia', showSlider);
-
-		});
-
-		function showSlider()
-		{
-			ev1 = this.dataset.url1;
-			ev2 = this.dataset.url2;
-			let html = '';
-
-			html += '<div class="item active">'
-			+'<img style="max-width:100%!important;max-height:100%!important;" src="'+ev1+'" alt="Evidencia 1">'
-			+'<div class="carousel-caption"> . </div>'
-			+'</div>';
-
-			if(ev2 != '')
-			{
-				html += '<div class="item">'
-				+'<img style="max-width:100%!important;max-height:100%!important;" src="'+ev2+'" alt="Evidencia 2">'
-				+'<div class="carousel-caption"> . </div>'
-				+'</div>';
-			}
-			else{
-				$('.carousel-indicators li').last().remove();
-			}
-
-			document.getElementById('inner-corousel').innerHTML = html;
-			$('#modal-carousel').modal('show');
-		}
-
 
 	$(document).on('click', '#btn-mas-encuestas', fnMasEncuestas);
 
@@ -656,5 +663,8 @@ Reportes
 			});
 		}
 	</script>
-@endif
+
+ @endif
+
+
 @endsection

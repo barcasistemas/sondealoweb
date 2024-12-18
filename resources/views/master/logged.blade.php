@@ -15,8 +15,7 @@
     </head>
     <body>
         <div id="wrapper">
-
-            <nav class="navbar sondealo-color navbar-fixed-top" role="navigation">
+            <nav class="navbar sondealo-color navbar-fixed-top"  role="navigation">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="{{route('mostrar_home')}}">
                       <img src="{{asset('images/sondealogo.png')}}"/>
@@ -30,58 +29,21 @@
                    <span class="icon-bar"></span>
                </button>
 
-
-
                 <ul class="nav navbar-right navbar-top-links">
-
-                  {{-- <li class="dropdown">
-                    @php
-                    $lang = App::getLocale();
-                    $arrLangs = [
-                      'es' => ['prefix' => 'es' , 'string' => 'Español', 'image' => 'mexicoflag.png'],
-                      'en' => ['prefix' => 'en' , 'string' => 'English', 'image' => 'britishflag.png'],
-                    ];
-                    @endphp
-
-                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                          <i class="fa-fw">
-                            <img style="height:15px;" src="{{asset('images')}}/{{$arrLangs[$lang]['image']}}"/>
-                          </i>
-                      </a>
-                      <ul class="dropdown-menu">
-
-                        @foreach ($arrLangs as $lng)
-                          @if($lang != $lng['prefix'])
-                           <li>
-                             <a href="{{route('set_lenguaje',['lang' => $lng['prefix']])}}">
-                               <i class="fa-fw">
-                                 <img style="height:15px;" src="{{asset('images')}}/{{$lng['image']}}"/>
-                                 &nbsp;{{$lng['string']}}
-                               </i>
-                             </a>
-                           </li>
-                         @endif
-                        @endforeach
-
-                      </ul>
-                 </li> --}}
-
-
-
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                             <i class="fa fa-user fa-fw"></i><span  id="text-username">{{Session::get('user')}}</span> <b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li><a href="{{route('mostrar_ajustes')}}"><i class="fa fa-gear fa-fw"></i>@lang('master.ajustes-cuenta')</a>
+                            <li><a href="{{route('mostrar_ajustes')}}"><i class="fa fa-gear fa-fw"></i>Ajustes de la cuenta</a>
                             </li>
                             <li class="divider"></li>
-                            <li><a href="{{route('cerrar_sesion')}}"><i class="fa fa-sign-out fa-fw"></i>@lang('master.cerrar-session')</a>
+                            <li><a href="{{route('cerrar_sesion')}}"><i class="fa fa-sign-out fa-fw"></i>Cerrar Sesión</a>
                             </li>
+
                         </ul>
                     </li>
                 </ul>
-
 
                 <!-- menu lateral -->
                 <div class="navbar-default sidebar" role="navigation">
@@ -128,8 +90,8 @@
                 @yield('modal-body')
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">@lang('master.btn-modal-cerrar')</button>
-                <button type="button" id="btn-save-edit" class="btn btn-primary">@lang('master.btn-modal-guardar')</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" id="btn-save-edit" class="btn btn-primary">Guardar</button>
               </div>
             </div>
           </div>
@@ -137,23 +99,22 @@
 
         <script src="{{asset('js/jquery.min.js')}}"></script>
 
-        <script src="{{asset('js/jquery-ui.min.js')}}"></script>
+	<script src="{{asset('js/jquery-ui.min.js')}}"></script>
         <script src="{{asset('js/jquery.ui.touch-punch.min.js')}}"></script>
 
         <script src="{{asset('js/bootstrap.min.js')}}"></script>
         <script src="{{asset('js/metisMenu.min.js')}}"></script>
         <script src="{{asset('js/master_logged.js')}}?{{rand(10,200)}}"></script>
         <script src="{{asset('js/sweetalert29.js')}}"></script>
+        <script type="text/javascript">
 
-      <script type="text/javascript">
-
-        const CSRF_TOKEN            = "{{csrf_token()}}";
-        const URL_FIJAR_SUCURSAL    = "{{route('fijar_sesion_sucursal')}}";
+        const CSRF_TOKEN = "{{csrf_token()}}";
+        const URL_FIJAR_SUCURSAL = "{{route('fijar_sesion_sucursal')}}";
         const PATRON_LETRAS_NUMEROS = new RegExp('^[A-Za-z0-9\\s]*$');
-        const PATRON_USUARIO        = new RegExp('^[A-Za-z0-9]*$');
-        const PATRON_NUMEROS        = new RegExp('^[0-9]+$');
-        const PATRON_TEXTO          = new RegExp('^[A-Za-z0-9áÁéÉíÍóÓúÚñÑüÜ\\s]*$');
-        const PATRON_EMAIL          = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
+        const PATRON_USUARIO = new RegExp('^[A-Za-z0-9]*$');
+        const PATRON_NUMEROS = new RegExp('^[0-9]+$');
+        const PATRON_TEXTO = new RegExp('^[A-Za-z0-9áÁéÉíÍóÓúÚñÑüÜ\\s]*$');
+        const PATRON_EMAIL = new RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
 
         var selectSucursales= document.getElementById('sucursal');
         if(document.body.contains(selectSucursales)){
@@ -189,6 +150,7 @@
                   window.location = "{{route(Request::route()->getName())}}/"+sucursal+extras_url;
                 }
               });
+
             }
           }
         }
@@ -201,6 +163,7 @@
         {
           document.getElementById('loader').style.display = 'none';
         }
+
         function showModal()
         {
           $('#modal-edit').modal('show');
@@ -216,8 +179,8 @@
             return false;
           }
         }
-
         </script>
+
         @yield('js')
     </body>
 </html>

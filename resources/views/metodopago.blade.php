@@ -21,7 +21,7 @@
 @section('js')
   <script type="text/javascript">
   function resizeIframe(obj) {
-    obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+   obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
   }
   </script>
 

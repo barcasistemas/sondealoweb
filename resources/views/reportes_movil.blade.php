@@ -171,6 +171,8 @@
 			</div>
 		</div>
 
+
+
     <input type="hidden" id="contador-comentarios" value="0"/>
     <input type="hidden" id="contador-encuestas" value="0"/>
     <input type="hidden" id="contador-vendedores" value="0"/>
@@ -181,9 +183,9 @@
     <script src="{{asset('js/sweetalert29.js')}}"></script>
     <script type="text/javascript">
 
-
-		function getChartsVendedorForm()
+function getChartsVendedorForm()
 		{
+
 			if('{{$sucursal}}' != 'bernini'){
 				return;
 			}
@@ -195,7 +197,9 @@
 				'Rango de edades'
 			];
 
-			document.querySelector('.mt-4').innerHTML += '<div class="col-12" style="margin:10px;text-align:center;padding:5px;background-color:black;color:white;">Formulario Vendedor</div>';
+     			document.querySelector('.mt-4').innerHTML += '<div class="col-12" style="margin-top:10px;margin-bottom:10px;text-align:center;padding:5px;background-color:black;color:white;">Formulario Vendedor</div>';
+
+
 
 			for (var k = 1; k <= 4; k++) {
 				document.querySelector('.mt-4').innerHTML += '<div class="col-12"><p class="bg-primary text-white pl-1 pr-1">'+preguntas[k-1]+'</p><canvas id="chart_fv'+k+'"></canvas><div id="label_fv'+k+'" style="margin-top:1rem;display:flex;flex-wrap:wrap;justify-content:space-around;"></div></div>';
@@ -278,9 +282,6 @@
 
 
 
-
-
-
 		function showSpinner()
 		{
 			document.getElementById('spinner').style.display = 'block';
@@ -333,7 +334,8 @@
 
     function generarCharts(arreglo_general)
     {
-			getChartsVendedorForm();
+	getChartsVendedorForm();
+
 
       for (let i = 0; i < arreglo_general.length; i++)
       {
@@ -401,16 +403,16 @@
 			}
 
       fetch("{{route('reporte_movil_comentarios')}}", {
-    method         : 'post',
-    body           : JSON.stringify({
-    "sucursal"     : "{{$sucursal}}",
-    "desde"        : "{{$desde_h}}",
-    "hasta"        : "{{$hasta_h}}",
-    "limite_i"     : contador_comentarios
+        method:'post',
+        body:JSON.stringify({
+          "sucursal" : "{{$sucursal}}",
+          "desde"    : "{{$desde_h}}",
+          "hasta"    : "{{$hasta_h}}",
+          "limite_i" : contador_comentarios
         }),
-    headers        : {
-    'Content-Type' : 'application/json',
-    'X-CSRF-TOKEN' : '{{csrf_token()}}'
+        headers:{
+          'Content-Type':'application/json',
+          'X-CSRF-TOKEN': '{{csrf_token()}}'
         }
       }).then(res => res.json())
       .then(function(response){
@@ -557,9 +559,7 @@
 				}
 			}).then(res => res.json())
 			.then(function(response){
-
 				hideSpinner();
-
 				if(response.status == 200)
 				{
 					document.getElementById('vendedores').innerHTML += response.html;

@@ -12,8 +12,10 @@ use App\Utilidades\ManipularCadenas;
 
 use Session;
 
+
 class EncuestaController extends Controller
 {
+
   public function store(Request $request)
   {
      $validator = Validator::make($request->all(), ['s'=> 'required', 'preguntas'=> 'required' ]);
@@ -21,28 +23,16 @@ class EncuestaController extends Controller
        return response()->json(['status' => 422, 'msg' => 'No valido']);
      }
 
-     $sucursal            = $request->s; 
+     $sucursal            = $request->s;
      $preguntas           = json_decode($request->preguntas);
      $comentario_original = $request->comentario;
      $comentario          = $request->comentario;
      $correo              = $request->correo;
      $mesa                = $request->mesa;
 
+
      $mesero = ($mesa == 'Compartido-Whatsapp') ? 'Whatsapp': 'QR';
-
-
-
-     // ---------------  omitir sucursales demo ------------
-     $sucursales_omitir_guardar = ['quejassugerencias', 'empleadosrh', 'satisfaccioncliente'];
-     if(in_array($sucursal, $sucursales_omitir_guardar)){
-       return response()->json(['status' => 200, 'msg' => 'Encuesta demo guardada con éxito, será redirigido']);
-     }
-
-     // -------------- fin omision de sucursales demo -------------
-
-
-
-
+	
 
 
      /*--------------------------------*/
@@ -54,8 +44,7 @@ class EncuestaController extends Controller
      /*--------------------------------*/
 
 
-
-
+    
      if($request->has('vendedor'))
      {
        $mesero = $request->vendedor;
@@ -66,8 +55,6 @@ class EncuestaController extends Controller
 
      $identificador = 0;
      $query_identificador = Sucursal::where('sucursal', $sucursal)->first();
-
-
      if( ! $query_identificador){
        return abort(404);
      }
@@ -92,13 +79,13 @@ class EncuestaController extends Controller
     $columnas_px   = array('p1', 'p2', 'p3', 'p4', 'p5', 'p6', 'p7', 'recomen', 'p9', 'p10', 'p11', 'p12', 'p13');
     $columnas_eval = array('eval', 'eval2', 'eval3', 'eval4', 'eval5', 'eval6', 'eval7', 'eval8', 'eval9', 'eval10', 'eval11', 'eval12', 'eval13');
 
-
-
-
     /*columnas en las cuales se insertara informacion*/
     $arreglo_columnas_px_insertar   = array_slice($columnas_px, 0, count($preguntas));
     $arreglo_columnas_eval_insertar = array_slice($columnas_eval, 0, count($preguntas));
 
+    /*de arreglo a cadena*/
+//    $str_columnas_px_insertar   = implode(',', $arreglo_columnas_px_insertar);
+//    $str_columnas_eval_insertar = implode(',', $arreglo_columnas_eval_insertar);
 
     $str_columnas_px_insertar   = (count($arreglo_columnas_px_insertar)  >0) ? implode(',', $arreglo_columnas_px_insertar) : 'p1';
     $str_columnas_eval_insertar = (count($arreglo_columnas_eval_insertar)>0) ? implode(',', $arreglo_columnas_eval_insertar):'eval';
@@ -141,9 +128,12 @@ class EncuestaController extends Controller
     $promedio_general = ($contador > 0) ? $sumador / $contador : 0;
 
     /*los valores que vamos a insertar los pasamos a str*/
+//    $str_valores_px   = implode(',', $arreglo_valores_px);
+//    $str_valores_eval = implode(',', $arreglo_valores_eval);
 
     $str_valores_px   = (count($arreglo_valores_px) > 0)   ? implode(',', $arreglo_valores_px) : 'null';
     $str_valores_eval = (count($arreglo_valores_eval) > 0) ? implode(',', $arreglo_valores_eval) : 0;
+
 
 
 
@@ -161,9 +151,6 @@ class EncuestaController extends Controller
       $comentario = "\"\"";
     }
 
-
-
-
     $insert = DB::insert("INSERT INTO calificaciones (folio, mesa, mesero, cliente, repartidor, $str_columnas_px_insertar, comentarios, fecha, fecha2, correo, $str_columnas_eval_insertar, fec, identificador, sucursal)
     VALUES ('$folio', '$mesa', '$mesero', 'null', 'null', $str_valores_px, '$comentario', '$fecha', '$fecha2', '$correo', $str_valores_eval, '$fec', $identificador, '$sucursal')");
 
@@ -178,31 +165,29 @@ class EncuestaController extends Controller
 
 
     /* ---------------------- verificamos si el request tiene imagenes ------------------- */
-    $tiene_evidencia = false;
 
+    $tiene_evidencia = false;   
+  
     $id_encuesta_reciente = DB::table('calificaciones')->select('id')
-    ->where(['sucursal' => $sucursal])->orderBy('id', 'DESC')->first()->id;
+      ->where(['sucursal' => $sucursal])->orderBy('id', 'DESC')->first()->id;
 
     if($request->hasFile('file1') or $request->hasFile('file2'))
-    {
-      $tiene_evidencia = true;
+    { 
 
+      $tiene_evidencia = true;   
       $nombre_ev1 = '';
       $nombre_ev2 = '';
-
+	
       $url_ev1 = '';
       $url_ev2 = '';
 
       if($request->hasFile('file1'))
       {
-
         $img1 = $request->file('file1');
         $arr_extension = explode('.',$request->file1->getClientOriginalName());
         $extension = $arr_extension[count($arr_extension)-1];
         $nombre_ev1 = $id_encuesta_reciente.'_e1_'.random_int(100, 500).'.'.$extension;
-
         $url_ev1 =  'https://sondealo.com/sitio/images/evidencia/'.$nombre_ev1;
-
         $img1->move(public_path().'/images/evidencia/', $nombre_ev1);
       }
 
@@ -212,9 +197,7 @@ class EncuestaController extends Controller
         $arr_extension2 = explode('.',$request->file2->getClientOriginalName());
         $extension2 = $arr_extension2[count($arr_extension2)-1];
         $nombre_ev2 = $id_encuesta_reciente.'_e2_'.random_int(501, 999).'.'.$extension2;
-
         $url_ev2 = 'https://sondealo.com/sitio/images/evidencia/'.$nombre_ev2;
-
         $img2->move(public_path().'/images/evidencia/', $nombre_ev2);
       }
 
@@ -223,14 +206,13 @@ class EncuestaController extends Controller
         'ruta_evidencia_1' => $url_ev1,
         'ruta_evidencia_2' => $url_ev2
       ]);
+
     }
 
-    /* ----------------------------- fin de img evidencia ---------------------------------------*/
 
     /* -----------------------se inicia proceso para enviar notificacion ----------------------- */
-
-    $tokens = array();
-    //en caso de tener en 1 las notificacion_comentario cada vez que alguien contesta una encuesta se manda notificacion en automatico
+   $tokens = array();
+   //en caso de tener en 1 las notificacion_comentario cada vez que alguien contesta una encuesta se manda notificacion en automatico
     if($query_identificador->notificacion_comentario == 1)
     {
         /*traemos los token del la BD*/
@@ -292,8 +274,12 @@ class EncuestaController extends Controller
        }
     }
 
+
     /* ------------------------ fin de if comentario != '' ------------------------------- */
 
+
+
+    
     /* ------------------------Enviar cupon si proporciona correo ---------------------------- */
 
     if(trim($correo) != '')
@@ -306,10 +292,13 @@ class EncuestaController extends Controller
       curl_exec($ch);
       curl_close($ch);
     }
+
     return response()->json(['status' => 200, 'msg' => 'Encuesta guardada con éxito, será redirigido']);
+
   }
 
-  public function cambiarEstado(Request $request)
+
+    public function cambiarEstado(Request $request)
   {
     $validator = Validator::make($request->only('key'), ['key' => 'required|integer|min:1']);
     if($validator->fails()){
@@ -322,13 +311,15 @@ class EncuestaController extends Controller
 
     if(! in_array( mb_strtolower( $sucursal, 'UTF-8' ), $arreglo_sucursales_no_expira_sucursal) ){
       DB::table('estadoencuestaPrueba')->where('id', $request->key)->update(['estado' => 'inactivo']);
-    }
+    }    
+
 
     return response()->json(['status' => 200, 'msg' => 'success']);
+
   }
 
-
-
+  
+  
   public function personalizar(Request $request)
   {
 
@@ -361,6 +352,9 @@ class EncuestaController extends Controller
     }
     return response()->json(['status' => 200, 'msg' => 'Cambios realizados con éxito']);
   }
+
+
+
 
 
 }

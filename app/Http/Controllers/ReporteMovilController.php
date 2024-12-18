@@ -26,6 +26,9 @@ class ReporteMovilController extends Controller
         return response()->json(['status' => 204, 'msg' => '<div class="alert alert-info" role="alert">Sin información</div>']);
       }
 
+
+
+
       $promedios_preguntas = PreguntaController::preguntasPromedios($request->sucursal, $request->desde_h, $request->hasta_h);
 
       $info_charts = PreguntaController::getInfoCharts($request->sucursal, $request->desde_h, $request->hasta_h);
@@ -34,12 +37,12 @@ class ReporteMovilController extends Controller
       ->whereRaw("fec2 BETWEEN '$request->desde_h' AND '$request->hasta_h' AND sucursal='$request->sucursal'")->first()->nocontestadas;
 
 
-      $logo_url = DB::table('logoimagen')->select('ruta')->where('sucursal', $request->sucursal)->first()->ruta;
+     $logo_url = DB::table('logoimagen')->select('ruta')->where('sucursal', $request->sucursal)->first()->ruta;
       $logo_url_arr = explode('/', $logo_url);
       $logo = $logo_url_arr[count($logo_url_arr)-1];
 
 
-      $promedio_tabla = (count($promedios_preguntas)>0) ? $promedios_preguntas[0]->promedios : 0 ;
+     $promedio_tabla = (count($promedios_preguntas)>0) ? $promedios_preguntas[0]->promedios : 0 ;
 
 
       $html_general =
@@ -142,8 +145,8 @@ class ReporteMovilController extends Controller
       {
         if(substr($comentarios[$i]->comentarios, 0, 1) == '"')
         {
-          $comentarios[$i]->comentarios = str_replace(['<', '>'],' ', $comentarios[$i]->comentarios);
 
+          $comentarios[$i]->comentarios = str_replace(['<', '>'],' ', $comentarios[$i]->comentarios);
           $comentario = ManipularCadenas::decodeEmoticons($comentarios[$i]->comentarios);
           $comentarios[$i]->comentarios = substr($comentario, 1, -1);
         }
@@ -165,6 +168,7 @@ class ReporteMovilController extends Controller
         <div class="mb-3 '.$css.'" style="width:100%;padding:2px;">
         '.$comentarios[$i]->comentarios.'
         </div>';
+
       }
 
       $html .= '<button class="btn btn-primary btn-sm btn-block" id="btn-mas-comentarios">Cargar mas comentarios</button>';
@@ -193,7 +197,7 @@ class ReporteMovilController extends Controller
       ->whereRaw("sucursal = '$sucursal' AND valor != 2")->orderBy('id', 'ASC')->get();
       $size_preguntas = count($preguntas);
 
-      $arr_campos_calificaciones = array_slice(self::$columnas_calificaciones_p , 0, $size_preguntas);
+      $arr_campos_calificaciones =  array_slice(self::$columnas_calificaciones_p , 0, $size_preguntas);
       $str_campos_calificaciones = implode(',' , $arr_campos_calificaciones);
 
       $select_raw = "id, fecha, folio, mesa, mesero, $str_campos_calificaciones , correo, comentarios";
@@ -219,8 +223,9 @@ class ReporteMovilController extends Controller
           <tr><td>Mesero</td><td>'.$encuestas[$i]->mesero.'</td></tr>';
 
 
+	
 
-          /*si la sucursal es bernini agregamos la infomacion de la tabla formulario_vendedor*/
+         /*si la sucursal es bernini agregamos la infomacion de la tabla formulario_vendedor*/
 
 
           if($sucursal == 'bernini')
@@ -229,7 +234,7 @@ class ReporteMovilController extends Controller
             ->where('id_encuesta', $encuestas[$i]->id)->first();
 
             if( ! $info_form_vendedor){
-              $html .= '<tr><td colspan="2" style="background-color:rgba(255,0,0,0.1);">Sin información capturada por mesero</td></tr>';
+              $html .= '<tr><td colspan="2" style="background-color:rgba(255,0,0,0.1);">Sin información adicional capturada por vendedor</td></tr>';
             }
             else
             {
@@ -240,6 +245,8 @@ class ReporteMovilController extends Controller
             }
           }
           /*---------------------------------------------------------------------------------*/
+
+
 
 
 
@@ -272,12 +279,9 @@ class ReporteMovilController extends Controller
             $html .= '<tr><td colspan="2"><button data-url1="'. $check_evidencia->ruta_evidencia_1.'"
               data-url2="'. $check_evidencia->ruta_evidencia_2.'" class="btn btn-danger btn-block" data-btnevidencia="true">Evidencia</button></td></tr>';
           }
-
-
           $html .= '</tbody></table>';
       }
       $html .= '<button class="btn btn-primary btn-sm btn-block" id="btn-mas-encuestas">Mas encuestas</button></div></div>';
-
       return response()->json(['status'=> 200, 'msg' => 'success', 'html'=> $html]);
     }
 
@@ -355,13 +359,15 @@ class ReporteMovilController extends Controller
         ->whereRaw("meseros='".$arreglo_promedios[$j]->vendedor."' AND sucursal='$sucursal' AND fec2 BETWEEN '$desde' AND '$hasta' ")
         ->first()->nocontestadas;
 
-        $promedio_vendedor = ($contador > 0) ? $sumador / $contador : 0;
+
+	$promedio_vendedor = ($contador > 0 ) ? $sumador/$contador : 0;
 
         $html .= '<tr><td>Contestadas</td><td>'.$arreglo_promedios[$j]->contestadas.'</td></tr>
                  <tr><td>No contestadas</td><td>'.$no_contestadas.'</td></tr>
                  <tr><td>Promedio</td><td>'.number_format($promedio_vendedor, 2, '.', '').'</td></tr></tbody></table>';
       }
       return response()->json(['status' => 200, 'msg' => 'success', 'html' => $html]);
+
     }
 
     public function encuestaDetalle(Request $request)
@@ -397,14 +403,14 @@ class ReporteMovilController extends Controller
       <tr><td>Mesero</td><td>'.$encuesta->mesero.'</td></tr>';
 
 
-      /*----------------------------------------------------------*/
+     /*----------------------------------------------------------*/
       if($sucursal == 'bernini')
       {
         $info_form_vendedor = DB::table('formulario_vendedor')
         ->where('id_encuesta', $encuesta_id)->first();
 
         if( ! $info_form_vendedor){
-          $html .= '<tr><td colspan="2" style="background-color:rgba(255,0,0,0.1);">Sin información capturada</td></tr>';
+          $html .= '<tr><td colspan="2" style="background-color:rgba(255,0,0,0.1);">Sin información adicional capturada por vendedor</td></tr>';
         }
         else
         {
@@ -415,6 +421,13 @@ class ReporteMovilController extends Controller
         }
       }
       /*----------------------------------------------------------*/
+
+
+
+
+
+
+
 
 
 
@@ -498,13 +511,15 @@ class ReporteMovilController extends Controller
           }
         }
       }
+
       if($contador == 0){
         return response()->json(['status' => 200, 'msg' => 'success', 'html' => 'Sin información']);
       }
       return response()->json(['status' => 200, 'msg' => 'success', 'html' => $html]);
     }
 
-    public function promedioSucursales($usuario, $token)
+
+   public function promedioSucursales($usuario, $token)
     {
 
       $info_usuario = DB::table('registros')->select('poder', 'identificador', 'sucs')->where('usuario', $usuario)->first();
@@ -548,14 +563,14 @@ class ReporteMovilController extends Controller
         WHERE sucursal_prom ='$sucursal' AND fecha_reg BETWEEN '$fecha_desde' AND '$fecha_hasta'
         UNION ALL (SELECT badge from notificaciones where sucursal='$sucursal' AND token ='$token')"));
 
-        if( count($info_promedio) == 1 ){
+	if( count($info_promedio) == 1 ){
           return response()->json('El token no existe', 422);
         }
+
 
         $ruta_logo = DB::table('logoimagen')->select('ruta')->where('sucursal', $sucursal)->first()->ruta;
         $arr_ruta_logo = explode('/', $ruta_logo);
         $logo_ruta = 'https://sondealo.com/sitio/images/logo/'.$arr_ruta_logo[count($arr_ruta_logo)-1];
-
 
         $badge = ($info_promedio[1]->promedio < 1) ? 0 : number_format($info_promedio[1]->promedio, 0, '.', '');
 
@@ -568,8 +583,10 @@ class ReporteMovilController extends Controller
       }
       return response()->json($arreglo_final, 200);
     }
+   
 
-    public function getInfoChartsFormularioVendedor(Request $request)
+
+	 public function getInfoChartsFormularioVendedor(Request $request)
     {
       $arreglo_campos = ['p1', 'p2', 'p3', 'p4', 'p5'];
 
@@ -580,19 +597,24 @@ class ReporteMovilController extends Controller
         $info = DB::table(DB::raw("formulario_vendedor, calificaciones"))
         ->selectRaw("formulario_vendedor.".$arreglo_campos[$i].", count(*) as 'conteo'")
         ->whereRaw("calificaciones.sucursal ='$request->sucursal' AND  calificaciones.fec between '$request->desde' AND '$request->hasta'
-        AND formulario_vendedor.p1 != '' AND formulario_vendedor.id_encuesta = calificaciones.id GROUP BY ".$arreglo_campos[$i])->get();
+        AND formulario_vendedor.p1 != '' AND  formulario_vendedor.id_encuesta = calificaciones.id GROUP BY ".$arreglo_campos[$i])->get();
 
         if(count($info) > 0)
         {
           if($info[0]->{$arreglo_campos[$i]} != '')
           {
+
             $arreglo_labels = [];
             $arreglo_valores = [];
+
+
 
             for ($j=0; $j < count($info); $j++)
             {
               $arreglo_valores[] = $info[$j]->conteo;
               $arreglo_labels[] = $info[$j]->{$arreglo_campos[$i]};
+              //.' - '.$multiplicador*$info[$j]->conteo;
+
             }
 
             $suma = array_sum($arreglo_valores);
@@ -603,18 +625,26 @@ class ReporteMovilController extends Controller
 
               $arreglo_labels[$k] = $arreglo_labels[$k].", $porcentaje%";
             }
+
+
+
+
             $arreglo_final[] = ['pregunta' => ($i+1) ,'labels' => $arreglo_labels, 'valores' => $arreglo_valores];
 
           }
         }
+
       }
+
       return response()->json($arreglo_final);
+
+
     }
 
 
 
-    public function getHtmlAlertas(Request $request)
-    {
+	public function getHtmlAlertas(Request $request)
+    	{ 
       $html = '<div class="col-12 text-center header pt-2">';
 
       $rutaImg = DB::table('logoimagen')->select('ruta')->where('sucursal', $request->sucursal)->first();
@@ -636,7 +666,7 @@ class ReporteMovilController extends Controller
 
       $strCamposFijos      = "id, fec, folio, mesa, mesero, comentarios, correo,";
 
-			$alertas = DB::select(DB::raw("SELECT $strCamposFijos $strCamposDinamicos FROM calificaciones
+			$alertas = DB::select(DB::raw("SELECT $strCamposFijos $strCamposDinamicos FROM calificaciones 
       WHERE sucursal='$request->sucursal'  AND comentarios !='' AND comentarios!= '\"\"' ORDER BY id DESC LIMIT 50"));
 
       if(count($alertas) < 1){
@@ -647,8 +677,8 @@ class ReporteMovilController extends Controller
 
       $html .= '<div class="col-12">';
 
-      for ($i=0; $i < count($alertas); $i++)
-      {
+      for ($i=0; $i < count($alertas); $i++) 
+      { 
         $comentario  = $alertas[$i]->comentarios;
 
         if(ManipularCadenas::buscarAlerta($comentario))
@@ -661,7 +691,7 @@ class ReporteMovilController extends Controller
                   .'<tr><td>Ubicación</td><td>'.$alertas[$i]->mesa.'</td></tr>'
                   .'<tr><td>Colaborador</td><td>'.$alertas[$i]->mesero.'</td></tr>';
 
-          for ($j = 0; $j < $sizeArrPreguntas; $j++)
+          for ($j = 0; $j < $sizeArrPreguntas; $j++) 
           {
             $pregunta = $preguntas[$j]->pregunta;
 
@@ -674,24 +704,33 @@ class ReporteMovilController extends Controller
 
           $html .= '<tr><td>Correo</td><td>'.$alertas[$i]->correo.'</td></tr>'
                   . '<tr><td>Comentarios</td><td class="alerta">'.ManipularCadenas::decodeEmoticons($comentario).'</td></tr>';
-
+          
           $check_evidencia = DB::table('evidencia')->where('id_encuesta', $alertas[$i]->id)->first();
 
           if($check_evidencia){
-
+            
             $ev1 = ($check_evidencia->ruta_evidencia_1 != '') ? 'https://sondealo.com/sitio/images/evidencia/' . substr($check_evidencia->ruta_evidencia_1, 44) : '';
             $ev2 = ($check_evidencia->ruta_evidencia_2 != '') ? 'https://sondealo.com/sitio/images/evidencia/' . substr($check_evidencia->ruta_evidencia_2, 44) : '';
-
+  
             $html .= '<tr>'
                     .'<td colspan="2">'
                     .'<button data-url1="'.$ev1.'" data-url2="'.$ev2.'" data-btnevidencia="true" class="btn btn-sm btn-danger col-12 evidencia">Evidencia</button>'
                     .'</td>'
                     .'</tr>';
           }
+
           $html .= '</table>';
-        }
+
+        }        
       }
       $html .= '</div>';
+
       return response()->json(['html'=>$html]);
+
     }
+
+
+
+
+
 }

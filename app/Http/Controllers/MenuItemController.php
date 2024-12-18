@@ -14,9 +14,8 @@ class MenuItemController extends Controller
     public function storeCategoria(Request $request)
     {
         $validator = Validator::make($request->only('name_categoria'),[
-            'name_categoria' => 'required|string|max:30',
+            'name_categoria' => 'required|string|max:30'
         ]);
-
         if($validator->fails()){
             return back()->withErrors(['msg_error' => 'Valores no validos']);
         }
@@ -41,9 +40,10 @@ class MenuItemController extends Controller
         $validator = Validator::make($request->all(), [
             'name'      => 'required|string|max:30',      
             'categoria' => 'required|integer|min:1',           
-            'image'     => 'required|image|mimes:jpg,png,jpeg|max:256',      
+            'image'     => 'required|image|mimes:jpg,png,jpeg|max:256',
             'ingredientes' => 'required|string|max:255',           
-            'precio'       => 'required|numeric|min:1'   
+            'precio'       => 'required|numeric|min:1' 
+       
         ]);
         if($validator->fails()){
             return back()->withErrors(['msg_error' => 'Valores no validos']);
@@ -51,8 +51,8 @@ class MenuItemController extends Controller
 
         $insertItem = MenuItem::create([
             "id_categoria" => $request->categoria, 
-            "nombre"       => $request->name,
-            "ingredientes"  => $request->ingredientes,
+            "nombre" => $request->name,
+           "ingredientes"  => $request->ingredientes,
             "precio"        => $request->precio
         ]);
 
@@ -123,8 +123,8 @@ class MenuItemController extends Controller
 
     }
 
-
-    public function get($id)
+    
+   public function get($id)
     {
         if(!is_numeric($id)){
             return response()->json([
@@ -196,5 +196,9 @@ class MenuItemController extends Controller
 
 
     }
+
+
+
+
 
 }
