@@ -125,7 +125,7 @@ Perfil Menú
               </label>
             
               <label></label>
-            <input type="file" name="btn-save-urls" id="btn-save-urls" class="btn btn-sm btn-primary" style="float: right;">+ Agregar Imagen</button>
+            <input type="file" name="btn-save-urls" id="btn-save-logo" class="btn btn-sm btn-primary" style="float: right;">+ Agregar Imagen
 
             <h4 style="width:100%;">Idiomas</h4>
             <label class="switch-categoria">Español</label>

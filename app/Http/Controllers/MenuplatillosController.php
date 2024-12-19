@@ -53,12 +53,12 @@ class MenuplatillosController extends Controller
         $precio_platillo = $request['precio_platillo'];
         $recomen_platillo = $request['recomen_platillo'];
         $url_video = $request['url_video'];
-        $id_item = $request['id_platillo'];
-        $url_img = "https://www.sondealo.com/sitio/images/menu/".$sucursal."_".$id_item.".jpg";
+      //  $id_item = $request['id_platillo'];
+      //  $url_img = "https://www.sondealo.com/sitio/images/menu/".$sucursal."_".$id_item.".jpg";
 
         MenuItem::insert(['id_categoria' => $id_categoria, 'nombre' => $nombre_platillo, 'precio' => $precio_platillo , 'ingredientes' => $ingredientes_platillo, 'recomen' => $recomen_platillo, 'url_video' => $url_video]);
 
-        MenuitemImage::insert(['id_item' => $id_item, 'ruta_servidor' => $url_img]);
+       // MenuitemImage::insert(['id_item' => $id_item, 'ruta_servidor' => $url_img]);
 
         return back();
     }

@@ -1413,7 +1413,10 @@ class ViewController extends Controller
     $state_cat = [];
 
     for($itc = 1; $itc <= 12; $itc++){
-      $catego_name = DB::table('categorias_menu')->select('nombre','state', 'id_video', 'video_switch')->where('id_interno',$itc)->first();
+      $catego_name = DB::table('categorias_menu')->select('nombre','state', 'id_video', 'video_switch')
+      ->where('id_interno',$itc)
+      ->where('sucursal', Session::get('sucursal_fijada'))
+      ->first();
        if($catego_name){
          $name_cat[$itc-1] = $catego_name->nombre;
          $state_cat[$itc-1] = $catego_name->state;

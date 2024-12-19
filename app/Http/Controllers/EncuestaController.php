@@ -37,11 +37,7 @@ class EncuestaController extends Controller
      if(in_array($sucursal, $sucursales_omitir_guardar)){
        return response()->json(['status' => 200, 'msg' => 'Encuesta demo guardada con éxito, será redirigido']);
      }
-
      // -------------- fin omision de sucursales demo -------------
-
-
-
 
 
 
@@ -52,8 +48,6 @@ class EncuestaController extends Controller
        $mesa = 0;
      }
      /*--------------------------------*/
-
-
 
 
      if($request->has('vendedor'))

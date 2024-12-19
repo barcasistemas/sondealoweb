@@ -5,15 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class MenuitemImage extends Model
+class LogoImagen extends Model
 {
     use HasFactory;
-    protected $table      = 'menu_imagenes_items';
+    protected $table      = 'logoimagen';
     protected $primaryKey = 'id';
     public $timestamps    = false;
    
     protected $fillable = [
-        "id_item", 
-        "ruta_servidor"
+        "nombre", 
+        "ruta", 
+        "identificador", 
+        "ruta2",
+        "sucursal"
     ];
 }

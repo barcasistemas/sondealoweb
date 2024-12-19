@@ -322,13 +322,25 @@ class SucursalController extends Controller
     }
 
     /*traemos las preguntas*/
-    $preguntas = Pregunta::select('id', 'pregunta','valor', 'valor2','textos')
+    $preguntas = Pregunta::select('id', 'pregunta','valor', 'valor2','textos', 'valordos','pregunta_en', 'textos_en')
     ->whereRaw("sucursal ='".$request->sucursal."' AND valor != 2")->orderBy('id', 'ASC')->get();
     $info_sucursal->preguntas = $preguntas;
 
     /*traemos las promociones*/
     $promociones = DB::table('promodia')->select('ruta')->where('sucursal' , $request->sucursal)->orderBy('id', 'ASC')->limit(5)->get();
     $info_sucursal->promociones = $promociones;
+
+    /*traemos los cupones*/
+    $cupones = DB::table('promoimagen')->select('ruta')->where('sucursal' , $request->sucursal)->orderBy('id', 'ASC')->limit(5)->get();
+    $info_sucursal->cupones = $cupones;
+
+    /* traemos los valores */
+    $valores = DB::table('valores')->select('valor')-where('sucursal', $request->sucursal)->orderBy('id,'ASC)->get();
+    $info_sucursal->valores = $valores;
+
+    /* traemos el logo  */
+    $logo = DB::tabe('logoimagen')->select('ruta')->where('sucursal' , $request->sucursal)->orderBy('id', 'ASC')->get();
+    $info_sucursal->logo = $logo;
 
     $vendedores = array();
     /*si la sucursal no es de tipo para llevar consultamos los vendedores*/

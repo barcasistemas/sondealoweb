@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Menu;
+use App\Models\LogoImagen;
 use Session;
 use Validator;
 
@@ -113,6 +114,8 @@ class MenuperfilController extends Controller
         $tiktokurl = $request['url_tiktok'];
         $facebookurl = $request['url_facebook'];
         $whatsappurl = $request['num_whatsapp'];
+        $url_ruta_logo = "logo/logos"+$nom_sucursal+".png";
+        $img_logo = $_FILES['btn-save-logo']['name'];
 
 
         $sucursal = Session::get('sucursal_fijada');
@@ -155,6 +158,11 @@ class MenuperfilController extends Controller
         'insta_url' => $instaurl,
         'tiktok_url' => $tiktokurl,
         'facebook_url' => $facebookurl]); 
+
+        move_uploaded_file($_FILES['btn-save-logo']['tmp_name'],$url_ruta_logo);
+
+        LogoImagen::where('logoimagen', '=', $sucursal)->update(['ruta' => $url_ruta_logo]);
+
         return back();
     }
 
