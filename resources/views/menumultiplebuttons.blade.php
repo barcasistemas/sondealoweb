@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Menú -{{$sucursal}}</title>
+    <title>Menu {{$sucursal}}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style type="text/css">
         @import url('https://fonts.cdnfonts.com/css/athelas');
@@ -64,7 +64,7 @@
             max-width: 400px;
             transition: all 0.5s;
         }
-        a.link-menu:hover{
+         a.link-menu:hover{
             border:2px solid #D6AF46;
             color: #D6AF46;
             background-color: #fff;
@@ -89,6 +89,7 @@
         a.link-social:nth-child(1){
             padding: 0.8rem 1rem!important;
         }
+
     </style>
 </head>
 <body>
@@ -99,13 +100,16 @@
         </div>
     </header>
 
+
     <div class="container">
 
         <img class="bienvenido" src="{{asset('images/moric_bienvenidos.png')}}"/>
         <p class="text-center bienvenido">Elige el menú que deseas consultar</p>
 
         @forelse ($arreglo_enlaces as $col => $val)
-            <a href="{{$val}}" class="link-menu text-center" target="_blank">{{mb_strtoupper($col, 'UTF-8')}}</a>            
+
+            <a href="{{$val}}" class="link-menu text-center" target="_blank">{{mb_strtoupper($col, 'UTF-8')}}</a>
+            
         @empty
             Sin info
         @endforelse
@@ -116,7 +120,9 @@
             <a href="tel:8717933027" target="_blank" class="link-social fa-solid fa-phone"></a>
         </div>
 
-    </div>
 
+
+    </div>
+    
 </body>
 </html>

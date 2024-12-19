@@ -171,11 +171,11 @@ class VendedorController extends Controller
         ->whereRaw("meseros='".$arreglo_promedios[$j]->vendedor."' AND sucursal='$sucursal' AND fec2 BETWEEN '$desde' AND '$hasta' ")
         ->first()->nocontestadas;
 
-        $promedio_vnd = ($contador > 0) ? $sumador / $contador : 0;
+	$promedio_vnd = ($contador > 0) ? $sumador / $contador : 0;
 
         $arreglo_index['Contestadas']    = $arreglo_promedios[$j]->contestadas;
         $arreglo_index['No contestadas'] = $no_contestadas;
-        $arreglo_index['Promedio']       = number_format($promedio_vnd, 2, '.', '');
+        $arreglo_index['Promedio']       = number_format($promedio_vnd , 2, '.', '');
 
         array_push($arreglo_return, $arreglo_index);
       }
@@ -183,7 +183,4 @@ class VendedorController extends Controller
       return response()->json(['status' => 200, 'msg' => 'success', 'info' => $arreglo_return]);
 
     }
-
-
-
 }

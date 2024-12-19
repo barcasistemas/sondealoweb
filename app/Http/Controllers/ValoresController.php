@@ -17,35 +17,22 @@ class ValoresController extends Controller
         'correo'       => 'required|min:0|max:1',
         'comentario'   => 'required|min:0|max:1',
         'suc'          => 'required|string',
-
-
-        'mover_top'      => 'required|min:0|max:1',
+	'mover_top'      => 'required|min:0|max:1',
         'siempre_alerta' => 'required|min:0|max:1'
-
-      ]);
-
+        ]);
 
         if($validator->fails()){
           return response()->json(['status'=> 422, 'msg' => 'No valido']);
         }
 
-       $sucursal = mb_strtolower(session()->get('sucursal_fijada'), 'UTF-8');
-
-
-
-
-
-
+        $sucursal = mb_strtolower(session()->get('sucursal_fijada'), 'UTF-8');
+       
        $id_sucursal = DB::table('sucursales')->select('id')->where('sucursal', $sucursal)->first()->id;
 
        DB::table('sucursales')->where('id', $id_sucursal)->update([
          'notificacion_comentario' => $request->siempre_alerta,
          'emailcomentarios_top'    => $request->mover_top
        ]);
-
-
-
-
 
 
         DB::table('valores')->where(['sucursal' => $sucursal, 'id' => 1 ])->update([
@@ -100,3 +87,4 @@ class ValoresController extends Controller
         return response()->json(['status' => 200, 'msg' => 'Valores actualizados con éxito']);
     }
 }
+

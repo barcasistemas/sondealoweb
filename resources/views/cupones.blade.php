@@ -31,15 +31,14 @@
   </div>
 
   <div id="contenedor-cupones">
-
-    @php
+   @php
      $limite = ( Session::get('plan') == 2 ) ? 2 : 5 ;
      $it=0;
-    @endphp
+    @endphp	
+
 
     @foreach ($cupones as $cupon)
-
-      @if($it >= $limite)
+       @if($it >= $limite)
         <div class="contenedor-cupon" style="border:1px solid #000000;height:220px;">
           <div class="alert alert-danger" role="alert">
             Actualiza tu plan para agregar más cupones

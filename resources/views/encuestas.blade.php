@@ -12,69 +12,59 @@
   <div class="contenedor-superior">
     {!!$sucursales_html!!}
     <div class="container-form-add">
-
     </div>
   </div>
 
   {{-- MOSTRAR SOLO CUANDO Session::get('int_tour') == 1
   aparecera solo cuando la variable de sesion de tour este habilitada (cuenta nueva) --}}
   @if(Session::get('int_tour') == 1)
-    <div class="alert alert-success" role="alert" style="font-size:2rem;">
-      <span class="tour-span" ><strong>Paso 2.</strong></span>
+    <div class="alert alert-success" role="alert">
+      <span class="tour-span">Paso 2.</span>
         Configura las preguntas de tu encuesta
         <label class="tour-links-container">
-          <a class="tour-link" data-toggle="tooltip" data-placement="top" title="Da clic aquí para continuar " href="{{route('generar_qr_encuesta_mesa')}}">Ver código QR de la encuesta <span class="fa fa-arrow-right"></span></a>
+          <a class="fa fa-arrow-left tour-link" href="{{route('mostrar_sucursales')}}"></a>
+          <a class="fa fa-arrow-right tour-link" href="{{route('vendedores')}}"></a>
        </label>
     </div>
   @endif
   {{-- /////////////////////////////////////////////////////////////////////////////  --}}
 
   @if(count($arr_preguntas) > 0)
-
     <div class="contenedor-preview" id="contenedor-preview">
 
-        <div style="padding:10px 0;">
-          <table class="table table-sm">
-            <tr>
-              <td colspan="2" class="text-center">COLORES</td>
-            </tr>
-            <tr>
-              <td class="text-center" colspan="2">
-                Header
-                <input type="color" id="color-header"  class="inputs-color" value="{{$colorHeader}}"/>
-              </td>
-              <td class="text-center" style="display:none;">
-                Header texto
-                <input type="color" id="color-text-header" class="inputs-color"  value="{{$colorHeaderText}}"/>
-              </td>
-            </tr>
-          </table>
-        </div>
+       <div style="padding:10px 0;">
+        <table class="table table-sm">
+          <tr>
+            <td colspan="2" class="text-center">COLORES</td>
+          </tr>
+          <tr>
+            <td class="text-center" colspan="2">
+              Header
+              <input type="color" id="color-header"  class="inputs-color" value="{{$colorHeader}}"/>
+            </td>
+            <td class="text-center" style="display:none;">
+              Header texto
+              <input type="color" id="color-text-header" class="inputs-color"  value="{{$colorHeaderText}}"/>
+            </td>
+          </tr>
+        </table>
+      </div>
+
+
+
       <span id="window-close-icon" class="fa fa-window-close"></span>
-      <iframe id="preview-frame" src="/preview/{{$sucursal_url.'?'.rand(100,900)}}"></iframe>
+      <iframe id="preview-frame" src="/sitio/preview/{{$sucursal_url.'?'.rand(100,900)}}"></iframe>
     </div>
   @endif
 
   <div class="contenedor-encuesta" id="contenedor-encuesta">
 
     @if(count($arr_preguntas) > 0)
+     
+     
 
-      {{-- inicio formatos predeterminados --}}
-      {{-- <div>
-        <h5 style="color:blue; text-decoration:underline;">Plantillas de encuestas recomendadas según tipo de negocio</h5>
-        <select class="form-control form-control-sm" id="select-aplicar-plantilla" size="3"
-        style="">
-          @foreach ($keys_plantillas as $col => $v)
-            <option style="display:inline-block;text-transform:capitalize;" value="{{$col}}" class="{{$v['icono']}}">  {{str_replace('-', ' ', $col )}} </option>
-            <br/>
-          @endforeach
-        </select>
-      </div> --}}
-      {{-- fin formatos predeterminados --}}
-
-
-      <div>
-        <h5 style="color:gray">Plantillas de encuestas recomendadas según tipo de negocio</h5>
+       <div>
+        <h5 style="color:gray;">Plantillas de encuestas recomendadas según tipo de negocio</h5>
         <div style="width:100%;padding:5px;display:flex;justify-content:space-between;flex-wrap:wrap;">
           @foreach ($keys_plantillas as $col => $v)
             <button style="padding:1rem;background-color:transparent;color:#4785ef;border:2px solid #4785ef;border-radius: 5px;text-transform:capitalize;"
@@ -84,32 +74,32 @@
       </div>
 
 
-    <h4 style="width:100%;">
-      Logotipo
-       <a id="enlace-vista-previa" href="#preview">Vista previa de encuesta</a>
-    </h4>
-    <div  {{-- class="no-pointer" --}}  >
-     @if(Session::get('plan') == 2)
-        <div class="alert alert-danger" role="alert">Actualiza tu plan para cambiar tu logo</div>
-     @endif
-     <label id="lb-logo" for="inp-img-logo">
+
+
+
+
+
+
+    <h4 style="width:100%;">Logotipo <a id="enlace-vista-previa" href="#preview">Vista previa de encuesta</a></h4>
+    <div class="">
+      
+      @if(Session::get('plan') == 2)
+        <div class="alert alert-danger" role="alert"> [Actualiza tu plan para cambiar tu logo] </div>
+      @endif
+
+      <label id="lb-logo" for="inp-img-logo">
        @if(Session::get('plan') != 2)<input type="file" id="inp-img-logo" data-id="{{$logo_info->id}}"/>@endif
-       <img src="{{asset('images/logo/'.$logo_info->ruta)}}" />
-       @if(Session::get('plan') != 2)<span>Cambiar logo</span>@endif
-     </label>
+        <img src="{{asset('images/logo/'.$logo_info->ruta)}}" />
+       @if(Session::get('plan') != 2) <span>Cambiar logo</span> @endif
+      </label>
     </div>
 
 
 
-   
-
-
-
-
     <!-- inicio preguntas -->
-    <h4 style="width:100%;" class="sondealo-text-color">Encuesta <button id="btn-save-reorder" class="btn btn-primary btn-sm">Guardar reorden de preguntas</button></h4>
+    <h4 style="width:100%;" class="sondealo-text-color" >Encuesta <button id="btn-save-reorder" class="btn btn-primary btn-sm">Guardar reorden de preguntas</button></h4>
 
-    <div class="contenedor-preguntas {{-- no-pointer --}}" id="contenedor-preguntas">
+    <div class="contenedor-preguntas" id="contenedor-preguntas">
 
         @foreach ($arr_preguntas as $preg)
           <div class="pregunta">
@@ -122,23 +112,27 @@
            Sin información
         </div>
       @endif
-    </div>
 
+    </div>
+    
 
     @if(Session::get('plan') == 2)
-       <div class="alert alert-danger" role="alert">Actualiza tu plan para agregar más de 5 preguntas</div>
+       <div class="alert alert-danger" role="alert">Actualiza tu plan para agregar más preguntas</div>
     @endif
+
+
     <!-- fin preguntas -->
 
     <div class="separator"></div>
     <!-- valores -->
 
-    <div class="contenedor-valores {{-- no-pointer --}}" id="contenedor-valores">
+    <div class="contenedor-valores" id="contenedor-valores" style="@if(Session::get('plan') == 2){{'display:none;'}}@endif" >
       @if (count($arr_preguntas) > 0)
         <h5><strong>Cantidad de preguntas</strong></h5>
         <select id="cantidad-preguntas">
           <option value="-1">- selecciona -</option>
-          @php $lim = (Session::get('plan') == 2) ? 5 : 9;  @endphp
+
+          @php $lim = (Session::get('plan') == 2) ? 5 : 9;  @endphp        
 
           @for ($i=1; $i <= $lim; $i++)
             @php
@@ -175,9 +169,9 @@
         </div>
 
 
-        <div style="margin-top: 1rem;padding:10px 5px;width:100%;background-color:rgba(0,0,0,0.05);">
+	<div style="margin-top: 1rem;padding:10px 5px;width:100%;background-color:rgba(0,0,0,0.05);">
           <small class="text-muted">Estos cambios solo aplican en la encuesta online QR y compartida por WhatsApp </small>
-        </div>
+        </div>	
 
 
         <div class="form-check">
@@ -186,7 +180,6 @@
             Adjuntar evidencia
           </label>
         </div>
-
 
 
         <div class="form-check">
@@ -206,7 +199,6 @@
 
 
 
-
         <button id="btn-save-valores" class="btn btn-primary btn-sm">Guardar edición valores</button>
       @endif
     </div>
@@ -215,9 +207,8 @@
     <div class="separator"></div>
 
     @if(count($arr_preguntas) > 0)
-
       {{-- inicio copiar formato --}}
-      <div class="contenedor-copia-formato {{-- no-pointer --}}" id="contenedor-copia-formato" style="@if(Session::get('plan') == 2 or count($arr_sucursales) == 1){{'display:none;'}}@endif" >
+      <div class="contenedor-copia-formato" id="contenedor-copia-formato" style="@if(Session::get('plan') == 2 or count($arr_sucursales) == 1){{'display:none;'}}@endif">
         <h5 style="color:blue; text-decoration:underline;">Copiar formato de encuesta de otra sucursal</h5>
         <select class="form-control form-control-sm" id="select-copiar-formato">
           <option value="-1">- selecciona -</option>
@@ -229,12 +220,7 @@
         </select>
       </div>
       {{-- fin copiar formato --}}
-
-
-
       @endif
-
-
   </div>
 
 @endsection
@@ -324,7 +310,6 @@
 @if(count($arr_preguntas) > 0)
 
   @section('js')
-
     <script type="text/javascript">
     $(document).ready(function () {
 
@@ -368,7 +353,8 @@
 
        function guardarReorden()
        {
-         if( ! confirm('Antes de modificar la encuesta te recomendamos exportar tu informaci\u00F3n a excel en el apartado de reportes, Deseas continuar\u003F '))
+
+	if( ! confirm('Antes de modificar la encuesta te recomendamos exportar tu informaci\u00F3n a excel en el apartado de reportes, Deseas continuar \u003F'))
          {
            return;
          }
@@ -473,13 +459,8 @@
          $('#modal-edit').modal('show');
        }
 
-       // $('#btn-habilitar-edicion').on('dblclick',function(){
-         // $('#contenedor-encuesta > div').toggleClass('no-pointer');
-       // });
 
-
-
-     let elementsEditarValores = document.querySelectorAll('#contenedor-valores select, #contenedor-valores input');
+       let elementsEditarValores = document.querySelectorAll('#contenedor-valores select, #contenedor-valores input');
        for (var j = 0; j < elementsEditarValores.length; j++) {
          elementsEditarValores[j].addEventListener('change', function(){
            document.getElementById('btn-save-valores').style.visibility = 'visible';
@@ -490,10 +471,6 @@
 
        function enviarCambioValores()
        {
-
-
-
-
          let select_cantidad_preguntas = document.getElementById('cantidad-preguntas');
          let check_no_contestar = document.getElementById('agregar-no-contestar');
          let check_correo       = document.getElementById('solicitar-correo');
@@ -502,11 +479,12 @@
 
 
 
+        let check_mover_top      = document.getElementById('mostrar-seccion-comentarios-arriba');
+        let check_siempre_alerta = document.getElementById('recibir-alerta-siempre');
+        let mover_top      = (check_mover_top.checked)?1:0;
+        let siempre_alerta = (check_siempre_alerta.checked)?1:0;
 
-         let check_mover_top      = document.getElementById('mostrar-seccion-comentarios-arriba');
-         let check_siempre_alerta = document.getElementById('recibir-alerta-siempre');
-         let mover_top      = (check_mover_top.checked)?1:0;
-         let siempre_alerta = (check_siempre_alerta.checked)?1:0;
+
 
 
          let cantidad_preguntas = select_cantidad_preguntas.value;
@@ -515,10 +493,12 @@
          let comentario   = (check_comentario.checked)?1:0;
          let adjuntar     = (check_adjuntar.checked)?1:0;
 
-          if(! confirm("Los cambios son irreversibles, la encuesta quedara con "+cantidad_preguntas+" preguntas en total ¿Deseas continuar?"))
+         
+	if(! confirm("Los cambios son irreversibles, la encuesta quedara con "+cantidad_preguntas+" preguntas en total ¿Deseas continuar?"))
           {
             return;
           }
+
 
 
          if(parseInt(cantidad_preguntas) < 1){
@@ -534,7 +514,7 @@
 
          fetch("{{route('actualizar_valores')}}",{
            method:'post',
-           body:JSON.stringify({"preguntas":parseInt(cantidad_preguntas), "no_contestar":no_contestar, "correo":correo, "comentario":comentario, "suc":'{{$sucursal_url}}', "evidencia":adjuntar,  "mover_top": mover_top, "siempre_alerta": siempre_alerta}),
+           body:JSON.stringify({"preguntas":parseInt(cantidad_preguntas), "no_contestar":no_contestar, "correo":correo, "comentario":comentario, "suc":'{{$sucursal_url}}', "evidencia":adjuntar, "mover_top": mover_top, "siempre_alerta": siempre_alerta }),
            headers:{
              'Content-Type':'application/json',
              'X-CSRF-TOKEN':CSRF_TOKEN
@@ -542,14 +522,10 @@
          }).then(res => res.json())
          .catch(error => console.log(error))
          .then(function(response){
-
-           hideLoader();
-
-
            let _icon='info';
            if(response.status == 200){
              _icon = 'success';
-             setTimeout(function(){location.reload();}, 400);
+             setTimeout(function(){location.reload();},400);
            }
            Swal.fire({
              icon:_icon,
@@ -558,7 +534,6 @@
            hideLoader();
          });
        }
-
 
        document.getElementById('select-copiar-formato').addEventListener('change', copiarFormato);
        function copiarFormato()
@@ -669,7 +644,6 @@
 
 
        document.getElementById('btn-save-edit').addEventListener('click', saveEdicion);
-
        function saveEdicion()
        {
          let txt_pregunta = document.getElementById('txt-descripcion-edit');
@@ -761,7 +735,10 @@
        }
 
 
+
        @if(Session::get('plan') != 2)
+
+
 
        document.getElementById('inp-img-logo').addEventListener('change', cambiarLogo);
 
@@ -812,15 +789,9 @@
          });
        }
 
-       @endif
-
-
-
-
-      // document.getElementById('licar-plantilla').addEventListener('change', aplicarPlantilla);
+	@endif
 
       $('.btn-plantilla').on('click', aplicarPlantilla);
-
 
        function aplicarPlantilla()
        {
@@ -853,37 +824,10 @@
              });
 
            }
-         }
+         }       
 
+	}
 
-         // if(this.value != '-1' && this.value != '')
-         // {
-         //   if(confirm("Los cambios son irreversibles, ¿Estas seguro?"))
-         //   {
-         //     showLoader();
-         //
-         //     fetch("{{route('aplicar_plantilla_encuesta')}}", {
-         //       method:'post',
-         //       body:JSON.stringify({"sucursal":"{{$sucursal_url}}", 'plantilla': this.value}),
-         //       headers:{
-         //         'Content-Type':'application/json',
-         //         'X-CSRF-TOKEN':  CSRF_TOKEN
-         //       }
-         //     }).then(res => res.json())
-         //     .then(function(response)
-         //     {
-         //       let _icon = 'info';
-         //       if(response.status =='200'){
-         //         _icon = 'success';
-         //         setTimeout(function(){location.reload();}, 400);
-         //       }
-         //       hideLoader();
-         //       return Swal.fire({icon:_icon, text:response.msg});
-         //     });
-         //
-         //   }
-         // }
-       }
 
        document.getElementById('enlace-vista-previa').addEventListener('click', showPreview);
        function showPreview(){
@@ -896,8 +840,7 @@
        }
 
 
-
-       $(document).on("input" , "#color-header, #color-text-header" , function(ev){
+	$(document).on("input" , "#color-header, #color-text-header" , function(ev){
 
            fetch("{{route('encuesta_personalizar')}}", {
               method:'post',
@@ -909,12 +852,14 @@
            }).then(res => res.json())
            .then( (response) => {
             if(response.status == 200){
-              document.getElementById('preview-frame').setAttribute("src","/preview/{{$sucursal_url.'?'.rand(100,900)}}")
+              document.getElementById('preview-frame').setAttribute("src","/sitio/preview/{{$sucursal_url.'?'.rand(100,900)}}")
             }
            });
         });
+
+
+
+
     </script>
-
-
   @endsection
 @endif

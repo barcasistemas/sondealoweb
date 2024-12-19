@@ -52,9 +52,9 @@ class CuponController extends Controller
          return response()->json(['status' => 422, 'msg' => 'No valido']);
        }
 
-       $id          = $request['id'];
+       $id         = $request['id'];
        $descripcion = $request['descripcion'];
-       $vigencia    = $request['vigencia'];
+       $vigencia   = $request['vigencia'];
 
        $update = DB::table('promoimagen')->where('id', $id)->update([
          'nombre' => $descripcion,
@@ -63,6 +63,19 @@ class CuponController extends Controller
 
        return response()->json(['status' => 200, 'msg' => 'Información guardada con éxito']);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 }

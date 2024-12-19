@@ -15,52 +15,31 @@ Galería menú
 	</div>
 </div>
 
-<div class="col-sm-12">
-    <label>Menú: </label>
-    <select name="select_menu" id="select_menu">
-        <option value="-1">-- selecciona --</option>
-        @forelse ($menus as  $m)
-            @if($m->id != $id_menu)            
-                <option value="{{$m->id}}">{{$m->nombre}}</option>
-            @endif
-        @empty
-            <option value="-1">vacio</option>
-        @endforelse
-    </select>
-</div>
+    <div class="col-sm-12">
+   	 <label>Menú: </label>
+    	<select name="select_menu" id="select_menu">
+        	<option value="-1">-- selecciona --</option>
+       	        @forelse ($menus as  $m)
+           		@if($m->id != $id_menu)            
+                		<option value="{{$m->id}}">{{$m->nombre}}</option>
+           		@endif
+        	@empty
+           		<option value="-1">vacio</option>
+        	@endforelse
+    	</select>	
+    </div>
 
 
 
     @if ($boolean_show_form)
 
-    <div class="contenedor-preview" id="contenedor-preview">
-        <iframe id="preview-frame" src="/menu-lang/{{$sucursal_url.'?'.rand(100,1500)}}"></iframe>
-
-        
-    </div>
-
-
-
-    <div class="row">  
-        <br><br><br>
-        <form method="post" id="form-add-urls" class="form-add form-group-sm col-sm-5 col-lg-3" action="" onsubmit="return false;">
-            @csrf
-            <input type="hidden" value="" name="menu_seleccionado">
-            <h5 style="width:100%;">Agregar</h5>
-            <input type="text" name="url_youtube" id="url_youtube" class="form-control" placeholder="URL Youtube" maxlength="30">
-            <input type="text" name="url_facebook" id="url_facebook" class="form-control" placeholder="URL Facebook" maxlength="30">
-            <input type="text" name="url_instagram" id="url_instagram" class="form-control" placeholder="URL Instagram" maxlength="30">
-            <input type="text" name="url_tiktok" id="url_tiktok" class="form-control" placeholder="URL TikTok" maxlength="30">
-            <input type="text" name="number_whatsapp" id="number_whatsapp" class="form-control" placeholder="Número Whatsapp" maxlength="30">
-            <button type="submit" name="btn-save-urls" id="btn-save-urls" class="btn btn-sm btn-primary">Agregar</button>
-        </form>
+    <div class="row">
         
         <form id="form-add-imagen" enctype='multipart/form-data' class="form-add form-group-sm col-sm-6 col-lg-8"  action="{{route('menu_item_store')}}" method="post" onsubmit="return false;">
             @csrf
 
             <h5 style="width:100%;">Agregar Imagen</h5>
             <input type="text" class="form-control" name="name" id="name" value="{{old('name')}}" placeholder="Nombre"/>
-            <input type="text" class="form-control" name="name" id="name" value="{{old('name')}}" placeholder="Nombre(Inglés)"/>
             <select name="categoria" id="categoria" class="form-control">
                 <option value="-1">-- seleccionar categoria --</option>
                 @forelse ($categorias as $categoria )
@@ -71,26 +50,14 @@ Galería menú
             </select>
 
 
-            <input type="text" class="form-control" name="ingredientes" id="ingredientes" maxlength="255" value="{{old('ingredientes')}}" placeholder="Descripción platillo" required/>
-            <input type="text" class="form-control" name="ingredientes_en" id="ingredientes_en" maxlength="255" value="{{old('ingredientes_en')}}" placeholder="Descripción platillo(Inglés)" />
-            <input type="text" class="form-control" name="ingredientes" id="ingredientes" maxlength="255" value="{{old('ingredientes')}}" placeholder="URL YouTube" required/>
-
-            <select name="platillo" id="platillo" class="form-control">
-                <option value="-1">-- seleccionar recomendación --</option>
-                @forelse ($categorias as $categoria )
-                    <option value="{{$categoria->id}}">{{$categoria->nombre}}</option>
-                @empty
-                    <option value="-2">empty</option>
-                @endforelse
-            </select>
-
+            <input type="text" class="form-control" name="ingredientes" id="ingredientes" maxlength="255" value="{{old('ingredientes')}}" placeholder="Ingredientes" required/>
             <input type="number" class="form-control" name="precio" step="0.1" min="0" id="precio" value="{{old('precio')}}" placeholder="Precio" required/>
 
 
 
-            <label for="image" id="label-for-image" class="btn btn-secondary btn-sm"><span class="fa fa-paperclip"></span>Agregar Imagen</label>
+            <label for="image" id="label-for-image" class="btn btn-secondary btn-sm"><span class="fa fa-paperclip"></span> Imagen</label>
             <input type="file" id="image" name="image" value="{{old('image')}}" style="display:none;">
-            <button id="btn-save-imagen" name="btn-save-imagen" class="btn btn-primary btn-sm" style="max-height:30px;">Guardar</button>
+            <button id="btn-save-imagen" name="btn-save-imagen" class="btn btn-primary btn-sm" style="max-height:30px;">Agregar Imagen</button>
         </form>
 
         <div class="col-sm-1 col-lg-1"></div>
@@ -99,46 +66,37 @@ Galería menú
             @csrf
             <input type="hidden" value="{{$id_menu}}" name="menu_seleccionado">
             <h5 style="width:100%;">Agregar Categoría</h5>
-            <input type="text" name="name_categoria" id="name_categoria" class="form-control" placeholder="Nombre" maxlength="30">
-            <input type="text" name="name_categoria_en" id="name_categoria_en" class="form-control" placeholder="Nombre Inglés" maxlength="30">
+            <input type="text" name="name_categoria" id="name_categoria" class="form-control" maxlength="30">
             <button type="submit" name="btn-save-categoria" id="btn-save-categoria" class="btn btn-sm btn-primary">Agregar</button>
         </form>
         
+
+
+
+
     </div>
+
 
     @endif
 
-    
     <div class="row contenedor-menu-items">
-        @php $j = 0; @endphp
+
         @for ($i=0;$i<count($categorias);$i++ )
-            @php $j = $j+1; @endphp
-            <div class="col-sm-12 " style="max-height: 50px!important;overflow:hidden;margin:1rem 0;">
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample{{$j}}" aria-expanded="false" aria-controls="collapseExample{{$j}}">
-                    {{Str::ucfirst($categorias[$i]->nombre)}}
-                  </button>
             
-             <!--   <div class="alert alert-info" role="alert"></div> -->
+            <div class="col-sm-12 " style="max-height: 50px!important;overflow:hidden;margin:1rem 0;">
+                <div class="alert alert-info" role="alert">{{Str::ucfirst($categorias[$i]->nombre)}}</div>
             </div>
 
-            
             @php $items = (isset($categorias[$i]->items[0])) ? $categorias[$i]->items[0] : [] ; @endphp
 
-            <div class="collapse" id="collapseExample{{$j}}">
-                <div class="card card-body">
-                @php $contador = 0; @endphp
-                <table border="0">
-                    <tr>
             @foreach($items as $item )  
-                @php $contador = $contador + 1; @endphp
-                
+
                 @php $imagenes = $item->imagenes; @endphp  
-   
-                        <td>
+                
                 <div class="menu-item-layout" style="background-color:#f2f2f2;">
-                    <div class="panel panel-default" style="min-width: 300px!important;overflow:hidden;margin:1rem 0;">
-                       
-                        <label data-item="{{$item->id}}" class="edit-item fa fa-edit text-info cursor-pointer"></label>
+                    <div class="panel panel-default">
+
+			<label data-item="{{$item->id}}" class="edit-item fa fa-edit text-info cursor-pointer"></label>                       
 
                         <div class="panel-heading">
                             <h3 class="panel-title"><strong>{{Str::upper($item->nombre)}}</strong></h3>
@@ -148,32 +106,21 @@ Galería menú
                            
                            
                              <label data-item="{{$item->id}}" class="del-item">x</label>
-
-                            </div>
-                            <div class="panel-body" >                                
-                                                           
-                                @foreach ($imagenes as $img)
-                                    <div class="panel-img">
-                                        <img src="{{$img->ruta_servidor}}?{{rand(0,30)}}" alt="imagen {{$item->nombre}}"/>
-                                    </div>
-                                @endforeach                                
+                        </div>
+                        <div class="panel-body" >
+                            
+                            @foreach ($imagenes as $img)
+                                <div class="panel-img">
+                                    <img src="{{$img->ruta_servidor}}?{{rand(0,30)}}" alt="imagen {{$item->nombre}}"/>
+                                </div>
+                            @endforeach
+                            
                         </div>
                     </div>
                 </div>
-                    </td>
-                    @if ($contador == 4) 
-                    </tr>
-                    <tr>
-                @php $contador = 0; @endphp
-                @endif
-           
             @endforeach
-        </table>
-        </div>
-    </div>
         @endfor
 
-    
     </div>
 
 @endsection
@@ -228,30 +175,15 @@ Galería menú
         </div>    
 
     </div>
+
     
 @endsection
 
 
 
 
+
 @section('js')
-
-<script type="text/javascript">
-    var coll = document.getElementsByClassName("collapsible");
-    var i;
-
-    for (i = 0; i < coll.length; i++) {
-       coll[i].addEventListener("click", function() {
-       this.classList.toggle("active");
-       var content = this.nextElementSibling;
-       if (content.style.display === "block") {
-          content.style.display = "none";
-        } else {
-          content.style.display = "block";
-    }
-  });
-} 
-</script>
 
 <script type="text/javascript"> 
 
@@ -263,7 +195,6 @@ Galería menú
     });
 
 </script>
-
 
 @if ($boolean_show_form)
 
@@ -289,6 +220,8 @@ Galería menú
 
         const txtIngredientes = document.getElementById('ingredientes');
         const txtPrecio = document.getElementById('precio');
+
+
 
 
         inpImage.addEventListener('change', function(){
@@ -337,6 +270,13 @@ Galería menú
                 });
             }
 
+            if(inpImage.value == ''){
+                return Swal.fire({
+                    icon:'info',
+                    text:'Selecciona una imagen',
+                });
+            }
+
             if(txtIngredientes.value.trim() == ''){
                 return Swal.fire({
                     icon:'info',
@@ -351,12 +291,7 @@ Galería menú
                 });
             }
 
-            if(inpImage.value == ''){
-                return Swal.fire({
-                    icon:'info',
-                    text:'Selecciona una imagen',
-                });
-            }
+
             
             showLoader();
             document.getElementById('form-add-imagen').submit();
@@ -402,6 +337,10 @@ Galería menú
                 });
             }
         }
+
+
+
+
     });
 
 </script>
@@ -409,8 +348,8 @@ Galería menú
 
 
 
-
 <script type="text/javascript">
+
 
     const btnEditItem = document.querySelectorAll('.edit-item');
     const lbEditNombreItem = document.getElementById('label-nombre-editar');
@@ -422,6 +361,7 @@ Galería menú
     const keyEditItem = document.getElementById('key-item-editar');
     const imgEditImagenItemPrevisualizacion = document.getElementById('img-item-editar-previsualizar');
     const inpImgEditItem = document.getElementById('inp-imagen-edit-item');
+
 
 
     inpImgEditItem.addEventListener('change', function(){
@@ -453,6 +393,8 @@ Galería menú
     });
 
 
+
+
     btnEditItem.forEach((item, i) => {
         item.addEventListener('click', function(){
             showLoader();
@@ -469,13 +411,15 @@ Galería menú
                         txtEditIngredientesItem.value = data.item.ingredientes;           
                         txtEditPrecioItem.value       = data.item.precio;     
 
+
                         selectEditCategoriaItem.querySelector('option[value="'+data.item.id_categoria+'"]').setAttribute('selected', true);
                         imgEditImagenitem.src = data.item.imagenes[0].ruta_servidor;
 
                         imgEditImagenItemPrevisualizacion.src="";
-
                         inpImgEditItem.value = '';
 
+
+                        
                         showModal();
                     }
                     else{
@@ -486,6 +430,7 @@ Galería menú
                     }
                                       
                     hideLoader();
+                   
               });
         });
     });
@@ -534,7 +479,7 @@ Galería menú
             {
                 _icon = 'success';
                 hideModal();
-                setTimeout(function(){location.reload();}, 500);             
+                setTimeout(function(){location.reload();}, 500);
             }
             Swal.fire({
                 icon:_icon,
@@ -547,5 +492,10 @@ Galería menú
     }
 
 </script>
+
+
 @endif
+
+
+    
 @endsection

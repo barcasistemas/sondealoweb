@@ -397,6 +397,7 @@ class UserController extends Controller
     /* se elimina por identificador, la tabla no cuenta con llave primaria unica*/
     DB::table('valores')->where('identificador', $identificador_delete)->delete();
 
+
     /* ========================== TABLA MESEROS1 ============================*/
     $meseros = DB::table('meseros1')->select('id')->where('identificador', $identificador_delete)->get();
     if(count($meseros) > 0)
@@ -406,9 +407,11 @@ class UserController extends Controller
         DB::table('meseros1')->where('id', $meseros[$ite]->id)->delete();
       }
     }
-    return response()->json(['status' => 200, 'msg' => 'Cuenta eliminada con éxito, espera ...']);
-  }
 
+    return response()->json(['status' => 200, 'msg' => 'Cuenta eliminada con éxito, espera ...']);
+
+  }
+  
   public function storeTitular(Request $request)
   {
      $validator = Validator::make($request->all(), [
@@ -422,20 +425,21 @@ class UserController extends Controller
       if ($validator->fails()) {
           return back()->withInput()->withErrors(['error_msg' => 'No valido']);
       }
-      /*revisamos que no exista el nombre de usuario*/
+
       $check_nombre_user = User::select('id')->where('usuario', $request->username)->first();
       if ($check_nombre_user) {
           return back()->withInput()->withErrors(['error_msg' => "El usuario '".$request->username."' ya existe"]);
       }
-      /*revisamos que no exista el correo*/
+
       $check_email = User::select('id')->where('correo', $request->email)->first();
       if($check_email){
         return back()->withInput()->withErrors(['error_msg' => "El correo electrónico '".$request->email."' ya está asociado a otra cuenta"]);
       }
-      /*obtenemos el identificador nuevo a utilizar*/
+
       $identificador = DB::table('registros')->select('identificador')->orderBy('identificador', 'DESC')->first()->identificador + 1;
-      /*insertamos el registro en la tabla registros*/
+
       $registro = new User();
+      //setteo
       $registro->usuario       = mb_strtolower($request->username, 'UTF-8');
       $registro->contra        = sha1($request->password);
       $registro->nombre        = $request->name;
@@ -458,7 +462,7 @@ class UserController extends Controller
 
       $registro->save();
 
-      /*insetamos en la tabla usuarios*/
+      /*tabla usuarios*/
       DB::table('usuarios')->insert([
         'folio'         => '',
         'usuario'       => mb_strtolower($request->username, 'UTF-8'),
@@ -488,10 +492,11 @@ class UserController extends Controller
 
       $planes_id = ($request->has('plan_id')) ? $request->plan_id : 56 ;
 
+
       /*se inserta el registro del plan*/
       DB::table('registros_planes')->insert([
         'registros_id' => $registroLast->id,
-        'planes_id'    => $planes_id ,
+        'planes_id'    => $planes_id,
         'fecha_inicio' => date('Y-m-d H:i:s'),
         'estatus'      => 1
       ]);
@@ -503,6 +508,7 @@ class UserController extends Controller
       curl_setopt($ch, CURLOPT_HEADER, 0);
       curl_exec($ch);
       curl_close($ch);
+
 
       //asignamos las variables de sesion
       Session::put([
@@ -528,10 +534,9 @@ class UserController extends Controller
 
       session_start();
       $_SESSION['session'] = sha1($registroLast->usuario);
-      /*redirigimos al tour*/
+
       return redirect()->route('mostrar_sucursales');
   }
-
 
   public function authMovil($user, $password)
   {
@@ -554,15 +559,18 @@ class UserController extends Controller
 
   }
 
-  public function guardarFirebaseToken(Request $request)
+  
+
+   public function guardarFirebaseToken(Request $request)
   {
+
     $validator = Validator::make($request->only('usuario', 'token'),[
       'usuario' => 'required|string',
       'token'   => 'required|string'
     ]);
 
     if($validator->fails()){
-      return response()->json(['errors' => ['msg' => 'Información no valida']], 422);
+      return response()->json(['errors' => ['msg' => 'Infomación no valida']], 422);
     }
 
     $user = User::select('poder', 'identificador', 'sucs')->where('usuario', $request->usuario)->first();
@@ -589,6 +597,7 @@ class UserController extends Controller
         }
         break;
     }
+
     
     for ($j=0; $j < count($sucursales) ; $j++) 
     { 
@@ -622,7 +631,7 @@ class UserController extends Controller
   }
 
 
-  public function storeMovil(Request $request)
+   public function storeMovil(Request $request)
   {
     $validator = Validator::make($request->all(), [
       'name'     => 'required|string|max:50',
@@ -654,12 +663,14 @@ class UserController extends Controller
     {
       return response()->json([
         'errors' => ['msg' => "El correo electrónico '".$request->email."' ya está asociado a otra cuenta"]
-      ], 422);      
+      ], 422);
+      
     }
 
     /*obtenemos el identificador nuevo a utilizar*/
     $identificador = DB::table('registros')->select('identificador')->orderBy('identificador', 'DESC')->first()->identificador + 1;
    
+      
     /*insertamos el registro en la tabla registros*/
     $registro = new User();
     $registro->usuario       = mb_strtolower($request->username, 'UTF-8');
@@ -722,7 +733,7 @@ class UserController extends Controller
       'estatus'      => 1
     ]);
 
-    //Aqui enviamos el correo de registro
+   //Aqui enviamos el correo de registro
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_URL, 'https://sondealo.com/mail/send/'.$registroLast->usuario);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -735,6 +746,12 @@ class UserController extends Controller
       'errors' => ['msg' => '' ],
       'success' => ['msg' => 'Registro completado con éxito']
     ], 200);   
+
+
   }
+
+
+
+
 
 }

@@ -28,12 +28,11 @@ class SessionController extends Controller
     return response()->json(['status' => 200, 'msg' => 'success']);
   }
 
-
   public static function setSesionSucursal($sucursal_url)
   {
     if($sucursal_url == null)
     {
-      $sucursal_url = (Session::has('sucursal_fijada')) ? Session::get('sucursal_fijada')  : '';
+      $sucursal_url = (Session::has('sucursal_fijada')) ? Session::get('sucursal_fijada')  :'';
     }
     if($sucursal_url != null )
     {
@@ -65,10 +64,12 @@ class SessionController extends Controller
       else
       {
         $sucursal_url = '';
-        return abort(403);
+	return abort(403);
       }
     }
     return $sucursal_url;
   }
+
+
 
 }

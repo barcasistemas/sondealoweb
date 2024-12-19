@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\MenuItem;
-use App\Models\MenuitemImage;
 use Session;
 use Validator;
 
@@ -44,7 +43,7 @@ class MenuplatillosController extends Controller
 
         if($validator->fails()){
           return back()->withErrors(['msg_error' => 'No valido']);
-        }  
+        }
 
         $id_categoria = $request['id_categoria'];
         $nombre_platillo = $request['nombre_platillo'];
@@ -59,6 +58,7 @@ class MenuplatillosController extends Controller
         MenuItem::insert(['id_categoria' => $id_categoria, 'nombre' => $nombre_platillo, 'precio' => $precio_platillo , 'ingredientes' => $ingredientes_platillo, 'recomen' => $recomen_platillo, 'url_video' => $url_video]);
 
        // MenuitemImage::insert(['id_item' => $id_item, 'ruta_servidor' => $url_img]);
+
 
         return back();
     }
@@ -100,7 +100,7 @@ class MenuplatillosController extends Controller
 
         if($validator->fails()){
           return back()->withErrors(['msg_error' => 'No valido']);
-        }  
+        }
 
         $id_platillo = $request['id_platillo'];
         $id_categoria = $request['id_categoria'];
@@ -111,7 +111,7 @@ class MenuplatillosController extends Controller
         $recomen_platillo = $request['recomen_platillo'];
         $url_video = $request['url_video'];
 
-        MenuItem::where('id', $id_platillo)->update(['nombre'=> $nombre_platillo, 'ingredientes' => $ingredientes_platillo, 'precio' => $precio_platillo , 'recomen' => $recomen_platillo, 'url_video' => $url_video]);
+        MenuItem::where('id', $id_platillo)->update(['nombre'=> $nombre_platillo, 'ingredientes' => $ingredientes_platillo, 'recomen' => $recomen_platillo, 'url_video' => $url_video]);
 
         return back();
     }

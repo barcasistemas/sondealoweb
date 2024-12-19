@@ -22,6 +22,7 @@ class QrController extends Controller
 
       $url = "https://sondealo.com/sitio/qr-encuesta/$sucursal/$mesa";
 
+
       $qr_code_xl = (string)QrCode::errorCorrection('H')->size(280)->generate($url);
 
       $html_qr_xl = '<div class="qrv">'

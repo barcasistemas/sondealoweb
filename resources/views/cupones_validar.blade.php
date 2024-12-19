@@ -47,5 +47,6 @@
         }
       }
     </script>
+
   @endsection
 @endif

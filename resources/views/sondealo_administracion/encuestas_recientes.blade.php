@@ -17,18 +17,18 @@ Encuestas realizadas
     <div class="col-md-2">
       <button class="btn btn-success btn-block" id="btn-generar-reporte" style="margin-top:2rem;">Generar</button>
     </div>
+
   </div>
 
   <div class="row">
     <table class="table table-sm table-striped" style="margin-top:2rem;">
       <thead>
         @if(count($sucursalesEncuestas) > 0)
-          <tr>
-            <th colspan="2" class="text-center">ENCUESTAS REALIZADAS POR SUCURSAL Y PERÍODO</th>
+	  <tr>
+            <th colspan="2">ENCUESTAS REALIZADAS POR SUCURSAL Y PERÍODO</th>
           </tr>
           <tr>
-            <th>Periodo: {{$desde_inicial ?? ''}} - {{$hasta_inicial ?? ''}}</th>
-              {{-- <th><a class="fa fa-file-excel-o btn btn-sm btn-success float-right"> Excel</a></th> --}}
+            <th colspan="2" class="text-center">Periodo: {{$desde_inicial ?? ''}} - {{$hasta_inicial ?? ''}}</th>
           </tr>
           <tr>
             <th>Sucursal</th>
@@ -37,47 +37,51 @@ Encuestas realizadas
         @endif
       </thead>
       <tbody>
+	@php $ite = 1;  @endphp
         @forelse ($sucursalesEncuestas as $var)
           <tr>
-            <td>{{$var->sucursal}}</td>
+            <td>{{$ite}} - {{$var->sucursal}}</td>
             <td>{{$var->conteo}}</td>
           </tr>
+	@php $ite++;  @endphp
         @empty
           <tr>
             <td  class="alert alert-info" colspan="2">Sin información</td>
           </tr>
         @endforelse
+
       </tbody>
+
     </table>
-    @if(count($sucursalesEncuestas) > 0) {{$sucursalesEncuestas->links('pagination::bootstrap-4')}}  @endif
+    @if(count($sucursalesEncuestas) > 0)  {{$sucursalesEncuestas->links('pagination::bootstrap-4')}}  @endif
   </div>
 
 @endsection
 
 @section('js')
-  <script type="text/javascript">
+<script type="text/javascript">
 
-    document.getElementById('btn-generar-reporte').addEventListener('click', function(){
-      let txt_desde = document.getElementById('txt-desde');
-      let txt_hasta = document.getElementById('txt-hasta');
+document.getElementById('btn-generar-reporte').addEventListener('click', function(){
+  let txt_desde = document.getElementById('txt-desde');
+  let txt_hasta = document.getElementById('txt-hasta');
 
-      let desde = txt_desde.value.trim();
-      let hasta = txt_hasta.value.trim();
+  let desde = txt_desde.value.trim();
+  let hasta = txt_hasta.value.trim();
 
-      if(desde == '' || hasta == ''){
-        return;
-      }
+  if(desde == '' || hasta == ''){
+    return;
+  }
 
-      let date_desde = Date.parse(desde);
-      let date_hasta = Date.parse(hasta);
+  let date_desde = Date.parse(desde);
+  let date_hasta = Date.parse(hasta);
 
-      if(date_hasta < date_desde){
-        return Swal.fire({icon:'info', text:'la fecha final no puede ser mayor a la de inicio'});
-      }
+  if(date_hasta < date_desde){
+    return Swal.fire({icon:'info', text:'la fecha final no puede ser mayor a la de inicio'});
+  }
 
-      let url = '/admin/encuestas-recientes/'+desde+'/'+hasta;
-      window.location = url;
-    });
+  let url = 'https://sondealo.com/sitio/admin/encuestas-recientes/'+desde+'/'+hasta;
+  window.location = url;
+});
 
-  </script>
+</script>
 @endsection

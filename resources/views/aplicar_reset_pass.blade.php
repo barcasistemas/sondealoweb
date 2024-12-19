@@ -35,7 +35,7 @@
           {{ $errors->first() }}
         </div>
       @endif
-
+      
       <button class="btn btn-primary btn-block" id="btn-aplicar-cambio-pass" style="margin-top:10px;">Enviar</button>
     </form>
     <script src="{{asset('js/sweetalert29.js')}}"></script>

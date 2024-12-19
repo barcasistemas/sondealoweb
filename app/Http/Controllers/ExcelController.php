@@ -29,6 +29,14 @@ class ExcelController extends Controller
       return \Excel::download(new UsuariosPlataforma(), $nombre_reporte);
     }
 
- 
+
+
+
+
+
+
+
+
+
 
 }

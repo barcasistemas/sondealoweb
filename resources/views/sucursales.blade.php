@@ -6,63 +6,13 @@
 
 @section('css')
   <link rel="stylesheet" href="{{asset('css/sucursales.css')}}"/>
-  <style type="text/css">
-
-  .modal {
-    text-align: center;
-  }
-
-  @media screen and (min-width: 768px) {
-    .modal:before {
-      display: inline-block;
-      vertical-align: middle;
-      content: " ";
-      height: 100%;
-    }
-  }
-
-  .modal-dialog {
-    display: inline-block;
-    text-align: left;
-    vertical-align: middle;
-  }
-  .modal-body{
-    padding: 1rem;
-    position: relative;
-  }
-
-   .slider{
-     height: 350px;
-   }
-
-  .slider div{
-    position:relative;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .slider div img{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 99%;
-    max-height: 99%;
-  }
-
-  #btn-close-modal-tour:hover .sp{
-    opacity: 1;
-  }
-
-  </style>
 @endsection
 
 @section('content')
 
   {{-- MOSTRAR SOLO CUANDO Session::get('int_tour') == 1
   aparecera solo cuando la variable de sesion de tour este habilitada (cuenta nueva) --}}
-  {{-- @if(Session::get('int_tour') == 1)
+  @if(Session::get('int_tour') == 1)
     <div class="alert alert-success" role="alert">
       <span class="tour-span">Paso 1.</span>
       Configura tu(s) sucursal(es) asignándole su nombre, contraseña y nombre comercial.
@@ -74,7 +24,7 @@
         @endif
       </label>
     </div>
-  @endif --}}
+  @endif
   {{-- /////////////////////////////////////////////////////////////////////////////  --}}
 
   <div class="container-form-add">
@@ -90,35 +40,19 @@
 
               <div class="separador"></div>
 
-          {{-- si el plan es gratis solo mostrar el checkbox de comida para llevar etc --}}
-
-            @if(Session::get('plan') == 2)
-
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="giro" id="giro_1" value="1" checked>
+                <input class="form-check-input" type="radio" name="giro" id="giro_1" value="1">
                 <label class="form-check-label" for="giro_1">
                   Comida p/ llevar, Gimnasios, Hoteles
                 </label>
               </div>
 
-            @else
-              {{-- si es plan premium --}}
-               <div class="form-check">
-                 <input class="form-check-input" type="radio" name="giro" id="giro_1" value="1">
-                 <label class="form-check-label" for="giro_1">
-                   Comida p/ llevar, Gimnasios, Hoteles
-                 </label>
-               </div>
-
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="giro" id="giro_2" value="2" checked>
-                  <label class="form-check-label" for="giro_2">
-                    Restaurante c/ comensales
-                  </label>
-                </div>
-            @endif
-
-
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="giro" id="giro_2" value="2" checked>
+                <label class="form-check-label" for="giro_2">
+                  Restaurante c/ comensales
+                </label>
+              </div>
               <div class="separador"></div>
               <button class="btn btn-primary btn-sm" id="btn-save">Guardar</button>
             </form>
@@ -156,80 +90,13 @@
         </tbody>
       </table>
     </div>
-    @endif
-
-
-    {{-- MOSTRAR SOLO CUANDO Session::get('int_tour') == 1
-    aparecera solo cuando la variable de sesion de tour este habilitada (cuenta nueva) --}}
-    @if(Session::get('int_tour') == 1)
-      <div class="alert alert-success" style="padding-bottom:5rem;" role="alert">
-        <span class="tour-span"><strong>Paso número 1.</strong></span>
-
-        <p style="font-size:2rem;">
-          @if(count($sucursales) > 0)
-              Sucursal agregada con éxito
-          @else
-            Configura tu cuenta agregando el nombre de tu negocio, una contraseña y nombre comercial.
-          @endif
-        </p>
-        <label class="tour-links-container" style="float:right;">
-          @if(count($sucursales) > 0)
-            <a class="tour-link" data-toggle="tooltip" data-placement="top" title="Da clic aquí para continuar " href="{{route('mostrar_encuesta')}}">Edita tu encuesta  <span class="fa fa-arrow-right"></span></a>
-          @endif
-        </label>
-
+    @else
+      <div class="alert alert-info" role="alert">
+         Sin información
       </div>
-
-
-      <!-- Modal -->
-      <div class="modal fade" id="modal-inicio-tour" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-
-            <div class="modal-body">
-
-              <div class="slider">
-
-                <div>
-                  <img src="https://sondealo.com/assets/images/Capa-2-min.png"/>
-                </div>
-                <div>
-                  <img src="https://sondealo.com/assets/images/testimonials/baltico-min.jpg"/>
-                </div>
-                <div>
-                  <img src="https://sondealo.com/assets/images/capa-7-min.png"/>
-                </div>
-                <div style="height:100%;display:flex;justify-content:center;">
-                  <button id="btn-close-modal-tour" class="btn btn-block btn-secondary">Comenzar a configurar mi cuenta (click)</button>
-                </div>
-
-              </div>
-
-            </div>
-            <div class="modal-footer">
-              <div class="row">
-                  <div class="col-md-6">
-                    <button style="display:block;margin:auto;" class="btn btn-primary prev" aria-hidden="true"><i class="fa fa-arrow-circle-left"></i> </button>
-                  </div>
-                  <div class="col-md-6">
-                    <button style="display:block;margin:auto;" class="btn btn-success next" aria-hidden="true"> <i class="fa fa-arrow-circle-right"></i></button>
-                  </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-
-
     @endif
-    {{-- /////////////////////////////////////////////////////////////////////////////  --}}
-
-
-
 
 @endsection
-
 
 @section('modal-title')
   Modificar información
@@ -252,48 +119,13 @@
 
 @endsection
 
-@section('js')
+  @section('js')
+    
+  @if($boolean_show_formulario)
+    
+    <script type="text/javascript" >
 
-
-  @if(Session::get('int_tour') == 1 && count($sucursales) < 1)
-
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css" rel="stylesheet"/>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-    <script type="text/javascript">
-    document.addEventListener('DOMContentLoaded', function(){
-      $('#modal-inicio-tour').modal({backdrop: 'static', keyboard: false});
-    });
-
-    $('.slider').slick({
-       dots: true,
-       prevArrow: $('.prev'),
-       nextArrow: $('.next'),
-       infinite: false,
-       speed: 300,
-       slidesToShow: 1,
-       slidesToScroll: 1,
-       autoplay: false,
-       autoplaySpeed: 5000,
-    });
-
-    document.getElementById('btn-close-modal-tour').addEventListener('click', function(){
-      $('#modal-inicio-tour').modal('hide');
-    });
-
-    </script>
-
-
-  @endif
-
-
-
-    @if($boolean_show_formulario)
-
-    <script type="text/javascript">
-
-
-      document.getElementById('name').addEventListener('keypress', validarCaracteres);
+    document.getElementById('name').addEventListener('keypress', validarCaracteres);
 
     function validarCaracteres(ev)
     {
@@ -328,7 +160,9 @@
     }
 
     </script>
+
   @endif
+
 
   <script type="text/javascript">
 
@@ -446,4 +280,5 @@
     });
   }
   </script>
+
 @endsection

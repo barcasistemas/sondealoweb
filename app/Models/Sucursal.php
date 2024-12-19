@@ -23,7 +23,7 @@ class Sucursal extends Model
         'tipousr',
         'url_menu',
         'url_qr',
-        'notificacion_detallada',
+	'notificacion_detallada',
         'sucursal_domicilios',
         'pedir_folio',
         'notificacion_comentario',

@@ -35,15 +35,14 @@
           <tr>
             <td>{{$usuario->usuario}}</td>
             <td>{{ucfirst(mb_strtolower($usuario->nombre, 'UTF-8'))}}</td>
-            <td>{{$usuario->telefono}}</td>
+	    <td>{{$usuario->telefono}}</td>
             <td class="money">{{$usuario->total_pago}}</td>
             <td>{{$usuario->inicio}}</td>
             <td data-user="{{$usuario->id}}" data-accion="info" class="fa fa-info-circle text-info cursor-pointer infodel"></td>
-
             @if(Session::get('user') == 'sondealo')
-              <td data-user="{{$usuario->id}}" data-accion="del" class="fa fa-trash-o text-danger cursor-pointer infodel"></td>
-            @endif
-          </tr>
+           	 <td data-user="{{$usuario->id}}" data-accion="del" class="fa fa-trash-o text-danger cursor-pointer infodel"></td>
+           @endif 
+	 </tr>
         @endforeach
       </tbody>
     </table>
@@ -58,6 +57,7 @@
 @section('modal-body')
   <div id="contenedor-modal-body" style="width:100%;">
   </div>
+
 @endsection
 
 

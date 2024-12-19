@@ -31,23 +31,20 @@
     </div>
   </div>
   <div class="contenedor-promociones">
-
     @php
      $limite = ( Session::get('plan') == 2 ) ? 2 : 5 ;
      $it=0;
     @endphp
 
-
     @foreach ($arreglo_promociones as $promo)
-        <div class="contenedor-imagenes">
-
-        @if($it >= $limite)
+      <div class="contenedor-imagenes">
+	  @if($it >= $limite)
           <div class="alert alert-danger" role="alert">
             Actualiza tu plan para agregar más promociones
           </div>
           <img src="{{asset('images/sondealogo.png')}}"/>
         @else
-          <label for="promocion_{{$promo->id}}"> Cambiar imagen</label>
+          <label for="promocion_{{$promo->id}}">Cambiar imagen</label>
           <input type="file" data-prom="{{$promo->id}}" name="promocion_{{$promo->id}}" id="promocion_{{$promo->id}}"/>
           @php
             /*A remplazar unicamente con {{$promo->ruta}} una vez se actualicen todos los registros*/
@@ -56,11 +53,9 @@
             $it++;
           @endphp
           <img src="{{asset('images/promos').'/'.$archivo_name.'?'.rand(10,200)}}"/>
-        @endif
-
-        </div>
+	@endif
+      </div>
     @endforeach
-
   </div>
 
   @if(count($arreglo_promociones) > 0)
@@ -186,8 +181,5 @@
 
 
   </script>
-
-
-  form
 
 @endsection

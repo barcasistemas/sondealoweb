@@ -12,25 +12,6 @@
   <div class="contenedor-superior">
     {!!$sucursales_html!!}
     <div class="container-form-add">
-
-
-      {{-- MOSTRAR SOLO CUANDO Session::get('int_tour') == 1
-      aparecera solo cuando la variable de sesion de tour este habilitada (cuenta nueva) --}}
-      @if(Session::get('int_tour') == 1)
-        <div class="alert alert-success" role="alert" style="font-size:2rem;">
-          <span class="tour-span"><strong>Paso 3.</strong></span>
-          Con este código QR puedes aplicar tu encuesta
-          <label class="tour-links-container">
-            <a class="tour-link" href="{{route('final_tour')}}">Finalizar</a>
-          </label>
-        </div>
-      @endif
-     {{-- ///////////////////////////////////////////////////////////////////////////////////// --}}
-
-
-
-
-
       @if($boolean_show_input)
       <div class="cont-m-qr q1">
         <small>Identificador del Qr</small>
@@ -46,7 +27,6 @@
   </div>
 
 
-
   <div class="contenedor-btns-pdf">
     @if($boolean_show_input)
       <button class="btn btn-light btn-sm fa fa-print btn-print-pdf" onclick="printJS({printable:'table-xl', type: 'html', font_size: '12px;', maxWidth: 280, css:'{{asset('css/encuesta_qr.css')}}' });">
@@ -58,10 +38,14 @@
     @endif
   </div>
 
+
+
+
   <div id="container-qrs">
+
     @if($boolean_show_input)
 
-      <a href="{{$url_qr_default}}" target="_blank" class="btn btn-danger btn-sm">Ir a la encuesta</a>
+    <a href="{{$url_qr_default}}" target="_blank" class="btn btn-danger btn-sm">Ir a la encuesta</a>
 
       <table id="table-xl">
         <tbody>
@@ -80,6 +64,7 @@
         </tbody>
       </table>
 
+
       <table id="table-sm" style="visibility: hidden;">
         <tbody>
           <tr>
@@ -94,9 +79,8 @@
               </div>
             </td>
           </tr>
-        </tbody>
+      </tbody>
       </table>
-
     @endif
   </div>
 
@@ -144,7 +128,7 @@
       }).then(res => res.json())
       .then(function(response)
       {
-        hideLoader();
+	hideLoader();	
 
         if(response.status == 200)
         {
@@ -185,8 +169,12 @@
           icon:'info',
           text:response.msg
         });
+
       });
+
+
     });
   }
   </script>
 @endsection
+

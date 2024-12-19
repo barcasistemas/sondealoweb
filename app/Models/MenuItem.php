@@ -15,14 +15,7 @@ class MenuItem extends Model
     protected $fillable = [
         "id_categoria", 
         "nombre", 
-        "nombre_en",
         "ingredientes", 
-        "ingredientes_en",
-        "precio",
-        "recomen",
-        "recomen_en",
-        "recom_catid",
-        "recom_platid",
-        "url_video"
+        "precio"
     ];
 }

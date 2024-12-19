@@ -10,6 +10,7 @@
 				padding: 0;
 				box-sizing: border-box;
 			}
+
 			header, section{
 				width: 100%;
 			}
@@ -93,9 +94,9 @@
 		</style>
 	</head>
 	<body>
-		<header style="background-color: {{$colorHeader}};">
-			<div class="contenedor" >
-				<img src="{{asset('images/sondealogo.png')}}" />
+		<header style="background-color: {{$colorHeader}};" >
+			<div class="contenedor">
+				<img src="{{asset('images/sondealogo.png')}}"/>
 				Ayúdanos, contestando las siguientes preguntas
 			</div>
 		</header>

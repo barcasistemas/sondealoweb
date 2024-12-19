@@ -13,15 +13,15 @@
     </head>
     <body>
       <div class="wrapper">
-        <nav class="navbar sondealo-color navbar-fixed-top" style="box-shadow:0px -2px 8px 1px #000000;"role="navigation">
+          <nav class="navbar sondealo-color navbar-fixed-top" style="box-shadow:0px -2px 8px 1px #000000;"role="navigation">
               <div class="navbar-header">
                   <a class="navbar-brand" href="{{route('mostrar_home')}}">
                     <img src="{{asset('images/sondealogo.png')}}"/>
                   </a>
               </div>
-        </nav>
+         </nav>
 
-        <div class="container" style="margin-top:60px;">
+       <div class="container" style="margin-top:60px;">
          <div class="jumbotron">
             <p class="lead">
               Haz terminado con éxito la configuración de tu cuenta
