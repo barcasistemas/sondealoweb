@@ -60,7 +60,7 @@ $varlang = session('langu3');
         img {
             margin: auto;
             max-height: 450px;
-            
+
             padding: 2px;
         }
 
@@ -118,17 +118,17 @@ $varlang = session('langu3');
         }
 
         .modal-dialog {
-            height: 95%
+            height: 100%
         }
 
         .modal-content {
-            height: 95%
+            height: 100%
         }
 
         .modal-body {
-            height: 95%;
+            height: 100%;
             overflow: auto;
-            align-content: center;
+
         }
 
         .center {
@@ -223,7 +223,7 @@ $varlang = session('langu3');
             height: 50px;
 
             display: grid;
-            
+
             align-items: center;
 
 
@@ -353,7 +353,7 @@ $varlang = session('langu3');
         }
 
         .centertext {
-            
+
             float: center;
             align-items: center;
             width: 100%;
@@ -429,18 +429,18 @@ img.categoria{
         <nav class="nav">
 
             <div class="nav__container">
-                
-            
-                
+
+
+
                 <p class="text-center title">
                     Bienvenido
 
-                    
+
                 </p>
 
                 <span class="iwt">
 
-                
+
             </div>
 
 
@@ -504,7 +504,7 @@ img.categoria{
             <!--  <p class="text-center bienvenido">Categorias</p> -->
             <div class="wrapper2">
 
-           
+
                 <p class="text-center">
                     <a class="bienvenido" href="#menu">Menú Principal</a>
                     <span>
@@ -534,8 +534,8 @@ img.categoria{
                                         </tr>
                                     </thead>
                 </table>
-                    
-                </p>                                  
+
+                </p>
 
             </div>
         </div>
@@ -563,17 +563,17 @@ img.categoria{
         <div style="width: 100%;" align="center">
           <!--  <img width="90%" height="120px" class="categoria" src="https://sondealo.com/sitio/images{{$imagen_url}}" /> -->
 
-            <div class="center-cropped" 
+            <div class="center-cropped"
                  style="background-image: url('https://sondealo.com/sitio/images{{$imagen_url}}');">
             </div>
 
-            
+
             <span class="cattitle">
                 @php
                 echo $nombre;
                 @endphp
             </span>
-               
+
         </div>
     </header>
 
@@ -634,15 +634,18 @@ img.categoria{
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+
+
+                    </div>
+                    <div class="modal-body">
+                        <img src="{{$img->ruta_servidor}}" />
                         @if ($varlang == 'es')
                         <h4 class="modal-title">{{$item->nombre}}</h4>
                         @elseif ($varlang == 'en')
                         <h4 class="modal-title">{{$item->nombre_en}}</h4>
                         @endif
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <img src="{{$img->ruta_servidor}}" />
                     </div>
                     <div class="center">
                         @if ($varlang == 'es')
@@ -775,8 +778,8 @@ img.categoria{
         /*
         $(document).ready(function() {
            $('#imgclick2').on('click', function (e) {
-            $('#myModal2').modal('show');        
-           });   
+            $('#myModal2').modal('show');
+           });
         });
         */
         $('body').on('click', 'img', function() {
@@ -784,7 +787,7 @@ img.categoria{
             var id = this.id;
             // $('#'+id).on('click', function (e) {
             $('#myModal' + id).modal('show');
-            // });  
+            // });
 
         });
     </script>
