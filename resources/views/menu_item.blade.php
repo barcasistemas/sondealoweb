@@ -118,17 +118,22 @@ $varlang = session('langu3');
         }
 
         .modal-dialog {
-            height: 100%
+            height: 100%;
+            background-color: #090909;
+
+            
         }
 
         .modal-content {
-            height: 100%
+            height: 100%;
+            background-color: #090909;
+
         }
 
         .modal-body {
             height: 100%;
             overflow: auto;
-
+            background-color: #090909;
         }
 
         .center {
@@ -139,7 +144,8 @@ $varlang = session('langu3');
         }
 
         #rcorners2 {
-            background-color: rgb(104, 104, 104) border-radius: 25px;
+            background-color: rgb(104, 104, 104);
+            border-radius: 25px;
             border: 2px solid #73AD21;
             padding: 20px;
             width: 200px;
@@ -415,6 +421,10 @@ img.categoria{
   margin-bottom: 10px;
 }
 
+img.item{
+    width: 100%;
+}
+
     </style>
 </head>
 
@@ -633,14 +643,9 @@ img.categoria{
         <div id="myModal{{$contador}}" class="modal fade" tabindex="-1">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-
-
-
-                    </div>
                     <div class="modal-body">
-                        <img src="{{$img->ruta_servidor}}" />
+                    <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                        <img src="{{$img->ruta_servidor}}" class="item" />
                         @if ($varlang == 'es')
                         <h4 class="modal-title">{{$item->nombre}}</h4>
                         @elseif ($varlang == 'en')
