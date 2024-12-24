@@ -1,6 +1,6 @@
 @php
-session();
-$varlang = session('langu3');
+    session();
+    $varlang = session('langu3');
 @endphp
 <!DOCTYPE html>
 <html lang="es">
@@ -9,10 +9,15 @@ $varlang = session('langu3');
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Menú -{{$sucursal}}</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <title>Menú -{{ $sucursal }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
 
     <style type="text/css">
         @import url('https://fonts.cdnfonts.com/css/athelas');
@@ -120,13 +125,19 @@ $varlang = session('langu3');
         .modal-dialog {
             height: 100%;
             background-color: #090909;
+            padding-right: 0 !important;
+            padding-top: 0 !important;
+            padding-left: 0 !important;
 
-            
+
         }
 
         .modal-content {
             height: 100%;
             background-color: #090909;
+            padding-right: 0 !important;
+            padding-top: 0 !important;
+            padding-left: 0 !important;
 
         }
 
@@ -134,6 +145,9 @@ $varlang = session('langu3');
             height: 100%;
             overflow: auto;
             background-color: #090909;
+            padding-right: 0 !important;
+            padding-top: 0 !important;
+            padding-left: 0 !important;
         }
 
         .center {
@@ -194,6 +208,13 @@ $varlang = session('langu3');
 
         .textMenu {
             color: #fff;
+            margin-right: 10px;
+        }
+
+        .textMenuPrice {
+            color: #AF2423;
+            font-weight: bold;
+            margin-right: 10px;
 
         }
 
@@ -206,7 +227,7 @@ $varlang = session('langu3');
             background-color: #1a1a1a;
         }
 
-        td.menu{
+        td.menu {
             padding: 5px;
         }
 
@@ -236,7 +257,7 @@ $varlang = session('langu3');
         }
 
         .nav__title {
-            color:#000;
+            color: #000;
             grid-area: title;
             float: center;
             text-align: center;
@@ -369,7 +390,7 @@ $varlang = session('langu3');
             text-align: center;
         }
 
-        p.title{
+        p.title {
             font-size: 1rem;
             font-weight: bold;
             margin-top: 10px;
@@ -377,64 +398,129 @@ $varlang = session('langu3');
 
         .whiteimage {
             color: #fff;
+        }
+
+        .searchtext {
+            width: 90%;
+            margin-left: 20px;
+            margin-top: 0px;
+            background-color: transparent;
+            border-color: #28303B;
+        }
+
+        img.filtro {
+            max-width: 30px;
+            max-height: 30px;
+        }
+
+        table.menu {
+            margin-top: 440px;
+        }
+
+        .cattitle {
+            color: #fff;
+            text-align: center;
+            width: 100%;
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-top: 20px;
+        }
+
+        img.categoria {
+            margin-left: 100%;
+            margin-right: 100%;
+            align-items: center;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .center-cropped {
+            width: 90%;
+            height: 120px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+
+        img.item {
+            width: 100%;
+        }
+
+        img.backicon {
+            float: left;
+            width: 60px;
+            height: 60px;
+        }
+
+        div.outside {
+            position: relative;
+        }
+
+        .inner-image {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            width: 50px;
+            height: 50px;
+        }
+        .scroll-container {
+  width: 100%;
+  height: 200px;
+  background-color: yellow;
+  overflow: scroll;
 }
 
-.searchtext{
-    width: 90%;
-    margin-left: 20px;
-    margin-top: 0px;
-    background-color: transparent;
-    border-color: #28303B;
+.inner-container {
+  width: 100%;
+  height: 400px;
 }
 
-img.filtro{
-    max-width: 30px;
-    max-height: 30px;
+.scroll-content {
+  width: 100%;
+  height: 40px;
+  background-color: orange;
 }
-
-table.menu{
-    margin-top: 440px;
-}
-.cattitle{
-    color: #fff;
-    text-align: center;
-    width: 100%;
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-top: 20px;
-}
-
-img.categoria{
-    margin-left: 100%;
-    margin-right: 100%;
-    align-items: center;
-    background-position: center center;
-    background-repeat: no-repeat;
-}
-
-.center-cropped {
-  width: 90%;
-  height: 120px;
-  background-position: center center;
-  background-repeat: no-repeat;
-  margin-top: 30px;
-  margin-bottom: 10px;
-}
-
-img.item{
-    width: 100%;
-}
-
     </style>
 </head>
 
 <body>
 
     @php
-    $idvideo_cat = "";
-    $switchvideo_cat = "";
+        $idvideo_cat = '';
+        $switchvideo_cat = '';
     @endphp
     <header>
+
+        <div class="scroll-container">
+            <div class="inner-container">
+                <div style="position: fixed;" class="scroll-content">
+                    @foreach ($array_categorias as $categoria)
+                        @if ($varlang == 'es')
+                            <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"
+                                class="btn btn-outline-primary">
+                                {{ $categoria->nombre }}
+                            </a>
+                        @elseif ($varlang == 'en')
+                            <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"
+                                class="btn btn-outline-primary">
+                                {{ $categoria->nombre_en }}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    <a href="/sitio/menu-seccion/2" class="btn btn-outline-primary">
+                        Ejemplo 1
+                    </a>
+                    <a href="/sitio/menu-seccion/2" class="btn btn-outline-primary">
+                        Ejemplo 2
+                    </a>
+
+                </div>
+            </div>
+        </div>
+
+
 
         <nav class="nav">
 
@@ -454,61 +540,64 @@ img.item{
             </div>
 
 
-                <ul class="dropdown" id="menu">
+            <ul class="dropdown" id="menu">
 
 
 
-                    <li class="dropdown__list">
-                        <div>
-                            <span class="centertext" style="display: flex; justify-content: center;" width="100%">Seleccione un menú</span>
-                            <a href="#" class="btn-close btn-close-white dropdown__link2">
+                <li class="dropdown__list">
+                    <div>
+                        <span class="centertext" style="display: flex; justify-content: center;"
+                            width="100%">Seleccione un menú</span>
+                        <a href="#" class="btn-close btn-close-white dropdown__link2">
 
-                            </a>
-                        </div>
-
-                    </li>
-
-                    <li class="dropdown__list">
-                        <a href="#" class="dropdown__link">
-                            <span class="dropdown__span">Menú Principal</span>
                         </a>
-                    </li>
+                    </div>
+
+                </li>
+
+                <li class="dropdown__list">
+                    <a href="#" class="dropdown__link">
+                        <span class="dropdown__span">Menú Principal</span>
+                    </a>
+                </li>
 
 
-                    <li class="dropdown__list">
-                        <a href="#" class="dropdown__link">
-                            <span class="dropdown__span">Bebidas</span>
-                        </a>
-                    </li>
+                <li class="dropdown__list">
+                    <a href="#" class="dropdown__link">
+                        <span class="dropdown__span">Bebidas</span>
+                    </a>
+                </li>
 
-                    <li class="dropdown__list">
-                        <a href="#" class="dropdown__link">
-                            <span class="dropdown__span">Mixología</span>
-                        </a>
-                    </li>
+                <li class="dropdown__list">
+                    <a href="#" class="dropdown__link">
+                        <span class="dropdown__span">Mixología</span>
+                    </a>
+                </li>
 
-                    <li class="dropdown__list">
-                        <a href="#" class="dropdown__link">
-                            <span class="dropdown__span">Postres</span>
-                        </a>
-                    </li>
-
-
+                <li class="dropdown__list">
+                    <a href="#" class="dropdown__link">
+                        <span class="dropdown__span">Postres</span>
+                    </a>
+                </li>
 
 
-                    <li class="dropdown__list">
-                        <a href="#" class="dropdown__link">
-                            <span class="dropdown__span">Ayuda</span>
-                        </a>
-                    </li>
 
-                </ul>
+
+                <li class="dropdown__list">
+                    <a href="#" class="dropdown__link">
+                        <span class="dropdown__span">Ayuda</span>
+                    </a>
+                </li>
+
+            </ul>
 
             </div>
 
 
 
         </nav>
+
+
 
         <div class="container">
             <!--  <p class="text-center bienvenido">Categorias</p> -->
@@ -518,31 +607,35 @@ img.item{
                 <p class="text-center">
                     <a class="bienvenido" href="#menu">Menú Principal</a>
                     <span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" class="text-center font-bold whiteimage">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="28px" height="28px" viewBox="0 0 20 20"
+                            fill="currentColor" aria-hidden="true" class="text-center font-bold whiteimage">
+                            <path fill-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                clip-rule="evenodd">
 
-                    </path>
-        </svg>
-        </span>
+                            </path>
+                        </svg>
+                    </span>
                     <br>
                     <span class="textMenu">
-                    Menú
+                        Menú
                     </span>
 
-                    <table style="width: 100%; max-height: 80px; margin-top: 40px;">
+                <table style="width: 100%; max-height: 80px; margin-top: 40px;">
                     <thead>
-                                        <tr>
-                                            <th style="width: 90%;">
-                                            <input type="text" name="search" placeholder="Búsqueda"
-                                                    class="form-control searchtext" value="">
-                                            </th>
-                                            <th style="width: 10%;">
-                                            <a href="#">
-                                                    <img width="24px" height="24px" class="filtro" src="https://sondealo.com/sitio/images/menu/filtrar.png" />
-                                                    </a>
-                                            </th>
-                                        </tr>
-                                    </thead>
+                        <tr>
+                            <th style="width: 90%;">
+                                <input type="text" name="search" placeholder="Búsqueda"
+                                    class="form-control searchtext" value="">
+                            </th>
+                            <th style="width: 10%;">
+                                <a href="#">
+                                    <img width="24px" height="24px" class="filtro"
+                                        src="https://sondealo.com/sitio/images/menu/filtrar.png" />
+                                </a>
+                            </th>
+                        </tr>
+                    </thead>
                 </table>
 
                 </p>
@@ -555,32 +648,36 @@ img.item{
             <div class="wrapper3">
                 <div class="div2">
                     @foreach ($array_categorias as $categoria)
-                    @if ($categoria->id == $id)
-                    @php
-                    $idvideo_cat = $categoria->id_video;
-                    $switchvideo_cat = $categoria->video_switch;
-                    @endphp
-                    @endif
-                    @if ($varlang == 'es')
-                    <a href="/sitio/menu-seccion/{{$sucursal}}/{{$categoria->id}}"><img width="50px" height="50px" class="bienvenido" src="https://sondealo.com/sitio/images{{$categoria->imagen_url}}" /><span>{{$categoria->nombre}}</span></a>
-                    @elseif ($varlang == 'en')
-                    <a href="/sitio/menu-seccion/{{$sucursal}}/{{$categoria->id}}"><img width="50px" height="50px" class="bienvenido" src="https://sondealo.com/sitio/images{{$categoria->imagen_url}}" /><span>{{$categoria->nombre_en}}</span></a>
-                    @endif
+                        @if ($categoria->id == $id)
+                            @php
+                                $idvideo_cat = $categoria->id_video;
+                                $switchvideo_cat = $categoria->video_switch;
+                            @endphp
+                        @endif
+                        @if ($varlang == 'es')
+                            <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"><img width="50px"
+                                    height="50px" class="bienvenido"
+                                    src="https://sondealo.com/sitio/images{{ $categoria->imagen_url }}" /><span>{{ $categoria->nombre }}</span></a>
+                        @elseif ($varlang == 'en')
+                            <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"><img width="50px"
+                                    height="50px" class="bienvenido"
+                                    src="https://sondealo.com/sitio/images{{ $categoria->imagen_url }}" /><span>{{ $categoria->nombre_en }}</span></a>
+                        @endif
                     @endforeach
                 </div>
             </div>
         </div>
         <div style="width: 100%;" align="center">
-          <!--  <img width="90%" height="120px" class="categoria" src="https://sondealo.com/sitio/images{{$imagen_url}}" /> -->
+            <!--  <img width="90%" height="120px" class="categoria" src="https://sondealo.com/sitio/images{{ $imagen_url }}" /> -->
 
             <div class="center-cropped"
-                 style="background-image: url('https://sondealo.com/sitio/images{{$imagen_url}}');">
+                style="background-image: url('https://sondealo.com/sitio/images{{ $imagen_url }}');">
             </div>
 
 
             <span class="cattitle">
                 @php
-                echo $nombre;
+                    echo $nombre;
                 @endphp
             </span>
 
@@ -589,103 +686,127 @@ img.item{
 
 
 
-    <!-- <label id="video_switch">{{$switchvideo_cat}}</label> -->
+    <!-- <label id="video_switch">{{ $switchvideo_cat }}</label> -->
     <table style="width: 95%" align="center" margin-top: 50px" class="containter0 menu">
         @php $contador = 1; @endphp
         @foreach ($array_items as $item)
-        @php $imagenes = $item->imagenes_url ; @endphp
+            @php $imagenes = $item->imagenes_url ; @endphp
 
-        <tr class="spaceUnder backTable">
-
-
-            <td style="width: 90%" align="center">
-                <br>
-                @if ($varlang == 'es')
-                <div class="bold"><b>
-                        <span class="textMenu">
-                            {{$item->nombre}}
-                        </span>
-                    </b></div>
-
-                <br>
-                {{$item->ingredientes}}
-                @elseif ($varlang == 'en')
-                <div class="bold"><b>
-                        <span class="textMenu">
-                            {{$item->nombre_en}}
-                        </span>
-                    </b></div>
-                <br>
-                <span class="textMenu">
-                    {{$item->ingredientes_en}}
-                </span>
-                @endif
-
-                <br>
-                <span class="textMenu">
-                    ${{$item->precio}}
-                </span>
+            <tr class="spaceUnder backTable">
 
 
-            </td>
-
-            <td style="width: 10%" align="center">
-                @foreach ($imagenes as $img)
-
-                <img id="{{$contador}}" height="90px" width="90px" class="bienvenido" src="{{$img->ruta_servidor}}" />
-
-                @endforeach
-
-            </td>
-
-        </tr>
-
-        <div id="myModal{{$contador}}" class="modal fade" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                    <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                        <img src="{{$img->ruta_servidor}}" class="item" />
-                        @if ($varlang == 'es')
-                        <h4 class="modal-title">{{$item->nombre}}</h4>
-                        @elseif ($varlang == 'en')
-                        <h4 class="modal-title">{{$item->nombre_en}}</h4>
-                        @endif
-                    </div>
-                    <div class="center">
-                        @if ($varlang == 'es')
-                        <p>
-                        <h4>Se recomienda acompañar con:</h4>
-                        </p>
-                        @elseif ($varlang == 'en')
-                        <p>
-                        <h4>It is recommended to accompany with:</h4>
-                        </p>
-                        @endif
-                        @if ($varlang == 'es')
-                        <a href="/sitio/menu-seccion/{{$sucursal}}/{{$item->recom_catid}}">
-                            <p>{{$item->recomen}}</p>
-                        </a>
-                        @elseif ($varlang == 'en')
-                        <a href="/sitio/menu-seccion/{{$sucursal}}/{{$item->recom_catid}}">
-                            <p>{{$item->recomen_en}}</p>
-                        </a>
-                        @endif
+                <td style="width: 90%" align="center">
+                    <br>
+                    @if ($varlang == 'es')
+                        <div class="bold"><b>
+                                <span class="textMenu">
+                                    {{ $item->nombre }}
+                                </span>
+                            </b></div>
 
                         <br>
+                        {{ $item->ingredientes }}
+                    @elseif ($varlang == 'en')
+                        <div class="bold"><b>
+                                <span class="textMenu">
+                                    {{ $item->nombre_en }}
+                                </span>
+                            </b></div>
+                        <br>
+                        <span class="textMenu">
+                            {{ $item->ingredientes_en }}
+                        </span>
+                    @endif
+
+                    <br>
+                    <span class="textMenuPrice">
+                        ${{ $item->precio }}
+                    </span>
+
+
+                </td>
+
+                <td style="width: 10%" align="center">
+                    @foreach ($imagenes as $img)
+                        <img id="{{ $contador }}" height="90px" width="90px" class="bienvenido"
+                            src="{{ $img->ruta_servidor }}" />
+                    @endforeach
+
+                </td>
+
+            </tr>
+
+            <div id="myModal{{ $contador }}" class="modal fade" tabindex="-1">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-body">
+
+                            <div class="outside">
+                                <img data-bs-dismiss="modal" class="inner-image"
+                                    src="https://sondealo.com/sitio/images/menu/flecha-atras.png" />
+                                <img src="{{ $img->ruta_servidor }}" class="item" />
+
+                            </div>
+
+
+
+                            <!--  <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button> -->
+
+
+                            @if ($varlang == 'es')
+                                <h4 class="modal-title textMenu">{{ $item->nombre }}</h4>
+                                <span class="textMenu">
+                                    {{ $item->ingredientes_en }}
+                                </span>
+                            @elseif ($varlang == 'en')
+                                <h4 class="modal-title textMenu">{{ $item->nombre_en }}</h4>
+
+                                <span class="textMenu">
+                                    {{ $item->ingredientes_en }}
+                                </span>
+                            @endif
+
+                            <span class="textMenuPrice">
+                                ${{ $item->precio }}
+                            </span>
+
+
+                        </div>
+
+
+                        <div class="center">
+                            @if ($varlang == 'es')
+                                <p>
+                                <h4>Se recomienda acompañar con:</h4>
+                                </p>
+                            @elseif ($varlang == 'en')
+                                <p>
+                                <h4>It is recommended to accompany with:</h4>
+                                </p>
+                            @endif
+                            @if ($varlang == 'es')
+                                <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $item->recom_catid }}">
+                                    <p>{{ $item->recomen }}</p>
+                                </a>
+                            @elseif ($varlang == 'en')
+                                <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $item->recom_catid }}">
+                                    <p>{{ $item->recomen_en }}</p>
+                                </a>
+                            @endif
+
+                            <br>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
 
 
 
 
-        @php
-        $contador = $contador+1;
-        @endphp
-
+            @php
+                $contador = $contador + 1;
+            @endphp
         @endforeach
     </table>
 
@@ -705,15 +826,17 @@ img.item{
 
 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js" integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"
+        integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
 
     @if ($switchvideo_cat == 1)
-    <script type="text/javascript">
-        $(window).on('load', function() {
-            $('#myModalYT').modal('show');
-        });
-    </script>
+        <script type="text/javascript">
+            $(window).on('load', function() {
+                $('#myModalYT').modal('show');
+            });
+        </script>
     @endif
 
 
@@ -731,7 +854,7 @@ img.item{
             player = new YT.Player('player', {
                 height: '310',
                 width: '380',
-                videoId: '{{$idvideo_cat}}',
+                videoId: '{{ $idvideo_cat }}',
                 playerVars: {
                     'autoplay': 1,
                     'controls': 0
@@ -774,11 +897,31 @@ img.item{
     </script>
 
     <script type="text/javascript">
+        var content = $('.scroll-content');
+        var innerContainer = $('.inner-container');
+        content.hide();
+
+        function scrollHandler() {
+           // if (innerContainer.position().top <= 0) {
+             //   content.hide();
+           // } else {
+             //   content.show();
+          //  }
+          if(innerContainer.position().top >= 1){
+            content.show();
+          }
+
+        }
+
+        $('.scroll-container').scroll(scrollHandler);
+    </script>
+
+    <script type="text/javascript">
         /*
-        $('body').on('click','img',function(){
-            $('#myModal').modal('show');
-        })
-        */
+                $('body').on('click','img',function(){
+                    $('#myModal').modal('show');
+                })
+                */
 
         /*
         $(document).ready(function() {
