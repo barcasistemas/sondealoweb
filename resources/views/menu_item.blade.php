@@ -1,6 +1,6 @@
 @php
-    session();
-    $varlang = session('langu3');
+session();
+$varlang = session('langu3');
 @endphp
 <!DOCTYPE html>
 <html lang="es">
@@ -464,34 +464,78 @@
             width: 50px;
             height: 50px;
         }
+
         .scroll-container {
-  width: 100%;
-  height: 200px;
-  background-color: yellow;
-  overflow: scroll;
+            width: 100%;
+            height: 200px;
+            background-color: yellow;
+            overflow: scroll;
+        }
+
+        .inner-container {
+            width: 100%;
+            height: 400px;
+        }
+
+        .scroll-content {
+            width: 100%;
+            height: 40px;
+            background-color: orange;
+        }
+
+        .content1 {
+    width:100%;
+    height:200px;
+    background: red;
+    display: block;
+    margin: auto;
+}
+.header1 {
+    position: fixed;
+    height:50px;
+    width:100%;
 }
 
-.inner-container {
-  width: 100%;
-  height: 400px;
+.btn-outline-primary{
+   /* background-color: #AF2423 !important; */
+   color: #AF2423 !important;
+   border-color: #AF2423 !important;
 }
 
-.scroll-content {
-  width: 100%;
-  height: 40px;
-  background-color: orange;
-}
     </style>
 </head>
 
 <body>
 
     @php
-        $idvideo_cat = '';
-        $switchvideo_cat = '';
+    $idvideo_cat = '';
+    $switchvideo_cat = '';
     @endphp
     <header>
 
+        <div class='header1'>
+        @foreach ($array_categorias as $categoria)
+                        @if ($varlang == 'es')
+                            <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"
+                                class="btn btn-outline-primary">
+                                {{ $categoria->nombre }}
+                            </a>
+                        @elseif ($varlang == 'en')
+                            <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"
+                                class="btn btn-outline-primary">
+                                {{ $categoria->nombre_en }}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    <a href="/sitio/menu-seccion/2" class="btn btn-outline-primary">
+                        Ejemplo 1
+                    </a>
+                    <a href="/sitio/menu-seccion/2" class="btn btn-outline-primary">
+                        Ejemplo 2
+                    </a>
+        </div>
+        <!--
         <div class="scroll-container">
             <div class="inner-container">
                 <div style="position: fixed;" class="scroll-content">
@@ -519,6 +563,7 @@
                 </div>
             </div>
         </div>
+-->
 
 
 
@@ -648,21 +693,21 @@
             <div class="wrapper3">
                 <div class="div2">
                     @foreach ($array_categorias as $categoria)
-                        @if ($categoria->id == $id)
-                            @php
-                                $idvideo_cat = $categoria->id_video;
-                                $switchvideo_cat = $categoria->video_switch;
-                            @endphp
-                        @endif
-                        @if ($varlang == 'es')
-                            <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"><img width="50px"
-                                    height="50px" class="bienvenido"
-                                    src="https://sondealo.com/sitio/images{{ $categoria->imagen_url }}" /><span>{{ $categoria->nombre }}</span></a>
-                        @elseif ($varlang == 'en')
-                            <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"><img width="50px"
-                                    height="50px" class="bienvenido"
-                                    src="https://sondealo.com/sitio/images{{ $categoria->imagen_url }}" /><span>{{ $categoria->nombre_en }}</span></a>
-                        @endif
+                    @if ($categoria->id == $id)
+                    @php
+                    $idvideo_cat = $categoria->id_video;
+                    $switchvideo_cat = $categoria->video_switch;
+                    @endphp
+                    @endif
+                    @if ($varlang == 'es')
+                    <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"><img width="50px"
+                            height="50px" class="bienvenido"
+                            src="https://sondealo.com/sitio/images{{ $categoria->imagen_url }}" /><span>{{ $categoria->nombre }}</span></a>
+                    @elseif ($varlang == 'en')
+                    <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"><img width="50px"
+                            height="50px" class="bienvenido"
+                            src="https://sondealo.com/sitio/images{{ $categoria->imagen_url }}" /><span>{{ $categoria->nombre_en }}</span></a>
+                    @endif
                     @endforeach
                 </div>
             </div>
@@ -677,7 +722,7 @@
 
             <span class="cattitle">
                 @php
-                    echo $nombre;
+                echo $nombre;
                 @endphp
             </span>
 
@@ -690,123 +735,123 @@
     <table style="width: 95%" align="center" margin-top: 50px" class="containter0 menu">
         @php $contador = 1; @endphp
         @foreach ($array_items as $item)
-            @php $imagenes = $item->imagenes_url ; @endphp
+        @php $imagenes = $item->imagenes_url ; @endphp
 
-            <tr class="spaceUnder backTable">
+        <tr class="spaceUnder backTable">
 
 
-                <td style="width: 90%" align="center">
-                    <br>
-                    @if ($varlang == 'es')
-                        <div class="bold"><b>
-                                <span class="textMenu">
-                                    {{ $item->nombre }}
-                                </span>
-                            </b></div>
+            <td style="width: 90%" align="center">
+                <br>
+                @if ($varlang == 'es')
+                <div class="bold"><b>
+                        <span class="textMenu">
+                            {{ $item->nombre }}
+                        </span>
+                    </b></div>
 
-                        <br>
-                        {{ $item->ingredientes }}
-                    @elseif ($varlang == 'en')
-                        <div class="bold"><b>
-                                <span class="textMenu">
-                                    {{ $item->nombre_en }}
-                                </span>
-                            </b></div>
-                        <br>
+                <br>
+                {{ $item->ingredientes }}
+                @elseif ($varlang == 'en')
+                <div class="bold"><b>
+                        <span class="textMenu">
+                            {{ $item->nombre_en }}
+                        </span>
+                    </b></div>
+                <br>
+                <span class="textMenu">
+                    {{ $item->ingredientes_en }}
+                </span>
+                @endif
+
+                <br>
+                <span class="textMenuPrice">
+                    ${{ $item->precio }}
+                </span>
+
+
+            </td>
+
+            <td style="width: 10%" align="center">
+                @foreach ($imagenes as $img)
+                <img id="{{ $contador }}" height="90px" width="90px" class="bienvenido"
+                    src="{{ $img->ruta_servidor }}" />
+                @endforeach
+
+            </td>
+
+        </tr>
+
+        <div id="myModal{{ $contador }}" class="modal fade" tabindex="-1">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+
+                        <div class="outside">
+                            <img data-bs-dismiss="modal" class="inner-image"
+                                src="https://sondealo.com/sitio/images/menu/flecha-atras.png" />
+                            <img src="{{ $img->ruta_servidor }}" class="item" />
+
+                        </div>
+
+
+
+                        <!--  <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button> -->
+
+
+                        @if ($varlang == 'es')
+                        <h4 class="modal-title textMenu">{{ $item->nombre }}</h4>
                         <span class="textMenu">
                             {{ $item->ingredientes_en }}
                         </span>
-                    @endif
+                        @elseif ($varlang == 'en')
+                        <h4 class="modal-title textMenu">{{ $item->nombre_en }}</h4>
 
-                    <br>
-                    <span class="textMenuPrice">
-                        ${{ $item->precio }}
-                    </span>
+                        <span class="textMenu">
+                            {{ $item->ingredientes_en }}
+                        </span>
+                        @endif
 
-
-                </td>
-
-                <td style="width: 10%" align="center">
-                    @foreach ($imagenes as $img)
-                        <img id="{{ $contador }}" height="90px" width="90px" class="bienvenido"
-                            src="{{ $img->ruta_servidor }}" />
-                    @endforeach
-
-                </td>
-
-            </tr>
-
-            <div id="myModal{{ $contador }}" class="modal fade" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-
-                            <div class="outside">
-                                <img data-bs-dismiss="modal" class="inner-image"
-                                    src="https://sondealo.com/sitio/images/menu/flecha-atras.png" />
-                                <img src="{{ $img->ruta_servidor }}" class="item" />
-
-                            </div>
+                        <span class="textMenuPrice">
+                            ${{ $item->precio }}
+                        </span>
 
 
-
-                            <!--  <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button> -->
-
-
-                            @if ($varlang == 'es')
-                                <h4 class="modal-title textMenu">{{ $item->nombre }}</h4>
-                                <span class="textMenu">
-                                    {{ $item->ingredientes_en }}
-                                </span>
-                            @elseif ($varlang == 'en')
-                                <h4 class="modal-title textMenu">{{ $item->nombre_en }}</h4>
-
-                                <span class="textMenu">
-                                    {{ $item->ingredientes_en }}
-                                </span>
-                            @endif
-
-                            <span class="textMenuPrice">
-                                ${{ $item->precio }}
-                            </span>
+                    </div>
 
 
-                        </div>
+                    <div class="center">
+                        @if ($varlang == 'es')
+                        <p>
+                        <h4>Se recomienda acompañar con:</h4>
+                        </p>
+                        @elseif ($varlang == 'en')
+                        <p>
+                        <h4>It is recommended to accompany with:</h4>
+                        </p>
+                        @endif
+                        @if ($varlang == 'es')
+                        <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $item->recom_catid }}">
+                            <p>{{ $item->recomen }}</p>
+                        </a>
+                        @elseif ($varlang == 'en')
+                        <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $item->recom_catid }}">
+                            <p>{{ $item->recomen_en }}</p>
+                        </a>
+                        @endif
 
-
-                        <div class="center">
-                            @if ($varlang == 'es')
-                                <p>
-                                <h4>Se recomienda acompañar con:</h4>
-                                </p>
-                            @elseif ($varlang == 'en')
-                                <p>
-                                <h4>It is recommended to accompany with:</h4>
-                                </p>
-                            @endif
-                            @if ($varlang == 'es')
-                                <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $item->recom_catid }}">
-                                    <p>{{ $item->recomen }}</p>
-                                </a>
-                            @elseif ($varlang == 'en')
-                                <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $item->recom_catid }}">
-                                    <p>{{ $item->recomen_en }}</p>
-                                </a>
-                            @endif
-
-                            <br>
-                        </div>
+                        <br>
                     </div>
                 </div>
             </div>
+        </div>
 
 
 
 
 
-            @php
-                $contador = $contador + 1;
-            @endphp
+        @php
+        $contador = $contador + 1;
+        @endphp
         @endforeach
     </table>
 
@@ -832,11 +877,11 @@
         integrity="sha256-eTyxS0rkjpLEo16uXTS0uVCS4815lc40K2iVpWDvdSY=" crossorigin="anonymous"></script>
 
     @if ($switchvideo_cat == 1)
-        <script type="text/javascript">
-            $(window).on('load', function() {
-                $('#myModalYT').modal('show');
-            });
-        </script>
+    <script type="text/javascript">
+        $(window).on('load', function() {
+            $('#myModalYT').modal('show');
+        });
+    </script>
     @endif
 
 
@@ -897,6 +942,7 @@
     </script>
 
     <script type="text/javascript">
+        /*
         var content = $('.scroll-content');
         var innerContainer = $('.inner-container');
         content.hide();
@@ -914,6 +960,25 @@
         }
 
         $('.scroll-container').scroll(scrollHandler);
+        */
+        var mywindow = $(window);
+        var mypos = mywindow.scrollTop();
+        var up = false;
+        var newscroll;
+        $('.header1').stop().slideToggle();
+        mywindow.scroll(function() {
+            newscroll = mywindow.scrollTop();
+            if (newscroll > mypos && !up) {
+                $('.header1').stop().slideToggle();
+                up = !up;
+                console.log(up);
+            } 
+            else if (newscroll < mypos && up) {
+                $('.header1').stop().slideToggle();
+                up = !up;
+            }
+            mypos = newscroll;
+        });
     </script>
 
     <script type="text/javascript">
