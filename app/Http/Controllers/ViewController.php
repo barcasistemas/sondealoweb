@@ -724,7 +724,7 @@ class ViewController extends Controller
 
 
 
-    
+
     if($mostrar_top_binary == 1)
     {
 
@@ -892,10 +892,10 @@ class ViewController extends Controller
 
 
         /*modificado*/
-        
+
         $consultaMandLang = Sucursal::select('sin_preguntas_obligatorias', 'lang_en')->where('sucursal', $sucursal)->first();
-       
-       
+
+
         $obligatorias = ($consultaMandLang->sin_preguntas_obligatorias == 1) ? 0 : count($preguntas) - $no_obligatorias;
 
 
@@ -1173,7 +1173,7 @@ class ViewController extends Controller
         $arreglo_enlaces = [
           'alimentos' => $query->url_menu
         ];
-      }     
+      }
     }
     return view ('menumultiplebuttons', compact('arreglo_enlaces', 'sucursal'));
   }
@@ -1188,9 +1188,9 @@ class ViewController extends Controller
     $nombre = DB::table('menus')->select('name_comercial')->where('sucursal', $sucursal)->first();
        if($nombre){
           $name_comercial = $nombre->name_comercial;
-       } 
-       
-  
+       }
+
+
     $switches = DB::table('menus')
     ->select('encuesta_switch', 'logo_switch','url_switch', 'insta_switch', 'tiktok_switch', 'facebook_switch', 'whatsapp_switch', 'esp_switch', 'eng_switch')
     ->where('sucursal', $sucursal)->first();
@@ -1205,7 +1205,7 @@ class ViewController extends Controller
       $esp_switch = $switches->esp_switch;
       $eng_switch = $switches->eng_switch;
     }
-    
+
     $urls = DB::table('menus')
     ->select('insta_url','tiktok_url', 'facebook_url', 'whatsapp_url', 'page_url')
     ->where('sucursal', $sucursal)->first();
@@ -1242,7 +1242,7 @@ class ViewController extends Controller
     ->whereRaw("id_categoria = $id")
     ->get();
 
-    
+
     foreach($array_items as $item_url)
     {
       $item_url->imagenes_url = DB::table('menu_imagenes_items')
@@ -1268,8 +1268,39 @@ class ViewController extends Controller
       $imagen_url = $datacat->imagen_url;
     }
 
-    
-    return view ('menu_item', compact('sucursal','array_items','id', 'array_categorias', 'nombre', 'imagen_url'));
+
+    /*
+    $array_precat = array();
+    $array_precat = DB::table (DB::raw('menu_items'))
+    ->select('menu_items.id', 'menu_items.id_categoria', 'menu_items.nombre', 'menu_items.ingredientes', 'menu_items.precio', 'categorias_menu.precat_id')
+    ->join('categorias_menu', 'menu_items.id_categoria', '=', 'categorias_menu.id' )
+    ->where('categorias_menu.id_menu', 4)
+    ->get();
+    */
+
+    $array_precat = array();
+    $array_precat = DB::table(DB::raw("menu_items"))
+    ->selectRaw("menu_items.id, menu_items.id_categoria, menu_items.nombre, menu_items.ingredientes, menu_items.precio, categorias_menu.precat_id")
+    ->join('categorias_menu', 'menu_items.id_categoria', '=', 'categorias_menu.id' )
+    ->whereRaw("categorias_menu.id_menu = 4")
+    ->get();
+
+
+    /*
+    foreach($array_precat as $itempre_url)
+    {
+      $itempre_url->imagenes_url = DB::table('menu_imagenes_items')
+      ->select('ruta_servidor')
+      ->where('id_item', $itempre_url->id)
+      ->get();
+    }
+    */
+
+
+
+
+
+    return view ('menu_item', compact('sucursal','array_items','id', 'array_categorias', 'nombre', 'imagen_url', 'array_precat'));
   }
 
   public function menuPreferences()
@@ -1288,9 +1319,9 @@ class ViewController extends Controller
     $platillos = [];
 
     if($sucursal_url != null and Session::has('sucursal_fijada'))
-    {   
+    {
       $menus = DB::table('menus')->select('id', 'nombre')->where('sucursal', Session::get('sucursal_fijada'))->get();
-      
+
       if($id_menu != null and is_numeric($id_menu))
       {
         $check_menu = DB::table('menus')->select('nombre')->where('id', $id_menu)
@@ -1307,8 +1338,8 @@ class ViewController extends Controller
           {
             for($i=0;$i<$categorias->count();$i++)
             {
-              $items = []; 
-              
+              $items = [];
+
               $items_index= DB::table('menu_items')->select('id','nombre','ingredientes', 'precio')->where('id_categoria', $categorias[$i]->id)->get();
 
               if($items_index->count())
@@ -1316,11 +1347,11 @@ class ViewController extends Controller
                 for($j=0;$j<$items_index->count();$j++)
                 {
                   $items_index[$j]->imagenes = DB::table('menu_imagenes_items')->select('id','ruta_servidor')->where('id_item', $items_index[$j]->id)->get();
-              
+
                 }
                 $items[] = $items_index;
-              }  
-              $categorias[$i]->items = $items;              
+              }
+              $categorias[$i]->items = $items;
             }
           }
         }
@@ -1366,12 +1397,12 @@ class ViewController extends Controller
           $esp_switch = $nombre->esp_switch;
           $eng_switch = $nombre->eng_switch;
           $youtube_switch = $nombre->youtube_switch;
-       } 
+       }
 
     if($sucursal_url != null and Session::has('sucursal_fijada'))
-    {   
+    {
       $menus = DB::table('menus')->select('id', 'nombre')->where('sucursal', Session::get('sucursal_fijada'))->get();
-      
+
       if($id_menu != null and is_numeric($id_menu))
       {
         $check_menu = DB::table('menus')->select('nombre')->where('id', $id_menu)
@@ -1388,8 +1419,8 @@ class ViewController extends Controller
           {
             for($i=0;$i<$categorias->count();$i++)
             {
-              $items = []; 
-              
+              $items = [];
+
               $items_index= DB::table('menu_items')->select('id','nombre','ingredientes', 'precio')->where('id_categoria', $categorias[$i]->id)->get();
 
               if($items_index->count())
@@ -1397,11 +1428,11 @@ class ViewController extends Controller
                 for($j=0;$j<$items_index->count();$j++)
                 {
                   $items_index[$j]->imagenes = DB::table('menu_imagenes_items')->select('id','ruta_servidor')->where('id_item', $items_index[$j]->id)->get();
-              
+
                 }
                 $items[] = $items_index;
-              }  
-              $categorias[$i]->items = $items;              
+              }
+              $categorias[$i]->items = $items;
             }
           }
         }
@@ -1434,12 +1465,12 @@ class ViewController extends Controller
          $video_switch[$itc-1] = $catego_name->video_switch;
        }
     }
-    
+
 
     if($sucursal_url != null and Session::has('sucursal_fijada'))
-    {   
+    {
       $menus = DB::table('menus')->select('id', 'nombre')->where('sucursal', Session::get('sucursal_fijada'))->get();
-      
+
       if($id_menu != null and is_numeric($id_menu))
       {
         $check_menu = DB::table('menus')->select('nombre')->where('id', $id_menu)
@@ -1456,8 +1487,8 @@ class ViewController extends Controller
           {
             for($i=0;$i<$categorias->count();$i++)
             {
-              $items = []; 
-              
+              $items = [];
+
               $items_index= DB::table('menu_items')->select('id','nombre','ingredientes', 'precio')->where('id_categoria', $categorias[$i]->id)->get();
 
               if($items_index->count())
@@ -1465,11 +1496,11 @@ class ViewController extends Controller
                 for($j=0;$j<$items_index->count();$j++)
                 {
                   $items_index[$j]->imagenes = DB::table('menu_imagenes_items')->select('id','ruta_servidor')->where('id_item', $items_index[$j]->id)->get();
-              
+
                 }
                 $items[] = $items_index;
-              }  
-              $categorias[$i]->items = $items;              
+              }
+              $categorias[$i]->items = $items;
             }
           }
         }
@@ -1490,9 +1521,9 @@ class ViewController extends Controller
     $colorHeader = '';
 
     if($sucursal_url != null and Session::has('sucursal_fijada'))
-    {   
+    {
       $menus = DB::table('menus')->select('id', 'nombre')->where('sucursal', Session::get('sucursal_fijada'))->get();
-      
+
       if($id_menu != null and is_numeric($id_menu))
       {
         $check_menu = DB::table('menus')->select('nombre')->where('id', $id_menu)
@@ -1509,8 +1540,8 @@ class ViewController extends Controller
           {
             for($i=0;$i<$categorias->count();$i++)
             {
-              $items = []; 
-              
+              $items = [];
+
               $items_index= DB::table('menu_items')->select('id','nombre','ingredientes', 'precio')->where('id_categoria', $categorias[$i]->id)->get();
 
               if($items_index->count())
@@ -1518,11 +1549,11 @@ class ViewController extends Controller
                 for($j=0;$j<$items_index->count();$j++)
                 {
                   $items_index[$j]->imagenes = DB::table('menu_imagenes_items')->select('id','ruta_servidor')->where('id_item', $items_index[$j]->id)->get();
-              
+
                 }
                 $items[] = $items_index;
-              }  
-              $categorias[$i]->items = $items;              
+              }
+              $categorias[$i]->items = $items;
             }
           }
         }
@@ -1542,9 +1573,9 @@ class ViewController extends Controller
     $platillos = [];
 
     if($sucursal_url != null and Session::has('sucursal_fijada'))
-    {   
+    {
       $menus = DB::table('menus')->select('id', 'nombre')->where('sucursal', Session::get('sucursal_fijada'))->get();
-      
+
       if($id_menu != null and is_numeric($id_menu))
       {
         $check_menu = DB::table('menus')->select('nombre')->where('id', $id_menu)
@@ -1561,8 +1592,8 @@ class ViewController extends Controller
           {
             for($i=0;$i<$categorias->count();$i++)
             {
-              $items = []; 
-              
+              $items = [];
+
               $items_index= DB::table('menu_items')->select('id','nombre','ingredientes', 'precio')->where('id_categoria', $categorias[$i]->id)->get();
 
               if($items_index->count())
@@ -1570,11 +1601,11 @@ class ViewController extends Controller
                 for($j=0;$j<$items_index->count();$j++)
                 {
                   $items_index[$j]->imagenes = DB::table('menu_imagenes_items')->select('id','ruta_servidor')->where('id_item', $items_index[$j]->id)->get();
-              
+
                 }
                 $items[] = $items_index;
-              }  
-              $categorias[$i]->items = $items;              
+              }
+              $categorias[$i]->items = $items;
             }
           }
         }
@@ -1599,7 +1630,7 @@ class ViewController extends Controller
     ->whereRaw("id_categoria = $id_categoria")
     ->get();
 
-    
+
     foreach($array_items as $item_url)
     {
       $item_url->imagenes_url = DB::table('menu_imagenes_items')
@@ -1609,9 +1640,9 @@ class ViewController extends Controller
     }
 
     if($sucursal_url != null and Session::has('sucursal_fijada'))
-    {   
+    {
       $menus = DB::table('menus')->select('id', 'nombre')->where('sucursal', Session::get('sucursal_fijada'))->get();
-      
+
       if($id_menu != null and is_numeric($id_menu))
       {
         $check_menu = DB::table('menus')->select('nombre')->where('id', $id_menu)
@@ -1628,8 +1659,8 @@ class ViewController extends Controller
           {
             for($i=0;$i<$categorias->count();$i++)
             {
-              $items = []; 
-              
+              $items = [];
+
               $items_index= DB::table('menu_items')->select('id','nombre','ingredientes', 'precio')->where('id_categoria', $categorias[$i]->id)->get();
 
               if($items_index->count())
@@ -1637,11 +1668,11 @@ class ViewController extends Controller
                 for($j=0;$j<$items_index->count();$j++)
                 {
                   $items_index[$j]->imagenes = DB::table('menu_imagenes_items')->select('id','ruta_servidor')->where('id_item', $items_index[$j]->id)->get();
-              
+
                 }
                 $items[] = $items_index;
-              }  
-              $categorias[$i]->items = $items;              
+              }
+              $categorias[$i]->items = $items;
             }
           }
         }

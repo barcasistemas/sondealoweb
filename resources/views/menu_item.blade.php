@@ -194,8 +194,8 @@ $varlang = session('langu3');
         .div2 {
             width: max-content;
             height: 150px;
-            background-color: #ffffff;
-            overflow: auto;
+            background-color: #090909;
+            overflow-x: auto;
             max-height: 150px;
         }
 
@@ -225,6 +225,7 @@ $varlang = session('langu3');
 
         tr.menu {
             background-color: #1a1a1a;
+
         }
 
         td.menu {
@@ -373,8 +374,8 @@ $varlang = session('langu3');
         }
 
         a.bienvenido {
-            padding-top: 1.5rem;
-            font-size: 1.2rem;
+            padding-top: 0.5rem;
+            font-size: 0.8rem;
             color: #fff;
             font-weight: bold;
         }
@@ -414,7 +415,7 @@ $varlang = session('langu3');
         }
 
         table.menu {
-            margin-top: 440px;
+            margin-top: 460px;
         }
 
         .cattitle {
@@ -424,6 +425,7 @@ $varlang = session('langu3');
             font-size: 1.3rem;
             font-weight: bold;
             margin-top: 20px;
+            margin-bottom: 10px;
         }
 
         img.categoria {
@@ -494,12 +496,26 @@ $varlang = session('langu3');
     position: fixed;
     height:50px;
     width:100%;
+    background-color: #090909;
 }
 
 .btn-outline-primary{
    /* background-color: #AF2423 !important; */
    color: #AF2423 !important;
    border-color: #AF2423 !important;
+}
+
+span.slider{
+    font-size: 0.8rem;
+}
+
+.carrousel {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+.marg1{
+    margin-top: 70px;
 }
 
     </style>
@@ -510,10 +526,12 @@ $varlang = session('langu3');
     @php
     $idvideo_cat = '';
     $switchvideo_cat = '';
+    $varlang = 'es';
     @endphp
     <header>
 
         <div class='header1'>
+            <div class="carrousel">
         @foreach ($array_categorias as $categoria)
                         @if ($varlang == 'es')
                             <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"
@@ -528,12 +546,14 @@ $varlang = session('langu3');
                         @endif
                     @endforeach
 
+                    <!--
                     <a href="/sitio/menu-seccion/2" class="btn btn-outline-primary">
                         Ejemplo 1
                     </a>
                     <a href="/sitio/menu-seccion/2" class="btn btn-outline-primary">
                         Ejemplo 2
-                    </a>
+                    </a> -->
+            </div>
         </div>
         <!--
         <div class="scroll-container">
@@ -688,10 +708,10 @@ $varlang = session('langu3');
             </div>
         </div>
 
-        <div class="container0">
+        <div class="carrousel">
             <!--  <p class="text-center bienvenido">Categorias</p> -->
             <div class="wrapper3">
-                <div class="div2">
+
                     @foreach ($array_categorias as $categoria)
                     @if ($categoria->id == $id)
                     @php
@@ -700,16 +720,16 @@ $varlang = session('langu3');
                     @endphp
                     @endif
                     @if ($varlang == 'es')
-                    <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"><img width="50px"
-                            height="50px" class="bienvenido"
-                            src="https://sondealo.com/sitio/images{{ $categoria->imagen_url }}" /><span>{{ $categoria->nombre }}</span></a>
+                    <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"><img width="90px"
+                            height="90px"
+                            src="https://sondealo.com/sitio/images{{ $categoria->imagen_url }}" /><span class="slider">{{ $categoria->nombre }}</span></a>
                     @elseif ($varlang == 'en')
                     <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"><img width="50px"
                             height="50px" class="bienvenido"
-                            src="https://sondealo.com/sitio/images{{ $categoria->imagen_url }}" /><span>{{ $categoria->nombre_en }}</span></a>
+                            src="https://sondealo.com/sitio/images{{ $categoria->imagen_url }}" /><span class="slider">{{ $categoria->nombre_en }}</span></a>
                     @endif
                     @endforeach
-                </div>
+
             </div>
         </div>
         <div style="width: 100%;" align="center">
@@ -731,8 +751,13 @@ $varlang = session('langu3');
 
 
 
+
+
+
+
     <!-- <label id="video_switch">{{ $switchvideo_cat }}</label> -->
-    <table style="width: 95%" align="center" margin-top: 50px" class="containter0 menu">
+    <table style="width: 95%" align="center" class="containter0 menu">
+        <tbody class="marg1">
         @php $contador = 1; @endphp
         @foreach ($array_items as $item)
         @php $imagenes = $item->imagenes_url ; @endphp
@@ -750,7 +775,9 @@ $varlang = session('langu3');
                     </b></div>
 
                 <br>
-                {{ $item->ingredientes }}
+                <span class="textMenu">
+                   {{ $item->ingredientes }}
+                </span>
                 @elseif ($varlang == 'en')
                 <div class="bold"><b>
                         <span class="textMenu">
@@ -801,7 +828,7 @@ $varlang = session('langu3');
                         @if ($varlang == 'es')
                         <h4 class="modal-title textMenu">{{ $item->nombre }}</h4>
                         <span class="textMenu">
-                            {{ $item->ingredientes_en }}
+                            {{ $item->ingredientes }}
                         </span>
                         @elseif ($varlang == 'en')
                         <h4 class="modal-title textMenu">{{ $item->nombre_en }}</h4>
@@ -810,7 +837,7 @@ $varlang = session('langu3');
                             {{ $item->ingredientes_en }}
                         </span>
                         @endif
-
+                        <br>
                         <span class="textMenuPrice">
                             ${{ $item->precio }}
                         </span>
@@ -853,6 +880,7 @@ $varlang = session('langu3');
         $contador = $contador + 1;
         @endphp
         @endforeach
+    </tbody>
     </table>
 
     <div id="myModalYT" class="modal fade" tabindex="-1">
@@ -972,7 +1000,7 @@ $varlang = session('langu3');
                 $('.header1').stop().slideToggle();
                 up = !up;
                 console.log(up);
-            } 
+            }
             else if (newscroll < mypos && up) {
                 $('.header1').stop().slideToggle();
                 up = !up;
