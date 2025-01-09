@@ -582,8 +582,7 @@ span.slider{
 
                 </div>
             </div>
-        </div>
--->
+        </div>  -->
 
 
 
