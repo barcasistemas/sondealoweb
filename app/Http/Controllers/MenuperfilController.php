@@ -141,6 +141,7 @@ class MenuperfilController extends Controller
         echo $whatsappurl;
         */
         //CAMBIOS A SUBIR
+        //CAMBIOS 2
 
         
         Menu::where('sucursal','=',$sucursal)->update(['name_comercial'=> $nom_sucursal, 
