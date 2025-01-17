@@ -143,6 +143,7 @@ class MenuperfilController extends Controller
         //CAMBIOS A SUBIR
         //CAMBIOS 2
         //cambios #
+        //cambios seven
 
         
         Menu::where('sucursal','=',$sucursal)->update(['name_comercial'=> $nom_sucursal, 
