@@ -532,6 +532,8 @@ span.slider{
 
         <div class='header1'>
             <div class="carrousel">
+        
+
         @foreach ($array_categorias as $categoria)
                         @if ($varlang == 'es')
                             <a href="/sitio/menu-seccion/{{ $sucursal }}/{{ $categoria->id }}"
@@ -662,6 +664,17 @@ span.slider{
         </nav>
 
 
+        @foreach ($sel_precat as $precatego)
+
+      <!--  <span class="bold">  -->
+            @php
+          //  echo $precatego->nombre;
+            @endphp
+
+      <!--  </span> -->
+        
+        @endforeach
+        
 
         <div class="container">
             <!--  <p class="text-center bienvenido">Categorias</p> -->
