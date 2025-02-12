@@ -41,7 +41,7 @@ Route::get('/menu-multiple-button/{sucursal?}', 'ViewController@menuMultipleButt
 /* rutas menu dinamico */
 Route::get('/menu-lang/{sucursal}', 'ViewController@selectLang');
 Route::get('/menu-categorias/{sucursal}','ViewController@menuSelectCategorias');
-Route::get('/menu-seccion/{sucursal}/{id}','ViewController@menuSecciones');
+Route::get('/menu-seccion/{sucursal}/{id}/{id_group}/{subgroup}','ViewController@menuSecciones');
 
 
 Route::post('/registrar', 'UserController@storeTitular')->name('registrar_usuario');

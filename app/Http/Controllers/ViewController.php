@@ -1233,7 +1233,7 @@ class ViewController extends Controller
     return view ('menu_categorias', compact('sucursal', 'array_categorias'));
   }
 
-  public function menuSecciones($sucursal, $id)
+  public function menuSecciones($sucursal, $id, $id_group,$subgroup)
   {
 
     $array_items = array();
@@ -1285,8 +1285,8 @@ class ViewController extends Controller
     ->whereRaw("categorias_menu.id_menu = 4")
     ->get();
 
-    $sel_precat = DB::select("SELECT mi.id, mi.id_categoria, mi.nombre, mi.ingredientes, mi.precio, cm.precat_id FROM menu_items mi 
-JOIN categorias_menu cm WHERE mi.id_categoria = cm.id AND cm.id_menu = 4");
+    $sel_precat = DB::select("SELECT mi.id, mi.id_categoria, mi.nombre, mi.ingredientes, mi.precio, cm.precat_id, cm.imagen_url FROM menu_items mi 
+JOIN categorias_menu cm WHERE mi.id_categoria = cm.id AND cm.id_menu = ".$id_group." AND cm.precat_id = 1");
 
 
     /*
