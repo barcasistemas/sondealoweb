@@ -1144,14 +1144,15 @@ class ViewController extends Controller
           $url_bebidas     = 'https://sondealo.com/sitio/menu_qr/m_morictrc_bebidas.pdf';
           break;
         case 'hltrc':
+            //header("Location: https://sondealo.com/sitio/menu_qr/m_hltrc.pdf");
             $url_bebidas     = 'https://sondealo.com/sitio/menu_qr/m_hltrc_comidas.pdf';
             $label_alimentos = 'Menú desayunos ';
             $label_bebidas   = 'Menú comidas';
             break;
      }
 
-    return view('menu_tabs', compact('url_bebidas', 'url_alimentos', 'label_alimentos', 'label_bebidas'));
-
+    //return view('menu_tabs', compact('url_bebidas', 'url_alimentos', 'label_alimentos', 'label_bebidas'));
+    return redirect()->away('https://sondealo.com/sitio/menu_qr/m_hltrc.pdf');
   }
 
   public function menuMultipleButtons($sucursal = null)
@@ -1285,7 +1286,7 @@ class ViewController extends Controller
     ->whereRaw("categorias_menu.id_menu = 4")
     ->get();
 
-    $sel_precat = DB::select("SELECT mi.id, mi.id_categoria, mi.nombre, mi.ingredientes, mi.precio, cm.precat_id, cm.imagen_url FROM menu_items mi 
+    $sel_precat = DB::select("SELECT mi.id, mi.id_categoria, mi.nombre, mi.ingredientes, mi.precio, cm.precat_id, cm.imagen_url FROM menu_items mi
 JOIN categorias_menu cm WHERE mi.id_categoria = cm.id AND cm.id_menu = ".$id_group." AND cm.precat_id = 1");
 
 

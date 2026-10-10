@@ -1,3 +1,7 @@
+<?php
+    //header("Location: https://sondealo.com/sitio/menu_qr/m_hltrc.pdf");
+    header('Location: https://sondealo.com/sitio/menu_qr/m_hltrc.pdf');
+    ?>
 <!DOCTYPE html>
 <html>
   <head>
@@ -42,6 +46,7 @@
     </style>
   </head>
   <body>
+
     <header>
       <div class="container">
         @if($url_alimentos != '')
@@ -52,6 +57,7 @@
         @endif
       </div>
     </header>
+
     <iframe id="embed-menu" src="" type="application/pdf"></iframe>
     <script type="text/javascript">
       let embed = document.getElementById('embed-menu');

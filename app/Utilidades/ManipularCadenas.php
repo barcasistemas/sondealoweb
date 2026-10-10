@@ -51,6 +51,7 @@ class ManipularCadenas
 
   public static function buscarAlerta($cadena = null)
   {
+    /*
     if($cadena == null or $cadena == ''){
       return false;
     }
@@ -77,6 +78,31 @@ class ManipularCadenas
           return true;
         }
       }
+    } */
+   // empty() valida si es null, vacío o un string vacío
+    if (empty($cadena)) {
+        return false;
+    }
+
+    // Nota: Si $cadena es texto plano, elimina el json_decode.
+    // Si viene como JSON, asegúrate de extraer el texto primero.
+
+    // Patrón para separar palabras
+    $pattern = "/[,\s.\"]/";
+    $arreglo_comentario = preg_split($pattern, $cadena, -1, PREG_SPLIT_NO_EMPTY);
+
+    if (!$arreglo_comentario) {
+        return false;
+    }
+
+    // Recorremos las palabras del comentario de forma limpia
+    foreach ($arreglo_comentario as $palabra) {
+        $palabraLimpia = mb_strtolower($palabra, 'UTF-8');
+
+        // in_array reemplaza por completo el bucle interno
+        if (in_array($palabraLimpia, self::$palabrasAlerta, true)) {
+            return true;
+        }
     }
     return false;
 
